@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperPrint xmlns="http://jasperreports.sourceforge.net/jasperreports/print" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/print http://jasperreports.sourceforge.net/xsd/jasperprint.xsd" name="report name" pageWidth="595" pageHeight="842" topMargin="20" leftMargin="20" bottomMargin="20" rightMargin="20" locale="en_US" timezone="Asia/Shanghai">
+	<property name="net.sf.jasperreports.export.xml.start.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.end.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.page.count" value="1"/>
+	<origin group="category" band="groupHeader"/>
+	<origin group="category" band="groupFooter"/>
+	<origin band="background"/>
+	<origin band="title"/>
+	<origin band="pageHeader"/>
+	<origin band="columnHeader"/>
+	<origin band="detail"/>
+	<origin band="columnFooter"/>
+	<origin band="pageFooter"/>
+	<origin band="summary"/>
+	<page>
+		<text textAlignment="Left" verticalAlignment="Middle" textHeight="25.15625">
+			<reportElement x="56" y="20" width="365" height="50" origin="3" srcId="2"/>
+			<font size="20"/>
+			<textContent><![CDATA[Saturday 15 December 2012 Billing]]></textContent>
+		</text>
+		<image scaleImage="RetainShape" hAlign="Left" vAlign="Top">
+			<reportElement x="424" y="20" width="100" height="50" origin="3" srcId="3"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wgARCAClAPsDASIA
+AhEBAxEB/8QAGwABAAMBAQEBAAAAAAAAAAAAAAQFBgMCBwH/xAAaAQEAAwEBAQAAAAAAAAAAAAAA
+AQIDBAUG/9oADAMBAAIQAxAAAAHfgAAFdW3SspfXF61r2qPEW087D9dMNqobno4eo0yAAAAAAAAA
+AVNn6reDM9QprnPMmh1xu5vbNZ638Kt2ePVXXdamtn+8+mnOEgAAAAAAECJNmJfoiWO2OEtTa/Mt
+fVzFvocJu62z2Q+oZW1ZHOlizH0rlH456WaptgEgAAAAK6d84mt1sIUpPtXyqadsFvcHpjA1OI3N
+q5D6f8n+jRNlz5SM9fllzX3O2H5s/mX02l8Dp6njMbD3hN3WwRYAAAcEZqkhaTTLYZ/QVnN2xZHu
+yizI6SHvyfPNVltBpnG8bX53E/QaXK2nJ6Nfv8xppj519HzFR1edsaDh+prdxmfxH0DrgtTTS0EW
+AAZnTY2a5jf4f6danQraaWGPrarTP9t4O1mOHa7Z6IcxE4vzthhfV1R+Z9Br8rpLH0vC+ZaXUL5U
+WJ+p8jISpWemN/6hwsei58ZWFh2bn9or3fjQpq+Wc46lMYjzuUxk7a2RP5+kWAAAceyASAAAp6yZ
+TcPre+Wx62zqrk6eAL0AAAAAAAAAAAAzFZqc/wAHsWt5BndfmhpjSTK3vzd10yc62d9UuUxdVfGs
+pprqqPXmtVLXC2Z2NTXVq6kmmsU1enUqlalt5oPyt7Sdm+NdNUi1+/FdMR3tTYM1Wp2759pUcOFr
+75PT4w+VnExvP5YzED9lwj0kxT2kppHS0xU8LiDl0fnqXVzFh+S+V8ai2894vAiXtZW1pRTu3Z5s
+zPeZNqcPVh6KrK72ntXZjPWNyM9Zw0yAAAAAiRTPW1GmQAAAAAH/xAAqEAACAgIBAwMDBQEBAAAA
+AAADBAECAAUTEBESFDA0FSBAISIkMTIjNf/aAAgBAQABBQL2CsjFk7Cc+oEyNhlHA3yJ7/lNn4R5
+ETOcRMmto6UJceDfyhKkj8c61jmooGmf1W+2PS/1g2RtAXykJM5fXzkiOCQvZExaPxO/eegC+V9s
+t3hVqV7316rFWNaYGLbIwMAyNml+C5YWuGaTMx+Fcs3LERWOjhpW2sxUwijkRdQbzXx3W1NAyEXL
+ea7JDWvcnSb1i/4DznDiwPTh67b5upY8w7cfizqSeLnTbK9660/E2zWV3VTwwu8KSrIt+qD7zjUK
+h1YpMf7Nr85Q3p2dvTyVXJxMdL1i9LRIi7SO5tObsXLzOv2J2eGK2revt2tFKtMWaOqHgWtaKx60
+GULQnTbR/NxefWarETc6hCQOcc+Y7Ty1ipOJrNyPFL8+t1zvBf29uziI+VzGu5WjhAGgE6j6bkf6
+5pr/ALtiDhaRclUpJo0qFogcJW/mVfz1+IsQwtt4/h6u3Zy9fC+ta5VqXoSvsFJAREvJCaYf78YV
+5bBWmt8IwEWMQN1T+s0/y21qtBIK4SRaa4K/lTFWuXNmpxFCci92XitU1vz9iPjd15eFz/sLYpuV
+ar9+4L2FmrH4JdJmIhzaTbP7zWTaHnNZB7IIyrGHWEzUunLEh1rNZyJms0mrK7OqJSfSsd9cgQJN
+knLA6Rbm78e92FfTMRPlHTyj7NzE8wh2MWlYpTDvABjbxGuglynlFCFfvbVnviVZqv8AZx089ghL
+Eko8e0kqCl9hTCNFJ0RLaZ6MLDapRIys3ptZyyWwJkahicppcHrVh5EREexIqTPsOz4RUVT5cdxz
+iQLU/M2Fv1raa2CSDCitY/Ne+Rmun9PzWl+avpy91Q8I+oDEuupa9gdW7lpbGS3obDltRn25ntVU
+0mH7Kk+K9GLUR5WKxJb/AE9gloTOW8VcPeL9ycrZ78kWJLHJb1/Jb6gcxSG52C4uaxV/I48aYmo+
+VgdrktD9yX9ewcpDVOUi6c3rknYvK5OUOxalYSzDYWXGzlZ1rZL3YbZOeW3DYDYjsBb4tvgkvT0E
+/wDmsXiUmf8AEzFdm3assxMV2TFol3v47Kv67JT5CP8AoNponYPisb9t2jUKQs+OxtPfZR58wBjo
+MPwB1sSlbgAvspiG7sArfX2rR+kxfe6n+tZ8LArWoGi38Wyd6VXHBEaIW5GASWWlubKI3iWleWRp
+XrdpXmxVbhwAJGVcEikSs1D6Evizx1Fag6kaW5oVVkUsqTe663ENYEiFdC/m2jYipkYMmrqiVO9r
+bGKgj6WElLLYmnYAK6cnboePICsdlvcOCpqgTqK3vf/EACsRAAIBAwMCBQQDAQAAAAAAAAECAAMR
+IQQSMRATICIwQVEUMkJhI3Ghgf/aAAgBAwEBPwHqiF22iJo6SjzZn0+naPoB+BlSi9P7h6iOUN1j
+OWPmMJIMWrUTgxNc/DZjdp8rg+o3EbIvF4jD3l/f0WNoohpuuSI/EX4iS2OicTjEBv4uTNO4V7mV
+KxtsDXhzF5hFjNE6vek8r6Lt+ZeIPKZe5gwYD4G4iDoW+IoluieRtwlKqtVbiVVG8gQLCt4cRKLv
+9oi6BvyMq0zTbaelptE2jw38OmQ9kEcz68rhlzKlQ1G3H1tLWTtgX4moYNUJHStTyyqPeNpGFsyj
+TO4H+5Q0/wCbSjpzbe3xOyf8vF0jEXvE05Ylb5ETSsy3nZP+Xg0rWDGPpb1CF4jDabGbpum4Q10D
+E/sQ7Kagqb+ab6aMoB+Yj07BycgWivTIDk5tadxO3uvm1pUqKQ3/ACLWTcTutmUdrAMfa8FRO3uv
+m1pVqo1PBiVk3ML2zKmWMzzAIQel/wCK378YquE2g49D/8QAKBEAAgIBAwMDBAMAAAAAAAAAAQIA
+EQMSITEQMEEEEyAUIkJhMlGB/9oACAECAQE/AerGhZjZ3PE93IIvqT5i5FbjuMobYwKBxABUKI0b
+0w8Qa1537ixdjUbmKfErx2VFwmBgeInMb+48vo3M5FwivlwJlBK7RcYuyII3EG4nqEK/esx+o17H
+mHcStodxCPgvMfoFjGX0b7hRjoUMxsahaBqgjOq8w+pHgRHDC+lzUZZ7WVhr3n097gxFCiu9mRtV
+zECFAPRG4JgzAzI4qpky+BMmX8RPcEOcCNloXGzAGp7gnvC6i5qUXF34mmaZpgxtVfqfcxojxNLM
+DYjK261CrfxqaW1V+7iqdv8AYcbUNo9ixNLaqiIQ3EbG1CJsBNoTAR0/P5lF1X2P/8QAORAAAQMB
+BQUGBQIFBQAAAAAAAQACEQMQEiEiMRMyQVFxBDBCUmGBICNAkaEzghRDcrHwYpLB0eH/2gAIAQEA
+Bj8C7iCZPILKwe63WrNT+xW9HVYfVYbxswEr9N32WLTZlcQoqD3Clpn6iZhoC3Z6rKBPBFppMBHN
+Y0mL5vZ/tivluh3JZH/dTBHqFFX7qQZH1D6Tt+mfuF/ENGmDljmpneaVeaLs6FqvNzs5hQ432cir
+1M9RyWzqtuvOnqpov/a5Ytg/R7Glr43eVQLRUHISo1a8J1M6tMI0zqw/iwvpC7U5c1LZa4IuaPmN
+/BWxqnN4TzsDScXafQilSxrO09EG6u1ceZ+D9oRonVmnRB/nCu+YW/xDRiN5AeF+BTw3C66Qm1OP
+Hqjd32ZmrH9Ruvf3vEd0J/aamMadfhPQJj+HHomvHhKpv5OtLDoRCI4tKp1Ro9gKfS4OxFhLd2dP
+RMrjNRdvf9oOaZB7wucYARfw8ITKfGMVJMBb/wCFlcDZ1aLCzxRdsYeIwKbe3ThZW/qXZanlAH4V
+N/I2U6nsq9A6sEhbN5+W78d4Ozt6uVMcJmxtKYCAuEvOmKDnTfsp1P22VWe6J8L8QscWHUI7Nwco
+1HIol2JJ1Ww4hmFjT4hg5fuV3g5pCc3kYV129T/srzHBw9O5dUOjQnPdqVUqchFgc0w5X6j77uFm
+eo1p6p7ab2uOojnY7+hXDrwKLHiCFlJHRetl12//AHW1aMjvwVepuhBjw0AY4Kl7/wBlU5OzJnJ2
+Uqq3s5xkm7zUbtQat7hlPzGTYD5jNskwEWdnMDzWMjjMraUiGvOvIpznkF55WRUb7r5Tw4euCJMD
+DnrZI1WYSHDEK9QzN5cVGxqf7VtauGGAQezfb+U1oGaVLvN/wqfaqeBnN6oEcbdR8FM8LqbTbqU1
+g0AizM+TyCjdZ5bIpsJV5xmofx8e0pjqLBPH4b9xt7nC2lP9TlzTaVRtQxpIQBmAIlZGkregelhp
+k9Lbr/YhE9mFOfM84reHtCzuJ6vWJYPdZ632C3Lx/wBSgdzJYJ6dy1410Xy8r/KszSLDUdhOn1jG
++6DhqEHLBo+t9rHj67DeCjZlY7x1+CqZlw0Uv+Cns7KQacCcbKTQcDr3hKJIxnuqxGoV8mXaBX5d
+B4prr2adU1wOJhUCDriUKVPX0TG1JkHitlTJ9lTFSZBGquTljRXJyxoi2lMN5LAnLyRPjC2hfx5p
+gZgXJrXOcMeKYycsaJrJyxotnSnDkns8YTnfyxqjUBIaOSDuKAZvu0VMVb5bUOjkaHZ72Xy6lOoV
+pvDSU/YFwZT8qvtc6GDG6mmoYfxVfom/1L2Teqp48l2fopdp/wCKnGo1RvKnHCJWKMKsqyrEJtWd
+eC7O86XQqdwzCYSmwnsaYJOKqXXXnRiqvVQX3abUDfhnMrsz3biphzmy7dXaGvwcTh91LNOP2Xaf
+85rtP+cLKjCRmWyenOcRAQaeKzEXVTjgrzd5NJI1xV5mqY4ka4q83eRc7eKqOJ3tFUk7xVSm47yi
+8MNAqdOpPUJjabrx4lAt3gr79VfZx1CdJzORa7ispF1Mp0zi08UyjOZgwcg+qRDTOHFbWlEnUFFz
+yDUP4VW8RmOEKrTeRLuSxe0G149EzvYOo4q8TePf/wD/xAApEAEAAgECBAUFAQEAAAAAAAABABEh
+MUEQUWFxgZGxwfAwQKHR4SDx/9oACAEBAAE/Ifo6k267of8AWn7yGAy8pAWhOn3SUcqdIqtrbNXO
+wn/dzRR3OClyNOMorHT7gOsc6wnQ+ecRXSMHBHmvSWYFSweVk2260jDC3NT5MHkHoKlJ1upNEq6Y
+YEm59qBAzWvBLKZabQP4GVuV5HZgQFrdH/YRx+8P8S5wXdO5EDrJydmZqeZrCrXdMeFmgTvoMy+5
+V39mgbHIbP3DJUHHQaavM0ifDzUZqKiEWbLu+PAg2o7P7lnk6R9GU0M9b/0i1uEy/h34UrLO6vsU
+GyoIOxs/wR/F1l0d6FfmMvc+E1rhzxM/viPIRXc5xm31baOJaxNtyEjVg8oY7mSNbIWhMB59frpl
+Ti5jE7WqTv8A6Wfmupaut/o/CcpSXtvxF21KaMa/iMIR8R7S6XB4x8/HAbMLdT2+cpsfIDa9BDbC
+sT6ldx2scl7OQQtoW7t4nMG7EGvUhN9o4VX5jhcOQ/Gae00cw7Gy8cjpglnkwbLJXFzxtw8Ef4me
+qBvto8Mx9X6nvNRXgPX1PzGHOt9/P6mqfjgl6mFvhngtnmGTBclsIStWGq4YmbK9T34d4gfnlHKP
+lJESHR3qRFIqyucAp6ZDagVN2aAwDuD+TSWFs6usBLyNfmVL1T6+0RHVouFsKebsgpB3V/R37RFy
+t7Zc/YPj/wA4Yp/8yw4fJwQrlxygplqLqEUiUmsv4z1IpwHPKYwfZRu1eaqa04YZdI8m4B0xDPne
+ahfM9+T3jmA0dWBavi0p1ZKeP9jqvJ5n9qaCiTYNareKEfHJ9Bj30A4XUZb2+3F2IMq7RtTTd72i
+qtbXeGbaA7KjHQoYYkI8gcMxlaDUiJ5GyQUyNGTwGXoZGCEaRI57lcP3Bta7pUYZS+3vARvb5OUv
+Awgb3cToB7v6mvYoD42uHooWcUWmzv8A45xEHe4ZGWposocA2ju7FvCh178O9Q7HjAEhKU0HI/2p
+WLyHDmEL/n0w1+cEOAKVj/qaI56A63LHxqM1AGR64mGeixmsckgXbbiZNw3qCIBrFhp5VNhzrExY
+XLDPzzr9QPa9+Zvvnf8AICAA2Po2eeZ+iZLVrdTrAVoGV6PaUDvEMsrDYUH7zzioiNJhlDTOp1il
+geh97el8vBOWEfvqZx0+sR13tFp1l/4WTZHRBVq20u5/gysC7bvCpRgOfCqU2HPP1OlBcDsCmPpL
+hwWeU1gDJB16fbSZ4WplneLJM5JW5fGaRAE3bu0XVoq3SoAd9yxh6dzawv2/oXC9b+hcS6S0NOzP
+MQHdiixeCZ+ZFhp3ZsQxHB6oMHaAhO0EC08dhSV3d63mutS98ZdHYS28aGPRWNcjnKZoGXN7kYkG
+DvN4qaO1q6jMlkeA3Zb1aaaDqy5YGBznxukD07x+CUkDrPL+9gWBXR4Q0b8YmkjYsA6FD8ov4Xov
+aFrFWDvEWqhPaIerA9p+b7weYe8UCmwh5KuodQx/BNQwywElFHvAvroz5QO7MK63mCPo4Vp+MStb
+LbZW9t7jM0WL0S8ywK+uMQKFvNFziRsb6PWDzCAeA8FqpcKmaxbmzaV4LeN5oJ29ZsUu28fGA83y
+i0UBjO5MH3YciITBWkd5hkrDlGQ4DDe8e5HBjYgaEWiPxOhXKCSywktS6gxOzAbVS8zMEZBzNyO0
+HSBtLUl6iOQqaa2lR7bNQDGJwrpAf5Wy4xscdYPSAr1A7tFSnl7PMlVg1jQTPd5Zn9x+JWnkqosv
+LmvHKFZyudL+qDVNASw0NMVX1//aAAwDAQACAAMAAAAQ888GKCXC88888888888MpJWioj888888
+88Uc5eKl1W/888888ysIteGIsq0J88881DWBc0Aions3i888in9dRddDlAZJSFWg97thc888Dc88
+89XD8888888888888rC8AHVyOAALIIJIDvKPRwIwMXonJXcHiKyp8+888888e8888888/8QAJxEB
+AAIBAgQGAwEAAAAAAAAAAQARITFBUWFxkRAgMIGxwaHR4fD/2gAIAQMBAT8Q8QGqy1ZOLgjiAez/
+AGOzRyf3Fvybepv+l0RecoCzUr2ZXwDg/wC+o+2Wp327VEpr0bto8HVpgQ7jZTbF4sgiWeelziBW
+8Ith0fAVjC1IsC6MDCRXSCpgxfluDO7NYaeDswd1bVznkXt8w0SaEa4h4rHJ13jXy/kfyLAxApHG
+3D5HlMixQ1l+IRblbuJeJgYUncYQ+iC1BG5euWsVArsji6fzHeaolkrONANvKI0fKtOsqffR4nxt
+MrEc4x3fWQ0DhnE0f18LAGgOOTTpERRtrHGCpjaKeRHQopFreqcw1gpTW+jTOefR+4PQMW26XpfW
+LQCVTu8pm0Luh1a1g9Z17BLEGas3B0WK0Afeh1jNqkrVylXBoRW83tVMVdFF7P1C9cFL1MEbScB7
+MogjFzpnZH+4MjqV9quV9oHTUqvmIERFHas5uUSwqnXeCmlasDVK1eHCKcLWGr5Y58ImpkvV3zG2
+iJYsUAeFrbKfD53XSPQ//8QAJREBAAIBAgUEAwAAAAAAAAAAAQARITFBECAwUZFhcYGxwdHh/9oA
+CAECAQE/EOItoEV2TVK+JsPiE5dQTYhNCoiwTUiHbw9ocWLvv/YNl9GqLeBtqZECo3U3xWaYiNc9
+r0lzcWpHAwSBowF12i5GGrRAFLnMk6Vl+SMwnYjpuakZUyrb0mFhgaUEMYMkpycgsRYqAukqywAq
+XqpdRK6TKCyhWKlRBUo03NUQjV0BmCkvwlt+VB15QMFkrsUFnrCYLHisViXR+5eYcFxCsmjj3hZu
+1MwLyamfnSfZUSSlgECxmDF/so81G0Dv8sBQV/W8VR3S11LXUURBpuPm4C6DhFVQ4PEChYW7hVFi
+7v5m1Y1IduaMVJtjw3LgJTXvtHFGLu5T3uz+oB6vFJKWIUxcCk9oJV4UUfT887AzPQ//xAApEAEA
+AQMCBQQDAQEBAAAAAAABEQAhMUFRYXGBkaEQscHRIDDwQPHh/9oACAEBAAE/EPzmk1EO89dqeoJo
+q+0VKupwB81fCA/hCfNKCT6EeceaDtRZUj/qAtDq7NX+3pEpGVbrTkPcRoQmQ3/8K8taek37sNnm
+YacbH/cn1W9vpY5mn+g4RwcplWCgT5mcseKLYBZQ6DBYpmKZ6E5JRdzIyuSrSYLLPebg02aMD6eT
+pUlsX3wqW1WeHjTnRrs6O3U+qGoEiSNH+TZDUYHbn6AwSJCVu2yboT20Hjzo8OQBnDoY6m1HGtAk
+NwbfyaP/AAWYIkjo8UcTIQt9w6TS6js2F3OjJyq9qNk2yfOKKniWbG555N+FOHjvcdYx2qQErKA5
+iaVp/issUuA2hx6GmXZjdKAme7q8fWbdgPXuOwPMKaDDJMCydGs1BHeGz1zUjaBLmHk8PQI1IFvq
+4u+9A3uGjmG3Cj0WstiTA7DH/lauaC5NTs3155onxkXFqQ43mPr/AAhPLLxFsLxdDq8b1DnMrZV8
+fhNHYPNLzaXW634fcoYuuG9t8NJBWNOg8Hd6hDERDgHMWO21RObFpLLvbq0gbGghwdEqF4CBoZPn
+klPUkJwLtuMT1ir+QA7cBNnw1p+69Uje88DL21pchNTS70GOvCtPwUlsXilCoIRqrPbPSjICFhtx
+70k5hF5vhNCJJ6R6mPBIaRzKSNPsFQtJZx/40TCxHTNHMaWpPWAWL3sxzoTdTlAE+wTW2KNy5ayf
+sJgi/AFEiJ+LnNy1CYBKau/k1kJQkBVyjxIPako0yK5zMnojIwnk+PSZ80Tty6ooBEsjSF5moIl5
+kPWlSktDFIvCzQAgiSJrSbY+eb+ZqMEoHgPkd6kWCnxfAvoYddF0EeyIOdEOpRmtgKsvsde9GP1o
+WWYY/nj2o584Jj7gOvolGMOEt15xS4kjJjfbxQDBqxw2z6KW4o7egca2GbQo+/ZUbdVzAvsPhKgQ
+GZhGOIS86cWpblBeEyOS+9KGBwzdwdKAtQVwZmnUBLuGjyKRSIiOGmcQJFwGepfrTOy/sHy0VwCG
+5FGQmHMY+KlvliFhXQXWydDesZOCDlbX9OdsMnLoc1g61JjN+Lt7VDjI+aX2d6cVYloK4hjGEoYY
+Ykqd/pwXRvDNEoKU4FwdpudacshAkI8awOL9bLGN/wCxw0wloVrxHUrj2kLuU5E18cuz/bUIWJAc
+Ew0IcBZwDc48KXRfRWbJwHJ1KkBJAyOw1qXQ8IWoFld3vWwRTyoSyALvk+6lFCMblh7lI8TIbLkr
+JtwteoZdvduRPb9ETZeDondHp6PCjydsPAevqCyVOAGq0ZQ2dvjnHPLVy5UqZXm0BYQmGdv1Bpfg
+Sdk3th6XolGmVFeBQlXhp6QjOWNy34xWmgtl4aj4pn3NYaBFu9IiiI7OlIJTA0abVAaScJ3q6J3g
+HBvYeeFQDwvzxSd5IoFyosWm3GiqjYOdfmMnXeoyM6kDQ70mSaMttI9lRTMPQom/OB6U3kkbgk0+
+gArQIGi/qBwzBwXe5U6o5djVeAS0eMGPAIPQCH4ed4xY6xSlW2e5Fq+PQ1d8JI5ysV/XZwA3fz0D
+w153CkhhLmlR7RBHZx7fiuWxsY3ompMw0gTEOmi+eEUgkWD0JEh5q0fiJG4EXMlKtmMR8tTKU4Tv
+mlUqquWp1zdSggTlf1ItvAC8F9qCTPQ+IAKQQQ080k1IKegeyadtnFPikwUTWN5PxTIIH/J+lWQb
+AwBy/TrZeItBGP0Xp22mJganPelbKlOo/hqUVLWWeThoIAKuAKkb1QgmVex/jf02M4AeD2abHMBW
+GQhrgMlcXDCNR/s4Qtd30WvBuaM+x/uk8ajgbNSVPYtM74qw5srBsdPwWknsyyNDhTfQbL3Pf8FA
+ZzCbhA+ammS2g0SEPd9HrkbEoX9dPXh+U8kjQ5FKG3tpA/P6l7kU2ZVIMTS+WbTyv2qEKm4Zu2h0
+o4zl8wHV0KDcmCbksU/MpDaUWPC7TocC8i4Gv/adlhmIU11qH5BvDARw96QgARsIN96e+BC625zm
+nrgxJW3I3mjWnZEixlY40JJXcGNWM0CYTwwQWfNG0jYMXYHFqagG8kGDnPipCQEUoXE6nCgpIjoZ
+FnwUK1AdCos87FA8ojghlnYxRTFGcSnAeJT6IxxEAxxxWMDLD2dHrSkBJE3KF8lSTFEw3uBzpA7p
+VBBI4iZimuy3gHKS4GKTQQOLWNwn3TGtWNCSGLMwsOnWliiCgjRLMwt7Z0qziAloKT1ietec91Ic
+wm7NDBYnSYRaOEeKKsYVeFFj/AN7IezSFIQD2rOMSDAFgeakPABnIg/t6Q0Ci0BRH1QWCkpvp/t6
+iqKBWC8TzR9mRS5Yj5oyuo/fQBgYOk1UMp00mz4oFzNbM/VSxKMbyl9yg6BNCmUtflR1s84uA81B
+lbIuCJij4tgLBTfblReaw7BZscOPCgvOTbYE+KzJ44FvYytEtVh2b5s9qcQnVLgLDeyUyEYhmthE
+wMxOtOBJHEwoD2elHuUXIiZ8CiZAZFmjJAZB4kqlNagapKkCIFpSQtV0UyRU11QpXoq1lFkyM4e9
+RxfhWqdo0pSc42XRjtT5hyLD7qOYRArAjbdo/lkkB0vvTpMZlsESN6CRcCgP3UEhQLjnVPurJeJW
+/eg6QXtE3e9OS7xiMPeiMuslU5eFFvTAJeIF5XxTry0MXSA80TF4MDamkAUlpBqzvT42KZEu5SDm
+wAh+6TF3QpIQI8VLDhBI40uzn8JzLrF2aAGNgksGeL62odVkqBk0sTUQMJkEWk96WQFc8mBcqxPI
+okllcW2xZ12UXGaQhYN4vlq7zEiQXteNvU1rlzkTRHMyu5X5/ayBJzDfpRXXvg4olv8Av//Z]]>
+			</imageSource>
+		</image>
+		<text textHeight="17.609375">
+			<reportElement x="56" y="99" width="143" height="20" origin="4" srcId="4"/>
+			<font size="14"/>
+			<textContent><![CDATA[NAME:]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="199" y="99" width="325" height="20" origin="4" srcId="5"/>
+			<font size="14"/>
+			<textContent><![CDATA[Ronald c Pascua]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="56" y="119" width="143" height="20" origin="4" srcId="6"/>
+			<font size="14"/>
+			<textContent><![CDATA[DURATION OF STAY:]]></textContent>
+		</text>
+		<text verticalAlignment="Middle" textHeight="15.09375">
+			<reportElement x="199" y="119" width="325" height="20" origin="4" srcId="7"/>
+			<font size="12"/>
+			<textContent><![CDATA[Saturday 15 December 2012 - Saturday 15 December 2012]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="56" y="139" width="143" height="20" origin="4" srcId="8"/>
+			<font size="14"/>
+			<textContent><![CDATA[TRANSFERS:]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="199" y="139" width="100" height="20" origin="4" srcId="9"/>
+			<font size="14"/>
+			<textContent><![CDATA[none]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="56" y="159" width="143" height="20" origin="4" srcId="10"/>
+			<font size="14"/>
+			<textContent><![CDATA[ACCOMODATION:]]></textContent>
+		</text>
+		<text textHeight="17.609375" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement x="424" y="159" width="100" height="20" origin="4" srcId="11"/>
+			<font size="14"/>
+			<textContent><![CDATA[0.00]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="199" y="159" width="222" height="20" origin="4" srcId="12"/>
+			<font size="14"/>
+			<textContent><![CDATA[1 x nights @ 0.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="56" y="187" width="468" height="20" origin="0" srcId="1"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[DIVING]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="92" y="207" width="233" height="20" origin="6" srcId="13"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[Siquijor]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement x="421" y="207" width="103" height="20" origin="6" srcId="14"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[600.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" valueClass="java.lang.Double" pattern="#0">
+			<reportElement x="56" y="207" width="36" height="20" origin="6" srcId="15"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement x="325" y="207" width="96" height="20" origin="6" srcId="16"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[300.00]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="344" y="256" width="53" height="20" origin="9" srcId="17"/>
+			<font size="14"/>
+			<textContent><![CDATA[TOTAL:]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="344" y="276" width="53" height="20" origin="9" srcId="18"/>
+			<font size="14"/>
+			<textContent><![CDATA[TOTAL:]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="15.09375" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement x="424" y="276" width="100" height="20" origin="9" srcId="19"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<font size="12" isBold="true"/>
+			<textContent><![CDATA[600.00]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="397" y="276" width="27" height="20" origin="9" srcId="20"/>
+			<font size="14"/>
+			<textContent><![CDATA[Php]]></textContent>
+		</text>
+		<text textHeight="17.609375">
+			<reportElement x="397" y="256" width="27" height="20" origin="9" srcId="21"/>
+			<font size="14"/>
+			<textContent><![CDATA[US]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="15.09375" rotation="None" markup="none" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement mode="Transparent" x="424" y="256" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" origin="9" srcId="22"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<paragraph lineSpacing="Single"/>
+			<textContent><![CDATA[14.68]]></textContent>
+		</text>
+	</page>
+</jasperPrint>
