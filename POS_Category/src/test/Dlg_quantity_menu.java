@@ -607,6 +607,7 @@ public class Dlg_quantity_menu extends javax.swing.JDialog {
     String assemble = "0";
     String guest_id = "-1";
     String cat_id = "-1";
+    String category_name = "";
 
     public void do_pass(S2_search.to_items to_items, List<S2_search.to_items_status> to_sub, int state, String guest, String cat) {
         my_price = to_items.price;
@@ -619,6 +620,7 @@ public class Dlg_quantity_menu extends javax.swing.JDialog {
         guest_id = guest;
         cat_id = cat;
         lbl_name.setText(to_items.desc);
+        category_name = to_items.category_name;
         assemble = S2_assembly.get_assembly_no(ref);
         if (assemble.equals("1")) {
             cx_all.setVisible(true);
@@ -965,9 +967,14 @@ public class Dlg_quantity_menu extends javax.swing.JDialog {
     }
 
     private void ok1() {
-        S2_search.to_items to_items = new S2_search.to_items(my_id, my_uom, lbl_name.getText(), FitIn.toDouble(lbl_price.getText()), FitIn.toDouble(tf_qty.getText()), my_img_path, FitIn.toDouble(tf_qty.getText()), guest_id, cat_id);
+        S2_search.to_items to_items = new S2_search.to_items(my_id, my_uom, lbl_name.getText(), FitIn.toDouble(lbl_price.getText()), FitIn.toDouble(tf_qty.getText()), my_img_path, FitIn.toDouble(tf_qty.getText()), guest_id, cat_id, category_name);
         List<S2_search.to_items_status> to_sub = tbl_employee_payroll_ALM;
         double to_pay = FitIn.toDouble(lbl_price.getText());
+        double qty = FitIn.toDouble(tf_qty.getText());
+        if (qty == 0) {
+            JOptionPane.showMessageDialog(null, "Input Quantity");
+            return;
+        }
         if (callback != null) {
             if (stat == 1) {
                 this.dispose();

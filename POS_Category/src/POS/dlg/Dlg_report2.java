@@ -423,6 +423,11 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton10.setVisible(false);
             jButton6.setText("GUESTS");
             jButton1.setText("SALES");
+        } else {
+            jButton2.setVisible(false);
+            jButton5.setVisible(false);
+            jButton8.setVisible(false);
+            jButton10.setVisible(false);
         }
     }
     String b_name = "";
@@ -531,9 +536,9 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_category_ses_2_1");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_category_ses_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
                     }
 
                 }
@@ -546,9 +551,9 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_category_ses_2_1");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_category_ses_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
                     }
                 }
             });
@@ -599,7 +604,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_1");
+                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_1_1");
             }
         });
 

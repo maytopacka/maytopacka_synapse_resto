@@ -33,6 +33,8 @@ public class Dlg_number2 extends javax.swing.JDialog {
     public static interface Callback {
 
         void ok(CloseDialog closeDialog, OutputData data);
+
+        void cancel(CloseDialog closeDialog, OutputData data);
     }
 
     public static class InputData {
@@ -318,7 +320,7 @@ public class Dlg_number2 extends javax.swing.JDialog {
         });
 
         jButton13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton13.setText("CL");
+        jButton13.setText("X");
         jButton13.setFocusable(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +364,7 @@ public class Dlg_number2 extends javax.swing.JDialog {
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,6 +519,8 @@ public class Dlg_number2 extends javax.swing.JDialog {
     }
 
     private void clear() {
-        tf_text.setText("");
+        if (callback != null) {
+            callback.cancel(new CloseDialog(this), new OutputData(0));
+        }
     }
 }

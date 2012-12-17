@@ -161,6 +161,26 @@ public class S1_check_in {
         }
     }
 
+    public static String get_table_id(String table_name) {
+        String room_id = "";
+        try {
+            Connection conn = PoolConnection.connect();
+
+            String s3 = "select id from " + MyDB.getNames() + ".tables where table_name='" + table_name + "' ";
+            Statement stmt2 = conn.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(s3);
+            if (rs2.next()) {
+                room_id = rs2.getString(1);
+            }
+            return room_id;
+        } catch (Exception e) {
+            PoolConnection.close();
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
     public static void add_order_rooms(List<S2_search.to_orders> to, String table_no, List<to_guests> my_guest, List<S2_search.to_items_status> to_sub) {
 
         try {

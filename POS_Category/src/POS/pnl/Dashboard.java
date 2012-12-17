@@ -1366,6 +1366,7 @@ public class Dashboard extends javax.swing.JFrame {
                 pnl_holder_search.setVisible(true);
             }
             if (user_id.equals("5")) {
+                btn_logout.setVisible(false);
                 clear_room();
                 clear_categories();
                 clear_items();
@@ -1376,6 +1377,7 @@ public class Dashboard extends javax.swing.JFrame {
                 lbl_payment.setVisible(true);
             }
             if (user_id.equals("6")) {
+                btn_logout.setVisible(false);
                 clear_room();
                 clear_categories();
                 clear_items();
@@ -1390,8 +1392,16 @@ public class Dashboard extends javax.swing.JFrame {
 
         if (version.equals("ordering")) {
             jLabel1.setVisible(false);
+            lbl_payment.setVisible(false);
             lbl_guest_no.setVisible(false);
             jLabel11.setText("TABLE RATE:");
+            jLabel14.setVisible(false);
+            if (user_id.equals("1")) {
+                pnl_holder_search.setVisible(true);
+            } else {
+                pnl_holder_search.setVisible(false);
+            }
+            lbl_advance_payment.setVisible(false);
             if (user_id.equals("7")) {
                 clear_room();
                 clear_categories();
@@ -1399,6 +1409,7 @@ public class Dashboard extends javax.swing.JFrame {
                 btn_clear_all.setVisible(false);
                 pnl_holder_guest_details.setVisible(true);
                 pnl_category.setVisible(false);
+
                 jLabel3.setVisible(false);
                 cb_guest.setVisible(false);
 //                lbl_payment.setVisible(false);
@@ -1519,7 +1530,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         }
         if (trap == 0) {
-            S2_search.to_orders t1 = new S2_search.to_orders(t.name, t.uom, t.desc, t.price, input_qty, t.img_path, t.qty2, new ArrayList(), 0, t.cat_id);
+            S2_search.to_orders t1 = new S2_search.to_orders(t.name, t.uom, t.desc, t.price, input_qty, t.img_path, t.qty2, new ArrayList(), 0, t.cat_id, t.category_name);
             init_orders(t1);
             t.setQty(t.qty - input_qty);
         }
@@ -1620,7 +1631,6 @@ public class Dashboard extends javax.swing.JFrame {
             if (row < 0) {
                 return;
             }
-
             Object j = orders_model.getElementAt(row);
             final S2_search.to_orders to = (S2_search.to_orders) j;
 
@@ -1654,7 +1664,6 @@ public class Dashboard extends javax.swing.JFrame {
             nd.setVisible(true);
         }
         if (user_id.equals("5") || user_id.equals("7") || (user_id.equals("0") && versions.equals("ordering"))) {
-
             int row = jg_orders.getSelectedIndex();
             if (row < 0) {
                 return;
@@ -1711,6 +1720,7 @@ public class Dashboard extends javax.swing.JFrame {
                 @Override
                 public void check_in(CloseDialog closeDialog, Dlg_check.OutputData data) {
                     closeDialog.ok();
+
                     lbl_table_no.setText(t.id);
                     check_ins();
                 }
@@ -1734,7 +1744,7 @@ public class Dashboard extends javax.swing.JFrame {
                     pnl_category.setVisible(true);
                     my_guest = data.to1;
                     user_id = "6";
-                    lbl_table_no.setText(t.id);
+//                    lbl_table_no.setText(t.id);
                     btn_add_order.setVisible(true);
                     btn_back.setVisible(true);
                     item_model.clear();
@@ -1748,13 +1758,16 @@ public class Dashboard extends javax.swing.JFrame {
                 @Override
                 public void add_guest(CloseDialog closeDialog, Dlg_check.OutputData data) {
                     lbl_table_no.setText(t.id);
+                    t.setPercentage(data.percentages);
                     clear_room();
                     init_rooms();
+
                 }
 
                 @Override
                 public void set_order(CloseDialog closeDialog, Dlg_check.OutputData data) {
                     selected_guest = data.to1;
+
                     set_multiple_guest_orders();
 
                 }
@@ -1787,28 +1800,27 @@ public class Dashboard extends javax.swing.JFrame {
         double advance = 0;
         if (guest.equals("ALL")) {
             lbl_guest_no.setText("");
-            results = S2_search.ret_items_room(t.num);
+            results = S2_search.ret_items_room(t.id);
             advance = S1_cash_advance.get_guest_advance_all(t.id, lbl_guest_no.getText());
         } else {
             lbl_guest_no.setText(S1_cash_advance.get_guest_id(cb_guest.getSelectedItem().toString()));
             advance = S1_cash_advance.get_guest_advance(t.id, lbl_guest_no.getText());
-            results = S2_search.ret_guest_orders(t.num, guest);
+            results = S2_search.ret_guest_orders(t.id, guest);
         }
         String where_guest = "";
         String where_charge = "";
         int ii = 0;
 
         if (guest.equals("ALL")) {
-            where_guest = where_guest + "where status='" + "0" + "' and table_no_id = '" + t.num + "'";
-            where_charge = where_charge + "where status='" + "0" + "' and table_no = '" + t.num + "'";
+            where_guest = where_guest + "where status='" + "0" + "' and table_no_id = '" + t.id + "'";
+            where_charge = where_charge + "where status='" + "0" + "' and table_no = '" + t.id + "'";
         } else {
-            where_guest = where_guest + " where table_no_id = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
-            where_charge = where_charge + " where table_no = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
+            where_guest = where_guest + " where table_no_id = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
+            where_charge = where_charge + " where table_no = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
         }
+        results = S2_search.ret_guest_orders_where(t.id, where_guest);
 
-        results = S2_search.ret_guest_orders_where(t.num, where_guest);
-
-        double charge = S2_search.ret_guest_chargers_where(t.num, where_charge);
+        double charge = S2_search.ret_guest_chargers_where(t.id, where_charge);
 
         int i = 0;
 
@@ -1818,7 +1830,7 @@ public class Dashboard extends javax.swing.JFrame {
         System.out.println(charge + " aasdasdasd");
         double payment = 0;
         for (S2_search.to_items s : results) {
-            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id);
+            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id, s.category_name);
             item_model.add(i, to);
             payment += s.qty * s.price;
             i++;
@@ -1860,44 +1872,56 @@ public class Dashboard extends javax.swing.JFrame {
         int ii = 0;
 
         if (selected_guest.isEmpty()) {
-            where_guest = where_guest + "where status='" + "0" + "' and table_no_id = '" + t.num + "'";
-            where_charge = where_charge + "where status='" + "0" + "' and table_no = '" + t.num + "'";
-            where_advance = where_advance + "where room_id='" + t.num + "'  and status='" + "0" + "'";
+            where_guest = where_guest + "where status='" + "0" + "' and table_no_id = '" + t.id + "'";
+            where_charge = where_charge + "where status='" + "0" + "' and table_no = '" + t.id + "'";
+            where_advance = where_advance + "where room_id='" + t.id + "'  and status='" + "0" + "'";
 
         }
         for (Dlg_check.to_guests guest1 : selected_guest) {
             if (ii == 0) {
-                where_guest = where_guest + " where table_no_id = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
-                where_charge = where_charge + " where table_no = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
-                where_advance = where_advance + "where room_id='" + t.num + "'  and status='" + "0" + "' and guest_id='" + guest1.id + "'";
+                where_guest = where_guest + " where table_no_id = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
+                where_charge = where_charge + " where table_no = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
+                where_advance = where_advance + "where room_id='" + t.id + "'  and status='" + "0" + "' and guest_id='" + guest1.id + "'";
 //                JOptionPane.showMessageDialog(null, guest1.id);
             } else {
-                where_guest = where_guest + " or table_no_id = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
-                where_charge = where_charge + " or table_no = '" + t.num + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
-                where_advance = where_advance + " or room_id='" + t.num + "'  and status='" + "0" + "' and guest_id='" + guest1.id + "'";
+                where_guest = where_guest + " or table_no_id = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
+                where_charge = where_charge + " or table_no = '" + t.id + "' and status<>'" + "1" + "' and guest_name like '%" + guest1.name + "%'";
+                where_advance = where_advance + " or room_id='" + t.id + "'  and status='" + "0" + "' and guest_id='" + guest1.id + "'";
             }
             ii++;
         }
 
-        results = S2_search.ret_guest_orders_where(t.num, where_guest);
+        results = S2_search.ret_guest_orders_where(t.id, where_guest);
         double advance = S1_cash_advance.get_guest_advance_where(where_advance);
-        lbl_advance_payment.setText("" + advance);
-        double charge = S2_search.ret_guest_chargers_where(t.num, where_charge);
+
+        double charge = S2_search.ret_guest_chargers_where(t.id, where_charge);
 
         int i = 0;
-        lbl_guest_no.setText(t.guest_id);
-        lbl_check_date.setText(t.date_added);
 
-        lbl_rate.setText(FitIn.fmt_wc_0(charge));
-        System.out.println(charge + " aasdasdasd");
+
+
+//        System.out.println(charge + " aasdasdasd");
         double payment = 0;
         for (S2_search.to_items s : results) {
-            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id);
+            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id, s.category_name);
             item_model.add(i, to);
             payment += s.qty * s.price;
             i++;
         }
 //            
+        if (System.getProperty("version", "ordering").equals("ordering")) {
+            charge = 0;
+            lbl_advance_payment.setText("0");
+            lbl_guest_no.setText(t.guest_id);
+            lbl_check_date.setText(t.date_added);
+            lbl_rate.setText("0");
+        } else {
+
+            lbl_advance_payment.setText("" + advance);
+            lbl_guest_no.setText(t.guest_id);
+            lbl_check_date.setText(t.date_added);
+            lbl_rate.setText(FitIn.fmt_wc_0(charge));
+        }
         lbl_oders_payment.setText(FitIn.fmt_wc_0(payment));
         lbl_guest_total.setText("" + ((payment + charge) - FitIn.toDouble(lbl_advance_payment.getText())));
 
@@ -1929,6 +1953,7 @@ public class Dashboard extends javax.swing.JFrame {
         jg_orders.setModel(orders_model);
         set_amount();
         order_count();
+        sp_orders.updateUI();
     }
 
     private void set_item_pop() {
@@ -1939,7 +1964,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
             Object j = item_model.getElementAt(row);
             final S2_search.to_items to = (S2_search.to_items) j;
-            final S2_search.to_items to_items = new S2_search.to_items(to.name, to.uom, to.desc, to.price, to.qty, to.img_path, to.qty, to.guest_id, to.cat_id);
+            final S2_search.to_items to_items = new S2_search.to_items(to.name, to.uom, to.desc, to.price, to.qty, to.img_path, to.qty, to.guest_id, to.cat_id, to.category_name);
             List<S2_search.to_items_status> to_sub = new ArrayList();
             Window p = (Window) this;
             Dlg_quantity_menu nd = Dlg_quantity_menu.create(p, true);
@@ -1985,7 +2010,7 @@ public class Dashboard extends javax.swing.JFrame {
             String cat_id = to.cat_id;
             List<S2_search.to_items_status> to_sub = S2_assembly.ret_data_table(to.name, lbl_table_no.getText());
             double amount_to_pay = 0;
-            S2_search.to_orders to1 = new S2_search.to_orders(name, uom, desc, price, qty, img_path, qty2, to_sub, amount_to_pay, cat_id);
+            S2_search.to_orders to1 = new S2_search.to_orders(name, uom, desc, price, qty, img_path, qty2, to_sub, amount_to_pay, cat_id, to.category_name);
             Window p = (Window) this;
             Dlg_quantity_menu nd = Dlg_quantity_menu.create(p, true);
             nd.setTitle("");
@@ -2024,7 +2049,7 @@ public class Dashboard extends javax.swing.JFrame {
         }
         Object j = item_model.getElementAt(row);
         final S2_search.to_items to = (S2_search.to_items) j;
-        final S2_search.to_items to_items = new S2_search.to_items(to.name, to.uom, to.desc, to.price, to.qty, to.img_path, to.qty, to.guest_id, to.cat_id);
+        final S2_search.to_items to_items = new S2_search.to_items(to.name, to.uom, to.desc, to.price, to.qty, to.img_path, to.qty, to.guest_id, to.cat_id, to.category_name);
 
 
         int row_order = orders_model.size();
@@ -2049,7 +2074,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         }
         if (trap == 0) {
-            S2_search.to_orders t1 = new S2_search.to_orders(to_items1.name, to_items1.uom, to_items1.desc, to_items1.price, to_items1.qty, to_items1.img_path, to_items1.qty2, to_sub, to_pay, to_items1.cat_id);
+            S2_search.to_orders t1 = new S2_search.to_orders(to_items1.name, to_items1.uom, to_items1.desc, to_items1.price, to_items1.qty, to_items1.img_path, to_items1.qty2, to_sub, to_pay, to_items1.cat_id, to_items1.category_name);
 //                        JOptionPane.showMessageDialog(null, to_items1.qty);
             init_orders(t1);
             to.setQty(to.qty - to_items1.qty);
@@ -2208,7 +2233,7 @@ public class Dashboard extends javax.swing.JFrame {
             List<S2_search.to_items> datas = new ArrayList();
 //               List<S2_search.to_items> datas = S2_search.ret_items_room(table_no);
             for (S2_search.to_items t : datas) {
-                S2_search.to_orders to = new S2_search.to_orders(t.name, t.uom, t.desc, t.price, t.qty, img_path, t.qty, new ArrayList(), -1, t.cat_id);
+                S2_search.to_orders to = new S2_search.to_orders(t.name, t.uom, t.desc, t.price, t.qty, img_path, t.qty, new ArrayList(), -1, t.cat_id, t.category_name);
                 orders_model.addElement(to);
             }
             jg_orders.setModel(orders_model);
@@ -2236,7 +2261,7 @@ public class Dashboard extends javax.swing.JFrame {
             List<S2_search.to_items> results = S2_search.ret_items(category_id, search);
             int i = 0;
             for (S2_search.to_items s : results) {
-                S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id);
+                S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id, s.category_name);
                 item_model.add(i, to);
                 i++;
             }
@@ -2251,33 +2276,42 @@ public class Dashboard extends javax.swing.JFrame {
         }
         if (user_id.equals("5") || user_id.equals("7") || (user_id.equals("0") && version.equals("ordering"))) {
             int row = jg_orders.getSelectedIndex();
-
             if (row < 0) {
                 return;
             }
             Object value = orders_model.getElementAt(row);
             S2_search.to_rooms t = (S2_search.to_rooms) value;
-            List<S2_search.to_items> results = S2_search.ret_items_room(t.num);
+            List<S2_search.to_items> results = S2_search.ret_items_room(t.id);
             int i = 0;
             lbl_guest_no.setText(t.guest_id);
             lbl_check_date.setText(t.date_added);
-
-            double charge = S2_search.ret_guest_chargers_where_all(t.num);
+            double charge = S2_search.ret_guest_chargers_where_all(t.id);
             double payment = 0;
             for (S2_search.to_items s : results) {
-                S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id);
+                S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, s.guest_id, s.cat_id, s.category_name);
                 item_model.add(i, to);
                 payment += s.qty * s.price;
                 i++;
             }
+            String table_id = (t.id);
+//            JOptionPane.showMessageDialog(null, table_id + " = " + t.id);
+//            JOptionPane.showMessageDialog(null, user_id + " "+version);
+            double advance = S1_cash_advance.get_guest_advance_all(table_id, lbl_guest_no.getText());
+            if ((user_id.equals("7") && version.equals("ordering")) || (user_id.equals("0") && version.equals("ordering"))) {
+                charge = 0;
+                advance = 0;
+                lbl_rate.setText("0");
 
-            double advance = S1_cash_advance.get_guest_advance_all(t.id, lbl_guest_no.getText());
-            lbl_advance_payment.setText("" + advance);
-            lbl_rate.setText(FitIn.fmt_wc_0(charge));
+            } else {
+                lbl_advance_payment.setText("" + advance);
+                lbl_rate.setText(FitIn.fmt_wc_0(charge));
+
+                lbl_amount.setText(FitIn.fmt_wc_0(payment + charge));
+                lbl_order_count.setText("" + item_model.size());
+            }
+
             lbl_oders_payment.setText(FitIn.fmt_wc_0(payment));
             lbl_guest_total.setText(FitIn.fmt_wc_0((payment + charge) - advance));
-            lbl_amount.setText(FitIn.fmt_wc_0(payment + charge));
-            lbl_order_count.setText("" + item_model.size());
 
             jg_items.setModel(item_model);
             jg_items.setFixedCellDimension(170);
@@ -3344,7 +3378,7 @@ public class Dashboard extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             Object j = orders_model.getElementAt(i);
             final S2_search.to_orders t = (S2_search.to_orders) j;
-            to_order to = new to_order(t.desc, t.price, t.qty, t.uom, t.name, t.qty, "-1", t.cat_id);
+            to_order to = new to_order(t.desc, t.price, t.qty, t.uom, t.name, t.qty, "-1", t.cat_id, t.category_name);
             data.add(t);
             datas.add(to);
 
@@ -3387,7 +3421,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         List<to_order> to_orders = S15_save_new_pen_orders.retrieve_pending_db(data.selected_customer);
         for (to_order t : to_orders) {
-            S2_search.to_orders to = new S2_search.to_orders(t.code, t.uom, t.product_name, t.unit_price, t.quantity, "", t.quantity, tbl_orders_ALM, input_qty, t.cat_id);
+            S2_search.to_orders to = new S2_search.to_orders(t.code, t.uom, t.product_name, t.unit_price, t.quantity, "", t.quantity, tbl_orders_ALM, input_qty, t.cat_id, t.category_name);
         }
 
 //            loadData(to_orders);
@@ -3727,9 +3761,8 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     private void check_ins() {
-
         String version = System.getProperty("version", "ordering");
-        if (version.equals("ordering1")) {
+        if (version.equals("ordering")) {
             int row = jg_orders.getSelectedIndex();
             if (row < 0) {
                 return;
@@ -3758,6 +3791,7 @@ public class Dashboard extends javax.swing.JFrame {
 
             String id1 = "0";
             String table_no = t.id;
+//            JOptionPane.showMessageDialog(null, t.num);
             String date_added = DateType.datetime.format(new Date());
             double amount = t.topay;
             String or_no = "0";
@@ -3788,6 +3822,7 @@ public class Dashboard extends javax.swing.JFrame {
                     @Override
                     public void ok(CloseDialog closeDialog, Dlg_guest.OutputData data) {
                         closeDialog.ok();
+                        t.setPercentage(data.percentages);
                         String id = "0";
                         String table_no = t.id;
                         String date_added = DateType.datetime.format(new Date());
@@ -4320,7 +4355,7 @@ public class Dashboard extends javax.swing.JFrame {
                 String uom = t.uom;
                 String code = t.name;
                 double hd_uom = t.qty;
-                to_order to = new to_order(product_name, unit_price, quantity, uom, code, hd_uom, "-1", t.cat_id);
+                to_order to = new to_order(product_name, unit_price, quantity, uom, code, hd_uom, "-1", t.cat_id, t.category_name);
                 data_orders.add(to);
             }
         } else {
@@ -4334,7 +4369,7 @@ public class Dashboard extends javax.swing.JFrame {
                 String uom = t.uom;
                 String code = t.name;
                 double hd_uom = t.qty;
-                to_order to = new to_order(product_name, unit_price, quantity, uom, code, hd_uom, t.guest_id, t.cat_id);
+                to_order to = new to_order(product_name, unit_price, quantity, uom, code, hd_uom, t.guest_id, t.cat_id, t.category_name);
                 data_orders.add(to);
             }
         }
@@ -4397,7 +4432,7 @@ public class Dashboard extends javax.swing.JFrame {
         lbl_guest_total.setText("0");
         lbl_oders_payment.setText("0");
         lbl_guest_no.setText("");
-        
+
         Prompt.call("Successfully Added");
         updateReceipt();
         if ((user_id.equals("5")) || (user_id.equals("0"))) {
@@ -4487,9 +4522,72 @@ public class Dashboard extends javax.swing.JFrame {
         String where_charge = "";
 
         if (guest.equals("ALL")) {
-            return;
+            bill_all();
+        } else {
+            where_charge = where_charge + " where table_no = '" + lbl_table_no.getText() + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
+            Date d = new Date();
+            try {
+                d = DateType.datetime.parse(lbl_check_date.getText());
+            } catch (ParseException ex) {
+                Logger.getLogger(Dashboard.class.getName()).
+                        log(Level.SEVERE, null, ex);
+            }
+            int count = S2_search.ret_guest_charge_count(lbl_table_no.getText(), where_charge);
+            String guest_id = "-1";
+            String my_date = "Billing";
+            String table_no = lbl_table_no.getText();
+            String check_in = DateType.liquid.format(d) + " - " + my_date;
+            String transfers = cb_guest.getSelectedItem().toString();
+            String accomodation = lbl_table_no.getText();
+            double accom_total = count * FitIn.toDouble(lbl_rate.getText());
+            if (System.getProperty("version", "ordering").equals("ordering")) {
+                guest_id = "-1";
+            } else {
+                guest_id = S2_guest_charges.select_guest_id(guest);
+                my_date = DateType.liquid.format(new Date()) + " Billing";
+                String aw = DateType.liquid.format(new Date());
+//            guest_id = lbl_guest_no.getText();
+                table_no = lbl_table_no.getText();
+                check_in = DateType.liquid.format(d) + " - " + aw;
+                transfers = "none";
+                accomodation = "" + count + " x nights @ " + lbl_rate.getText();
+                accom_total = count * FitIn.toDouble(lbl_rate.getText());
+            }
+
+
+            String img_path = System.getProperty("img_path", ImgPath.getPath() + "img_templates\\");
+//        JOptionPane.showMessageDialog(null, guest);
+
+            final to_date_from.to_guest_billing to = new to_date_from.to_guest_billing(my_date, guest_id, table_no, check_in, transfers, accomodation, accom_total, img_path);
+            Executor.doExecute(this, new Executor.Task() {
+
+                @Override
+                public void work_on() {
+                    String version = System.getProperty("version", "ordering");
+                    if (version.equals("ordering")) {
+                        rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_ordering");
+                    } else {
+                        rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_4");
+                    }
+
+                }
+            });
         }
-        where_charge = where_charge + " where table_no = '" + lbl_table_no.getText() + "' and status<>'" + "1" + "' and guest_name like '%" + guest + "%'";
+    }
+
+    private void bill_all() {
+        String guest = cb_guest.getSelectedItem().
+                toString();
+        if (guest.equals("ALL")) {
+        } else {
+        }
+//       
+        String where_charge = "";
+
+//        if (guest.equals("ALL")) {
+//            return;
+//        }
+        where_charge = where_charge + " where table_no = '" + lbl_table_no.getText() + "' and status<>'" + "1" + "' ";
         Date d = new Date();
         try {
             d = DateType.datetime.parse(lbl_check_date.getText());
@@ -4511,18 +4609,13 @@ public class Dashboard extends javax.swing.JFrame {
             guest_id = S2_guest_charges.select_guest_id(guest);
             my_date = DateType.liquid.format(new Date()) + " Billing";
             String aw = DateType.liquid.format(new Date());
-//            guest_id = lbl_guest_no.getText();
-            table_no = lbl_table_no.getText();
+            table_no = S1_check_in.get_table_id(lbl_table_no.getText());
             check_in = DateType.liquid.format(d) + " - " + aw;
             transfers = "none";
             accomodation = "" + count + " x nights @ " + lbl_rate.getText();
             accom_total = count * FitIn.toDouble(lbl_rate.getText());
         }
-
-
         String img_path = System.getProperty("img_path", ImgPath.getPath() + "img_templates\\");
-//        JOptionPane.showMessageDialog(null, guest);
-
         final to_date_from.to_guest_billing to = new to_date_from.to_guest_billing(my_date, guest_id, table_no, check_in, transfers, accomodation, accom_total, img_path);
         Executor.doExecute(this, new Executor.Task() {
 
@@ -4530,9 +4623,9 @@ public class Dashboard extends javax.swing.JFrame {
             public void work_on() {
                 String version = System.getProperty("version", "ordering");
                 if (version.equals("ordering")) {
-                    rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_2_1_1_2");
+                    rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_ordering");
                 } else {
-                    rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_4");
+                    rpt_report.pdf_viewer_guest_billing(to, "rpt_guest_billing_4_1_1");
                 }
 
             }

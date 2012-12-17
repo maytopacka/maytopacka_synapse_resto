@@ -4,6 +4,8 @@
  */
 package POS.inventory;
 
+import POS.Main;
+import POS.branches.Dlg_branches;
 import POS.svc.S3_insert_new_user;
 import POS.svc3.S9_add_product;
 import POS.to.to_users;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import overallPOS.modules.share.utils.*;
@@ -149,8 +152,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
     public static void main(String args[]) {
 
         try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.
-                    getSystemLookAndFeelClassName());
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -215,7 +217,6 @@ public class Dlg_stockout extends javax.swing.JDialog {
         tf_search = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cb_branch = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lbl_ref_no = new javax.swing.JLabel();
@@ -228,6 +229,8 @@ public class Dlg_stockout extends javax.swing.JDialog {
         cb_stock_usb = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        lbl_branch = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -297,15 +300,16 @@ public class Dlg_stockout extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("BRANCH:");
 
-        cb_branch.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cb_branch.setFocusable(false);
-
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("REMARKS:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("REFERENCE #:");
 
+        lbl_ref_no.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbl_ref_no.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_ref_no.setText("00001");
 
@@ -315,6 +319,11 @@ public class Dlg_stockout extends javax.swing.JDialog {
 
         jButton3.setText("+");
         jButton3.setFocusable(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(cb_stock_in);
         cb_stock_in.setSelected(true);
@@ -325,9 +334,11 @@ public class Dlg_stockout extends javax.swing.JDialog {
 
         buttonGroup1.add(cb_stock_in_ref);
         cb_stock_in_ref.setText("STOCK IN (REFERENCE NO)");
+        cb_stock_in_ref.setEnabled(false);
 
         buttonGroup1.add(cb_stock_usb);
         cb_stock_usb.setText("STOCK IN (USB)");
+        cb_stock_usb.setEnabled(false);
 
         jLabel5.setForeground(java.awt.Color.red);
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -345,6 +356,10 @@ public class Dlg_stockout extends javax.swing.JDialog {
                 jLabel6MouseClicked(evt);
             }
         });
+
+        lbl_branch.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbl_branch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_branch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -366,20 +381,20 @@ public class Dlg_stockout extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cb_stock_out, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_ref_no, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_branch, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_branch, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(85, 85, 85)
+                        .addGap(0, 208, Short.MAX_VALUE)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -403,16 +418,26 @@ public class Dlg_stockout extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cb_stock_usb)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cb_branch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 5, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lbl_branch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(5, 5, 5))))))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("STOCK IN  AND STOCK OUT");
+        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -424,17 +449,20 @@ public class Dlg_stockout extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tf_search))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tf_search))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE))
+                                .addGap(21, 21, 21)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -443,24 +471,26 @@ public class Dlg_stockout extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tf_search, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(22, 22, 22))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_search, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -491,12 +521,15 @@ public class Dlg_stockout extends javax.swing.JDialog {
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         stock_in_usb();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        branches();
+    }//GEN-LAST:event_jButton3ActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox cb_branch;
     private javax.swing.JCheckBox cb_stock_in;
     private javax.swing.JCheckBox cb_stock_in_ref;
     private javax.swing.JCheckBox cb_stock_out;
@@ -510,10 +543,12 @@ public class Dlg_stockout extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbl_branch;
     private javax.swing.JLabel lbl_ref_no;
     private javax.swing.JTable tbl_prod;
     private javax.swing.JTable tbl_stock_out;
@@ -522,6 +557,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
+//        Main.MyDB.setNames("db_pos_restaurant");
         init_key();
         init_ref_no();
         tf_search.grabFocus();
@@ -630,33 +666,33 @@ public class Dlg_stockout extends javax.swing.JDialog {
             to_add_product tt = (to_add_product) getRow(row);
 
             switch (col) {
-                case 0:
-                    return tt.name;
-                case 1:
-                    return tt.desc;
+            case 0:
+                return tt.name;
+            case 1:
+                return tt.desc;
 
-                case 2:
-                    return FitIn.fmt_wc_0(tt.price);
+            case 2:
+                return FitIn.fmt_wc_0(tt.price);
 
-                case 3:
-                    return tt.qty;
-                case 4:
-                    return tt.num;
-                case 5:
-                    return tt.vat;
-                case 6:
-                    return tt.category_id;
-                case 7:
-                    return tt.is_linient;
-                case 8:
-                    return tt.w_commission;
-                case 9:
-                    return tt.comm_amount;
-                case 10:
-                    return tt.cat_id;
+            case 3:
+                return tt.qty;
+            case 4:
+                return tt.num;
+            case 5:
+                return tt.vat;
+            case 6:
+                return tt.category_id;
+            case 7:
+                return tt.is_linient;
+            case 8:
+                return tt.w_commission;
+            case 9:
+                return tt.comm_amount;
+            case 10:
+                return tt.cat_id;
 
-                default:
-                    return tt.cost;
+            default:
+                return tt.cost;
             }
         }
     }
@@ -734,6 +770,11 @@ public class Dlg_stockout extends javax.swing.JDialog {
                 to_add_product to = new to_add_product(name, desc, price, "" + data.qty, num, vat, category_id, is_linient, w_commission, comm_amount, cat_id, cost);
                 acc.add(to);
                 loadData_out(acc);
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog, Dlg_number2.OutputData data) {
+                closeDialog.ok();
             }
         });
         Center.setCenter(nd);
@@ -818,33 +859,33 @@ public class Dlg_stockout extends javax.swing.JDialog {
             to_add_product tt = (to_add_product) getRow(row);
 
             switch (col) {
-                case 0:
-                    return tt.name;
-                case 1:
-                    return tt.desc;
+            case 0:
+                return tt.name;
+            case 1:
+                return tt.desc;
 
-                case 2:
-                    return FitIn.fmt_wc_0(tt.price);
+            case 2:
+                return FitIn.fmt_wc_0(tt.price);
 
-                case 3:
-                    return tt.qty;
-                case 4:
-                    return tt.num;
-                case 5:
-                    return tt.vat;
-                case 6:
-                    return tt.category_id;
-                case 7:
-                    return tt.is_linient;
-                case 8:
-                    return tt.w_commission;
-                case 9:
-                    return tt.comm_amount;
-                case 10:
-                    return tt.cat_id;
+            case 3:
+                return tt.qty;
+            case 4:
+                return tt.num;
+            case 5:
+                return tt.vat;
+            case 6:
+                return tt.category_id;
+            case 7:
+                return tt.is_linient;
+            case 8:
+                return tt.w_commission;
+            case 9:
+                return tt.comm_amount;
+            case 10:
+                return tt.cat_id;
 
-                default:
-                    return tt.cost;
+            default:
+                return tt.cost;
             }
         }
     }
@@ -852,12 +893,12 @@ public class Dlg_stockout extends javax.swing.JDialog {
     private void do_edit_out() {
 
 
-        int idx = tbl_prod.getSelectedRow();
+        int idx = tbl_stock_out.getSelectedRow();
         if (idx < 0) {
             return;
         }
 
-        String qty = tbl_prod.getModel().
+        String qty = tbl_stock_out.getModel().
                 getValueAt(idx, 3).
                 toString();
 
@@ -870,9 +911,23 @@ public class Dlg_stockout extends javax.swing.JDialog {
 
             @Override
             public void ok(CloseDialog closeDialog, Dlg_number2.OutputData data) {
-
                 closeDialog.ok();
                 edit(data.qty);
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog, Dlg_number2.OutputData data) {
+                int[] idx = tbl_stock_out.getSelectedRows();
+                List rem = new ArrayList();
+                for (int ix : idx) {
+                    if (tbl_stock_out.isRowSelected(ix)) {
+                        int mx = tbl_stock_out.convertRowIndexToModel(ix);
+                        rem.add(tbl_out_ALM.get(mx));
+                    }
+                }
+                tbl_out_ALM.removeAll(rem);
+                tbl_out_M.fireTableDataChanged();
+                closeDialog.ok();
             }
         });
         Application.locateOnParentCenter(p, nd);
@@ -887,8 +942,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
             return;
         }
 
-        to_add_product order = (to_add_product) tbl_out_ALM.get(tbl_stock_out.
-                convertRowIndexToModel(idx));
+        to_add_product order = (to_add_product) tbl_out_ALM.get(tbl_stock_out.convertRowIndexToModel(idx));
 
         order.setQty("" + qty);
 
@@ -937,14 +991,14 @@ public class Dlg_stockout extends javax.swing.JDialog {
         S1_stock_out.to_stock_out_main t_main = new S1_stock_out.to_stock_out_main(ref_no, item_count, total_cost, date_added, branch, branch_id, user_id, user_id, status);
 
         if (cb_stock_out.isSelected()) {
-//            S1_stock_out.stock_out(datas, remarks, branch, branch_id, t_main);
-//            JOptionPane.showMessageDialog(null, "STOCK OUT");
+            S1_stock_out.stock_out(datas, remarks, branch, branch_id, t_main);
+            JOptionPane.showMessageDialog(null, "STOCK OUT");
         }
-        
+
         if (cb_stock_in.isSelected()) {
-            S3_stockout_usb.save_ending_to_usb(datas);
-//            S1_stock_out.stock_in(datas, remarks, branch, branch_id, t_main);
-//            JOptionPane.showMessageDialog(null, "STOCK IN");
+//            S3_stockout_usb.save_ending_to_usb(datas);
+            S1_stock_out.stock_in(datas, remarks, branch, branch_id, t_main);
+            JOptionPane.showMessageDialog(null, "STOCK IN");
         }
         if (cb_stock_in_ref.isSelected()) {
 //            S1_stock_out.stock_in(datas, remarks, branch, branch_id, t_main);
@@ -961,9 +1015,34 @@ public class Dlg_stockout extends javax.swing.JDialog {
         data_employee_search();
         init_ref_no();
 
-
+        ok1();
     }
-    private void stock_in_usb(){
+
+    private void stock_in_usb() {
         S3_stockout_usb.get_from_usb();
+    }
+
+    private void branches() {
+        Window p = (Window) this;
+        Dlg_branches nd = Dlg_branches.create(p, true);
+        nd.setTitle("");
+        nd.do_pass(lbl_branch.getText());
+        nd.setCallback(new Dlg_branches.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_branches.OutputData data) {
+                closeDialog.ok();
+                lbl_branch.setText(data.branch);
+            }
+        });
+        nd.setLocationRelativeTo(this);
+
+        nd.setVisible(true);
+    }
+
+    private void ok1() {
+        if (callback != null) {
+            callback.ok(new CloseDialog(this), new OutputData());
+        }
     }
 }

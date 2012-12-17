@@ -655,6 +655,8 @@ create table "+MyDB.getNames()+".guests(
     ,remarks varchar(100)
     ,how varchar(100)
     ,newsletter int
+    ,balance double 
+    ,credit_limit double
 );
 
 drop table if exists "+MyDB.getNames()+".room_guests;
@@ -793,4 +795,12 @@ id int auto_increment primary key
 ,date_added datetime 
 ,amount_paid double 
 ,status int 
+);
+
+drop table if exists db_pos_restaurant.branches; 
+create table db_pos_restaurant.branches( 
+id int auto_increment primary key
+,branch_name varchar(100) 
+,manager varchar(100) 
+,ip_address varchar(100) 
 );

@@ -155,6 +155,17 @@ public class S1_guest {
                         + ",remarks"
                         + ",how"
                         + ",newsletter"
+                        + ",balance"
+                        + ",credit_limit"
+                        + ",address"
+                        + ",contact"
+                        + ",occupation"
+                        + ",income"
+                        + ",b_date"
+                        + ",civil_status"
+                        + ",is_male"
+                        + ",groups"
+                        + ",member_name"
                         + ")values("
                         + ":guest_id"
                         + ",:fname"
@@ -170,9 +181,20 @@ public class S1_guest {
                         + ",:remarks"
                         + ",:how"
                         + ",:newsletter"
+                        + ",:balance"
+                        + ",:credit_limit"
+                        + ",:address"
+                        + ",:contact"
+                        + ",:occupation"
+                        + ",:income"
+                        + ",:b_date"
+                        + ",:civil_status"
+                        + ",:is_male"
+                        + ",:groups"
+                        + ",:member_name"
                         + ")";
 
-            s0 = SqlStringUtil.parse(s0).setString("guest_id", to_guests.guest_id).setString("fname", to_guests.fname).setString("lname", to_guests.lname).setString("mi", to_guests.mi).setString("country", to_guests.country).setString("email_address", to_guests.email_address).setNumber("status", to_guests.status).setString("diver_cert_lvl", to_guests.diver_cert_lvl).setString("contact_no", to_guests.contact_no).setString("emergency_contact_name", to_guests.emergency_contact_name).setString("passport_no", to_guests.passport_no).setString("remarks", to_guests.remarks).setString("how", to_guests.how).setNumber("newsletter", to_guests.newsletter).ok();
+            s0 = SqlStringUtil.parse(s0).setString("guest_id", to_guests.guest_id).setString("fname", to_guests.fname).setString("lname", to_guests.lname).setString("mi", to_guests.mi).setString("country", to_guests.country).setString("email_address", to_guests.email_address).setNumber("status", to_guests.status).setString("diver_cert_lvl", to_guests.diver_cert_lvl).setString("contact_no", to_guests.contact_no).setString("emergency_contact_name", to_guests.emergency_contact_name).setString("passport_no", to_guests.passport_no).setString("remarks", to_guests.remarks).setString("how", to_guests.how).setNumber("newsletter", to_guests.newsletter).setNumber("balance", 0).setNumber("credit_limit", 0).setString("address", "").setString("contact", "").setString("occupation", "").setString("income", "").setString("b_date", "1500-01-01").setString("civil_status", "0").setNumber("is_male", 0).setString("groups", "0").setString("member_name", to_guests.fname + " " + to_guests.mi + " " + to_guests.lname).ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.execute();
@@ -284,4 +306,6 @@ public class S1_guest {
             PoolConnection.close();
         }
     }
+    
+    
 }

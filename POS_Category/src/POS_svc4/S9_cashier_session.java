@@ -16,7 +16,7 @@ import overallPOS.modules.share.utils.PoolConnection;
  */
 public class S9_cashier_session {
 
-    public static String check_strict(String username,int user_lvl) {
+    public static String check_strict(String username, int user_lvl) {
         String exists = "-1";
 //        
         try {
@@ -24,7 +24,7 @@ public class S9_cashier_session {
             String s0 = "select "
                         + "id"
                         + " from " + MyDB.getNames() + ".cashier_sessions where "
-                        + " cashier_name <>'" + username + "' and login_status='" + "1" + "' and user_level='"+user_lvl+"'"
+                        + " cashier_name <>'" + username + "' and login_status='" + "1" + "' and user_level='" + user_lvl + "'"
                         + " ";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);

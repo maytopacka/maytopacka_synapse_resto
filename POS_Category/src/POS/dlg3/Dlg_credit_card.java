@@ -51,7 +51,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     }
 
     public static class InputData {
-        
     }
 
     public static class OutputData {
@@ -203,13 +202,13 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         tf_owner = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tf_card_number = new javax.swing.JTextField();
+        tf_address = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tf_code = new javax.swing.JTextField();
+        tf_contact_no = new javax.swing.JTextField();
         tf_amount = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        ci_num = new javax.swing.JTextField();
+        tf_ci_num = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lb_balance = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -231,6 +230,8 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         btn_ok1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        tf_credit_card_no = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -249,44 +250,44 @@ public class Dlg_credit_card extends javax.swing.JDialog {
                 tf_ownerActionPerformed(evt);
             }
         });
-        jPanel2.add(tf_owner, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 478, 33));
+        jPanel2.add(tf_owner, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 478, 33));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("CUSTOMER NAME:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("ADDRESS:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
-        tf_card_number.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tf_card_number.addMouseListener(new java.awt.event.MouseAdapter() {
+        tf_address.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_address.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tf_card_numberMouseClicked(evt);
+                tf_addressMouseClicked(evt);
             }
         });
-        jPanel2.add(tf_card_number, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 478, 33));
+        jPanel2.add(tf_address, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 478, 33));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("CHARGE INVOICE #:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("CONTACT NUMBER:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, 30));
 
-        tf_code.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tf_code.addMouseListener(new java.awt.event.MouseAdapter() {
+        tf_contact_no.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_contact_no.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tf_codeMouseClicked(evt);
+                tf_contact_noMouseClicked(evt);
             }
         });
-        tf_code.addActionListener(new java.awt.event.ActionListener() {
+        tf_contact_no.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_codeActionPerformed(evt);
+                tf_contact_noActionPerformed(evt);
             }
         });
-        jPanel2.add(tf_code, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 320, 30));
+        jPanel2.add(tf_contact_no, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 320, 30));
 
         tf_amount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tf_amount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,42 +295,42 @@ public class Dlg_credit_card extends javax.swing.JDialog {
                 tf_amountMouseClicked(evt);
             }
         });
-        jPanel2.add(tf_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 176, 33));
+        jPanel2.add(tf_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 176, 33));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("AMOUNT:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, -1));
+        jLabel5.setText("CREDIT CARD #:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 310, 120, 30));
 
-        ci_num.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ci_num.addMouseListener(new java.awt.event.MouseAdapter() {
+        tf_ci_num.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_ci_num.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ci_numMouseClicked(evt);
+                tf_ci_numMouseClicked(evt);
             }
         });
-        ci_num.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        tf_ci_num.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                ci_numMouseDragged(evt);
+                tf_ci_numMouseDragged(evt);
             }
         });
-        jPanel2.add(ci_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 210, 33));
+        jPanel2.add(tf_ci_num, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 33));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("BALANCE:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 30));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, 30));
 
         lb_balance.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lb_balance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_balance.setToolTipText("");
         lb_balance.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(lb_balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
+        jPanel2.add(lb_balance, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 210, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("CARD TYPE:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 34, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 20, 10));
 
         cb_type.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cb_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel2.add(cb_type, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 44, 36));
+        jPanel2.add(cb_type, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 10, 20));
 
         cb_bank.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cb_bank.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -338,11 +339,11 @@ public class Dlg_credit_card extends javax.swing.JDialog {
                 cb_bankActionPerformed(evt);
             }
         });
-        jPanel2.add(cb_bank, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 41, 36));
+        jPanel2.add(cb_bank, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 30, 20));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("BANK");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 20, 10));
 
         jPanel6.setBackground(java.awt.Color.white);
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -526,6 +527,18 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 670, 140));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("AMOUNT:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+
+        tf_credit_card_no.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_credit_card_no.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tf_credit_card_noMouseClicked(evt);
+            }
+        });
+        jPanel2.add(tf_credit_card_no, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 450, 30));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 510));
 
         pack();
@@ -546,34 +559,34 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 //        cust();
     }//GEN-LAST:event_tf_ownerMouseClicked
 
-    private void tf_card_numberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_card_numberMouseClicked
+    private void tf_addressMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_addressMouseClicked
         // TODO add your handling code here:
 //        keyboard(tf_card_number);
-    }//GEN-LAST:event_tf_card_numberMouseClicked
+    }//GEN-LAST:event_tf_addressMouseClicked
 
-    private void tf_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_codeActionPerformed
+    private void tf_contact_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_contact_noActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_codeActionPerformed
+    }//GEN-LAST:event_tf_contact_noActionPerformed
 
-    private void tf_codeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_codeMouseClicked
+    private void tf_contact_noMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_contact_noMouseClicked
         // TODO add your handling code here:
 //        keyboard(tf_code);
-    }//GEN-LAST:event_tf_codeMouseClicked
+    }//GEN-LAST:event_tf_contact_noMouseClicked
 
     private void tf_amountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_amountMouseClicked
         // TODO add your handling code here:
 //        keyboard(tf_amount);
     }//GEN-LAST:event_tf_amountMouseClicked
 
-    private void ci_numMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ci_numMouseClicked
+    private void tf_ci_numMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_ci_numMouseClicked
         // TODO add your handling code here:
-        keyboard(ci_num);
-    }//GEN-LAST:event_ci_numMouseClicked
+        keyboard(tf_ci_num);
+    }//GEN-LAST:event_tf_ci_numMouseClicked
 
-    private void ci_numMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ci_numMouseDragged
+    private void tf_ci_numMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_ci_numMouseDragged
         // TODO add your handling code here:
-        keyboard(ci_num);
-    }//GEN-LAST:event_ci_numMouseDragged
+        keyboard(tf_ci_num);
+    }//GEN-LAST:event_tf_ci_numMouseDragged
 
     private void btn_ok1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ok1ActionPerformed
 //        do_ok();
@@ -588,7 +601,7 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ok_prepaid() ;
+        ok_prepaid();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_cancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancel1ActionPerformed
@@ -600,6 +613,10 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void tf_credit_card_noMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_credit_card_noMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_credit_card_noMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -609,7 +626,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     private javax.swing.JButton btn_ok1;
     private javax.swing.JComboBox cb_bank;
     private javax.swing.JComboBox cb_type;
-    private javax.swing.JTextField ci_num;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -628,13 +644,16 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lb_balance;
+    private javax.swing.JTextField tf_address;
     private javax.swing.JTextField tf_amount;
-    private javax.swing.JTextField tf_card_number;
-    private javax.swing.JTextField tf_code;
+    private javax.swing.JTextField tf_ci_num;
+    private javax.swing.JTextField tf_contact_no;
+    private javax.swing.JTextField tf_credit_card_no;
     private javax.swing.JTextField tf_owner;
     // End of variables declaration//GEN-END:variables
 
@@ -655,8 +674,8 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
     private void disabled() {
         tf_owner.enable(false);
-        tf_card_number.enable(false);
-        tf_code.enable(false);
+        tf_address.enable(false);
+        tf_contact_no.enable(false);
         tf_amount.enable(false);
     }
 
@@ -670,17 +689,18 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     }
 
     private void init_num() {
-        ci_num.setText("" + S4_charge_invoice.get_ci_no());
+        tf_ci_num.setText("" + S4_charge_invoice.get_ci_no());
     }
-    double balance1=0;
-    public void do_pass(String name, String address, String contact, double amount,double balance) {
-        lb_balance.setText(""+NumType.with_comma(balance));
-        balance1=balance;
+    double balance1 = 0;
+
+    public void do_pass(String name, String address, String contact, double amount, double balance) {
+        lb_balance.setText("" + NumType.with_comma(balance));
+        balance1 = balance;
         am = amount;
         init_num();
         tf_owner.setText(name);
-        tf_card_number.setText(address);
-        tf_code.setText(contact);
+        tf_address.setText(address);
+        tf_contact_no.setText(contact);
         tf_amount.setText("" + amount);
         disabled();
     }
@@ -729,9 +749,9 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
     private void ok1() {
         if (callback != null) {
-            if (tf_amount.getText().isEmpty()  || tf_owner.getText().isEmpty() || ci_num.getText().isEmpty()) {
+            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || tf_ci_num.getText().isEmpty()) {
 //                JOptionPane.showMessageDialog(null, "Please Complete Details");
-                 Prompt.call("Please Complete Details");
+                Prompt.call("Please Complete Details");
                 return;
             }
 
@@ -744,10 +764,10 @@ public class Dlg_credit_card extends javax.swing.JDialog {
                 return;
             }
 //        String bank = cb_bank.getSelectedItem().toString();
-            String ci = ci_num.getText();
+            String ci = tf_ci_num.getText();
 //        String type = cb_type.getSelectedItem().toString();
             String type = "";
-            to_credit to = new to_credit(tf_card_number.getText(), tf_owner.getText(), tf_code.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
+            to_credit to = new to_credit(tf_address.getText(), tf_owner.getText(), tf_contact_no.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
             if (callback != null) {
                 callback.ok(new CloseDialog(this), new OutputData(to, "cash"));
             }
@@ -760,59 +780,61 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
 
         if (callback != null) {
-            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || ci_num.getText().isEmpty()) {
-                  Prompt.call("Please Complete Details");
+            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || tf_ci_num.getText().isEmpty()) {
+                Prompt.call("Please Complete Details");
 //                JOptionPane.showMessageDialog(null, "Please Complete Details");
                 return;
             }
 
             if (Double.parseDouble(tf_amount.getText()) > am) {
-                  Prompt.call("Amount must be lesser than Due");
+                Prompt.call("Amount must be lesser than Due");
 //                JOptionPane.showMessageDialog(null, "Amount must be lesser than Due");
                 return;
             }
 //        String bank = cb_bank.getSelectedItem().toString();
-            String ci = ci_num.getText();
+            String ci = tf_ci_num.getText();
 //        String type = cb_type.getSelectedItem().toString();
             String type = "";
-            to_credit to = new to_credit(tf_card_number.getText(), tf_owner.getText(), tf_code.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
+            to_credit to = new to_credit(tf_address.getText(), tf_owner.getText(), tf_contact_no.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
             if (callback != null) {
                 callback.credit(new CloseDialog(this), new OutputData(to, "credit"));
             }
             this.disposed();
         }
     }
+
     private void ok_prepaid() {
 
 
-        if(balance1==0){
-              Prompt.call("Sorry!!! Zero Balance");
+
+        if (balance1 == 0) {
+            Prompt.call("Sorry!!! Zero Balance");
 //            JOptionPane.showMessageDialog(null, "Sorry!!! Zero Balance");
             return;
         }
-        
+
         if (callback != null) {
-            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || ci_num.getText().isEmpty()) {
-                 Prompt.call("Please Complete Details");
+            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || tf_credit_card_no.getText().isEmpty()) {
+                Prompt.call("Please Complete Details");
 //                JOptionPane.showMessageDialog(null, "Please Complete Details");
                 return;
             }
 
-             if (Double.parseDouble(tf_amount.getText()) > balance1) {
-                   Prompt.call("Out of Balance");
+            if (Double.parseDouble(tf_amount.getText()) > balance1) {
+                Prompt.call("Out of Balance");
 //                JOptionPane.showMessageDialog(null, "Out of Balance");
                 return;
             }
             if (Double.parseDouble(tf_amount.getText()) > am) {
-                  Prompt.call("Amount must be lesser than Due");
+                Prompt.call("Amount must be lesser than Due");
 //                JOptionPane.showMessageDialog(null, "Amount must be lesser than Due");
                 return;
             }
 //        String bank = cb_bank.getSelectedItem().toString();
-            String ci = ci_num.getText();
+            String ci = tf_ci_num.getText();
 //        String type = cb_type.getSelectedItem().toString();
             String type = "";
-            to_credit to = new to_credit(tf_card_number.getText(), tf_owner.getText(), tf_code.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
+            to_credit to = new to_credit(tf_address.getText(), tf_owner.getText(), tf_contact_no.getText(), ci, type, Double.parseDouble(tf_amount.getText()));
             if (callback != null) {
                 callback.credit(new CloseDialog(this), new OutputData(to, "prepaid"));
             }

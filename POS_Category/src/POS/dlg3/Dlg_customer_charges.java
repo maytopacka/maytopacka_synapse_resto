@@ -4,6 +4,7 @@
  */
 package POS.dlg3;
 
+import POS.Main.MyDB;
 import POS.dlg.Dlg_quantity1;
 import POS.dlg2.Dlg_confirm;
 import POS.dlg2.dlg_keyboard;
@@ -556,6 +557,11 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
+
+//        MyDB.setNames("db_pos_restaurant");
+        if (System.getProperty("version", "resto").equals("resto")) {
+            ds_title.setText("Customers");
+        }
 //           if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
 //           
 //            this.setUndecorated(true);
@@ -599,7 +605,6 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
 //        JOptionPane.showMessageDialog(null, to_users.user_level1);
         if (to_users.user_level1.equals("3")) {
             btn_add.setVisible(true);
-
             hiden(false);
 
         } else {
@@ -722,7 +727,12 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
         }
         String year = "" + dp_year.getYear();
         System.out.println(year);
-        loadData_baptism(S2_customers.ret_customers(name, year));
+        if (System.getProperty("version", "resto").equals("resto")) {
+            loadData_baptism(S2_customers.ret_guest(name, year));
+        } else {
+            loadData_baptism(S2_customers.ret_customers(name, year));
+        }
+
     }
 
     private void add_customer() {
@@ -767,7 +777,7 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
         tbl_charges.setRowHeight(25);
 
 //        tbl_charges.setAutoResizeMode(0);
-        int[] tbl_widths_accounts = {0, 200, 200, 150};
+        int[] tbl_widths_accounts = {0, 0, 200, 150};
 
         for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
             if (i == 2) {
@@ -891,11 +901,12 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
         if (row < 0) {
             return;
         }
+
         final String num = tbl_cust.getModel().getValueAt(row, 1).toString();
+        final String names = tbl_cust.getModel().getValueAt(row, 0).toString();
         final double balance = Double.parseDouble(tbl_cust.getModel().getValueAt(row, 2).toString());
         String[] details = new String[3];
         details = S2_customers.get_details(num);
-
         final String name = details[0];
         final String add = details[1];
         final String contact = details[2];
@@ -904,7 +915,7 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
 
         Dlg_credit_card nd = Dlg_credit_card.create(p, true);
         nd.setTitle("");
-        nd.do_pass(details[0], details[1], details[2], credit_amount, balance);
+        nd.do_pass(names, details[1], details[2], credit_amount, balance);
         nd.setCallback(new Dlg_credit_card.Callback() {
 
             @Override
@@ -1062,12 +1073,21 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
             return;
         }
         final String num = tbl_cust.getModel().getValueAt(row, 1).toString();
-        S2_customers.customers to = S2_customers.get_cust_details(num);
+
+
 //         JOptionPane.showMessageDialog(null, to.b_date);
         Window p = (Window) this;
         Dlg_customers nd = Dlg_customers.create(p, true);
         nd.setTitle("");
-        nd.do_pass(to.member_name, to.address, to.contact, to.occupation, to.income, to.b_date, to.civil_status, to.is_male, to.balance, num, to.credit_limit);
+        if (System.getProperty("version", "resto").equals("resto")) {
+            S2_customers.customers to = S2_customers.get_cust_guest(num);
+//            System.out.println(to.member_name + " asdasd");
+            nd.do_pass(to.member_name, to.address, to.contact, to.occupation, to.income, to.b_date, to.civil_status, to.is_male, to.balance, num, to.credit_limit);
+        } else {
+            S2_customers.customers to = S2_customers.get_cust_details(num);
+            nd.do_pass(to.member_name, to.address, to.contact, to.occupation, to.income, to.b_date, to.civil_status, to.is_male, to.balance, num, to.credit_limit);
+        }
+
         nd.setCallback(new Dlg_customers.Callback() {
 
             @Override
@@ -1096,7 +1116,12 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
 
     private void do_edit_customer(String member_name, String address, String contact, String occupation, String income, String b_date, String civil_status, String is_male, String num, double balance, double credit_limit) {
 
-        S2_customers.edit_customer(member_name, address, contact, occupation, income, b_date, civil_status, is_male, num, balance, credit_limit);
+        if (System.getProperty("version", "resto").equals("resto")) {
+            S2_customers.edit_guest(member_name, address, contact, occupation, income, b_date, civil_status, is_male, num, balance, credit_limit);
+        } else {
+            S2_customers.edit_customer(member_name, address, contact, occupation, income, b_date, civil_status, is_male, num, balance, credit_limit);
+        }
+
         data_employee();
     }
 

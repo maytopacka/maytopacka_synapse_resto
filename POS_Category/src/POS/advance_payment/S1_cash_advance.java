@@ -118,7 +118,7 @@ public class S1_cash_advance {
             String s0 = "select "
                         + "sum(amount_paid)"
                         + " from " + MyDB.getNames() + ".guest_advance_payment "
-                        + ""+where;
+                        + "" + where;
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);

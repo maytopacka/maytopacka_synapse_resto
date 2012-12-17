@@ -1270,7 +1270,7 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
         if (linient == true) {
 //            order.setQuantity(qty);
-            to_order order = new to_order(input_data.title, pricing, qty, uom, input_data.names, hd_uom, "-1", "-1");
+            to_order order = new to_order(input_data.title, pricing, qty, uom, input_data.names, hd_uom, "-1", "-1","cat");
             callback.ok(new CloseDialog(this), new Dlg_quantity.OutputData(order));
             this.dispose();
         } else {
@@ -1280,7 +1280,7 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 //                return;
             } else {
 //                order.setQuantity(qty);
-                to_order order = new to_order(input_data.title, pricing, qty, uom, input_data.names, hd_uom, "-1", "-1");
+                to_order order = new to_order(input_data.title, pricing, qty, uom, input_data.names, hd_uom, "-1", "-1","cat");
                 callback.ok(new CloseDialog(this), new Dlg_quantity.OutputData(order));
                 this.dispose();
             }

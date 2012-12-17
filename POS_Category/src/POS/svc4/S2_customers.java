@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import overallPOS.modules.share.utils.PoolConnection;
 
 /**
@@ -86,7 +87,7 @@ public class S2_customers {
         List<S2_customers.to_customers> datas = new ArrayList();
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "select member_name,id,balance,credit_limit from "+MyDB.getNames()+".customers where member_name like '" + name + "%'";
+            String s0 = "select member_name,id,balance,credit_limit from " + MyDB.getNames() + ".customers where member_name like '" + name + "%'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -96,13 +97,46 @@ public class S2_customers {
                 double credit_limit = rs.getDouble(4);
                 double refund = 0;
 //
-                String s2 = "select tendered from "+MyDB.getNames()+".receipts where member_id='" + ids + "' and YEAR(receipt_date)='" + year + "'";
+                String s2 = "select tendered from " + MyDB.getNames() + ".receipts where member_id='" + ids + "' and YEAR(receipt_date)='" + year + "'";
                 Statement stmt2 = conn.createStatement();
                 ResultSet rs2 = stmt2.executeQuery(s2);
                 while (rs2.next()) {
-                   refund += rs2.getDouble(1) * .05;
+                    refund += rs2.getDouble(1) * .05;
                 }
-                
+
+                S2_customers.to_customers to = new S2_customers.to_customers(names, ids, balance, credit_limit, refund);
+                datas.add(to);
+            }
+
+            return datas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
+    public static List<S2_customers.to_customers> ret_guest(String name, String year) {
+        List<S2_customers.to_customers> datas = new ArrayList();
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "select concat(fname,space(1),mi,space(1),lname) as name,guest_id,balance,credit_limit from " + MyDB.getNames() + ".guests where concat(fname,mi,lname) like '" + name + "%'";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(s0);
+            while (rs.next()) {
+                String names = rs.getString(1);
+                String ids = rs.getString(2);
+                double balance = rs.getDouble(3);
+                double credit_limit = rs.getDouble(4);
+                double refund = 0;
+//
+                String s2 = "select sum(tendered) from " + MyDB.getNames() + ".receipts where member_id='" + ids + "' and YEAR(receipt_date)='" + year + "'";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                if (rs2.next()) {
+                    refund += rs2.getDouble(1) * .05;
+                }
+
                 S2_customers.to_customers to = new S2_customers.to_customers(names, ids, balance, credit_limit, refund);
                 datas.add(to);
             }
@@ -125,7 +159,7 @@ public class S2_customers {
                         + "c.member_name"
                         + ",c.id"
                         + ",balance"
-                        + ",credit_limit from "+MyDB.getNames()+".member_charges mc join "+MyDB.getNames()+".customers c on mc.customer_id=c.id where mc.cashier_id='" + cashier_id + "'group by c.id";
+                        + ",credit_limit from " + MyDB.getNames() + ".member_charges mc join " + MyDB.getNames() + ".customers c on mc.customer_id=c.id where mc.cashier_id='" + cashier_id + "'group by c.id";
 
 
             Statement stmt = conn.createStatement();
@@ -156,7 +190,7 @@ public class S2_customers {
         details[2] = "";
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "select member_name,address,contact from "+MyDB.getNames()+".customers where id = '" + num + "'";
+            String s0 = "select member_name,address,contact from " + MyDB.getNames() + ".customers where id = '" + num + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -178,7 +212,7 @@ public class S2_customers {
     public static void add(String name, String add, String contact, String occupation, String income, String bday, String civil_status, String gender, double credit_limit) {
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "insert into "+MyDB.getNames()+".customers(member_name,address,contact,occupation,income,b_date,civil_status,is_male,balance,credit_limit)values(?,?,?,?,?,?,?,?,?,?)";
+            String s0 = "insert into " + MyDB.getNames() + ".customers(member_name,address,contact,occupation,income,b_date,civil_status,is_male,balance,credit_limit)values(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.setString(1, name);
             stmt.setString(2, add);
@@ -209,7 +243,7 @@ public class S2_customers {
         List<S2_customers.to_cust_charges> datas = new ArrayList();
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "select or_num,ci_num,amount,date_added from "+MyDB.getNames()+".customer_charges where cust_num='" + num + "' and is_payed='" + "no" + "'";
+            String s0 = "select or_num,ci_num,amount,date_added from " + MyDB.getNames() + ".customer_charges where cust_num='" + num + "' and is_payed='" + "no" + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -234,7 +268,7 @@ public class S2_customers {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select id from "+MyDB.getNames()+".customers where member_name='" + name + "'";
+            String s0 = "select id from " + MyDB.getNames() + ".customers where member_name='" + name + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -252,7 +286,7 @@ public class S2_customers {
         String date = DateType.sf.format(new Date());
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "update "+MyDB.getNames()+".customer_charges set "
+            String s0 = "update " + MyDB.getNames() + ".customer_charges set "
                         + "is_payed='yes'"
                         + ",date_payed='" + date + "' "
                         + "where ci_num='" + num + "'";
@@ -277,7 +311,7 @@ public class S2_customers {
         String date = DateType.sf.format(new Date());
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "update "+MyDB.getNames()+".customer_charges set "
+            String s0 = "update " + MyDB.getNames() + ".customer_charges set "
                         + "is_payed='yes'"
                         + ",date_payed='" + date + "' "
                         + "where ci_num='" + ci_num + "'";
@@ -286,7 +320,7 @@ public class S2_customers {
 
             stmt.execute();
 
-            String s1 = "update "+MyDB.getNames()+".receipts set is_payed='" + "yes" + "' where or_number='" + or_num + "'";
+            String s1 = "update " + MyDB.getNames() + ".receipts set is_payed='" + "yes" + "' where or_number='" + or_num + "'";
             PreparedStatement stmt2 = conn.prepareStatement(s1);
 
             stmt2.execute();
@@ -302,7 +336,7 @@ public class S2_customers {
         String date = DateType.sf.format(new Date());
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "update "+MyDB.getNames()+".member_charges set "
+            String s0 = "update " + MyDB.getNames() + ".member_charges set "
                         + "is_payed='yes'"
                         + ",date_payed='" + date + "' "
                         + "where id='" + num + "'";
@@ -328,7 +362,7 @@ public class S2_customers {
             double bal = S2_customers.get_balance(cust_id);
 
             bal -= amount;
-            String s3 = "update "+MyDB.getNames()+".customers set balance='" + bal + "' where id='" + cust_id + "'";
+            String s3 = "update " + MyDB.getNames() + ".customers set balance='" + bal + "' where id='" + cust_id + "'";
             PreparedStatement stmt1 = conn.prepareStatement(s3);
             stmt1.execute();
 
@@ -346,8 +380,6 @@ public class S2_customers {
         S2_customers.customers to = null;
         try {
             Connection conn = PoolConnection.connect();
-
-
             String s0 = "select "
                         + "member_name"
                         + ",address"
@@ -360,7 +392,54 @@ public class S2_customers {
                         + ",balance"
                         + ",credit_limit"
                         + " from "
-                        + ""+MyDB.getNames()+".customers where id='" + num + "'";
+                        + "" + MyDB.getNames() + ".customers where id='" + num + "'";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(s0);
+            while (rs.next()) {
+                String member_name = rs.getString(1);
+                String address = rs.getString(2);
+                String contact = rs.getString(3);
+                String occupation = rs.getString(4);
+                String income = rs.getString(5);
+                String b_date = rs.getString(6);
+
+                System.out.println(b_date);
+//                if(b_date.equals("0000-00-00")){
+//                    b_date="1990-05-05";
+//                }
+//                  JOptionPane.showMessageDialog(null, b_date);
+                String civil_status = rs.getString(7);
+                String is_male = rs.getString(8);
+                double balance = rs.getDouble(9);
+                double credit_limit = rs.getDouble(10);
+                to = new S2_customers.customers(member_name, address, contact, occupation, income, b_date, civil_status, is_male, balance, credit_limit);
+
+            }
+            return to;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
+    public static S2_customers.customers get_cust_guest(String num) {
+        S2_customers.customers to = null;
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "select "
+                        + "member_name"
+                        + ",address"
+                        + ",contact"
+                        + ",occupation"
+                        + ",income"
+                        + ",b_date"
+                        + ",civil_status"
+                        + ",is_male"
+                        + ",balance"
+                        + ",credit_limit"
+                        + " from "
+                        + "" + MyDB.getNames() + ".guests where guest_id='" + num + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -394,7 +473,7 @@ public class S2_customers {
     public static void edit_customer(String member_name, String address, String contact, String occupation, String income, String b_date, String civil_status, String _male, String num, double balance, double credit_limit) {
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "update "+MyDB.getNames()+".customers set "
+            String s0 = "update " + MyDB.getNames() + ".customers set "
                         + "member_name='" + member_name + "'"
                         + ",address='" + address + "'"
                         + ",contact='" + contact + "'"
@@ -418,11 +497,40 @@ public class S2_customers {
         }
     }
 
+    public static void edit_guest(String member_name, String address, String contact, String occupation, String income, String b_date, String civil_status, String _male, String num, double balance, double credit_limit) {
+
+//        JOptionPane.showMessageDialog(null, num);
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "update " + MyDB.getNames() + ".guests set "
+                        + "member_name='" + member_name + "'"
+                        + ",address='" + address + "'"
+                        + ",contact='" + contact + "'"
+                        + ",occupation='" + occupation + "'"
+                        + ",income='" + income + "'"
+                        + ",b_date='" + b_date + "'"
+                        + ",civil_status='" + civil_status + "'"
+                        + ",is_male='" + _male + "' "
+                        + ",credit_limit='" + credit_limit + "' "
+                        + "where guest_id ='" + num + "'";
+
+            PreparedStatement stmt = conn.prepareStatement(s0);
+            stmt.execute();
+
+            Prompt.call("Successfully Updated");
+//            JOptionPane.showMessageDialog(null, "Successfully Updated"+num+ " "+credit_limit);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
     public static void delete(String num) {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "delete from "+MyDB.getNames()+".customers where id='" + num + "'";
+            String s0 = "delete from " + MyDB.getNames() + ".customers where id='" + num + "'";
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.execute();
 
@@ -440,7 +548,7 @@ public class S2_customers {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select balance from "+MyDB.getNames()+".customers where id='" + num + "'";
+            String s0 = "select balance from " + MyDB.getNames() + ".customers where id='" + num + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -460,7 +568,26 @@ public class S2_customers {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "update  "+MyDB.getNames()+".customers set balance='" + bal + "' where id='" + num + "'";
+            String s0 = "update  " + MyDB.getNames() + ".customers set balance='" + bal + "' where id='" + num + "'";
+            PreparedStatement stmt = conn.prepareStatement(s0);
+            stmt.execute();
+
+
+            Prompt.call("Balance updated");
+//            JOptionPane.showMessageDialog(null, "Balance updated");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
+    public static void update_balance_guest(String num, double bal) {
+
+        try {
+            Connection conn = PoolConnection.connect();
+
+            String s0 = "update  " + MyDB.getNames() + ".guests set balance='" + bal + "' where guest_id='" + num + "'";
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.execute();
 

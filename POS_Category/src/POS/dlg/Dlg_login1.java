@@ -1939,29 +1939,56 @@ private void btn_returnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 }
                 int cashier_session_id = S12_cashier_sessions.get_cashier_ses_id(un);
                 String log = S12_cashier_sessions.is_logout(un);
-                if (log.equals("yes")) {
-                    Window w = (Window) this;
-                    Dlg_cash_in d = Dlg_cash_in.create(w, true);
-                    d.setTitle("Cash-in");
-                    d.pass(new Dlg_cash_in.InputData(cashier_session_id, un));
-                    d.pass2(user_level);
-                    d.setCallback(new Dlg_cash_in.Callback() {
 
-                        @Override
-                        public void ok(CloseDialog cd, Dlg_cash_in.OutputData data) {
-                            cd.ok();
+                if (log.equals("yes")) {
+                    if (version.equals("ordering")) {
+                        if (user_level == 7) {
+                            do_ok(un, pw);
+                        } else {
+                            Window w = (Window) this;
+                            Dlg_cash_in d = Dlg_cash_in.create(w, true);
+                            d.setTitle("Cash-in");
+                            d.pass(new Dlg_cash_in.InputData(cashier_session_id, un));
+                            d.pass2(user_level);
+                            d.setCallback(new Dlg_cash_in.Callback() {
+
+                                @Override
+                                public void ok(CloseDialog cd, Dlg_cash_in.OutputData data) {
+                                    cd.ok();
+                                }
+                            });
+//                    Application.locateOnParentCenter(w, d);
+                            Center.setCenter(d);
+                            d.setVisible(true);
                         }
-                    });
+                    } else {
+                        Window w = (Window) this;
+                        Dlg_cash_in d = Dlg_cash_in.create(w, true);
+                        d.setTitle("Cash-in");
+                        d.pass(new Dlg_cash_in.InputData(cashier_session_id, un));
+                        d.pass2(user_level);
+                        d.setCallback(new Dlg_cash_in.Callback() {
+
+                            @Override
+                            public void ok(CloseDialog cd, Dlg_cash_in.OutputData data) {
+                                cd.ok();
+                            }
+                        });
 
 //                    Application.locateOnParentCenter(w, d);
-                    Center.setCenter(d);
+                        Center.setCenter(d);
 
-                    d.setVisible(true);
+                        d.setVisible(true);
+                    }
+
 
                 } else {
                 }
+                do_ok(un, pw);
+            } else {
+                do_ok(un, pw);
             }
-            do_ok(un, pw);
+
 
         }
 

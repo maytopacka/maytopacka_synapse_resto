@@ -152,6 +152,48 @@ public class S1_remitances {
         }
     }
 
+    public static List<to_remitances> ret_data2(String search, String date) {
+        List<to_remitances> datas = new ArrayList();
+
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "select "
+                        + "id"
+                        + ",cashier_name"
+                        + ",user_level"
+                        + ",created"
+                        + " from " + MyDB.getNames() + ".cashier_sessions where "
+                        + " date(created) ='" + date + "' and cashier_name like '%" + search + "%' and login_status='"+"1"+"'"
+                        + " ";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(s0);
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String user_id = "";
+                String user_name = rs.getString(2);
+                String screen_name = "";
+                String s2 = "select id,user_code from " + MyDB.getNames() + ".users where user_name ='" + user_name + "' ";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                if (rs2.next()) {
+                    user_id = rs2.getString(1);
+                    screen_name = rs2.getString(2);
+                }
+                String user_lvl = rs.getString(3);
+                double amount = 0;
+                String date_added = rs.getString(4);
+                to_remitances to = new to_remitances(id, user_id, user_name, user_lvl, amount, date_added, screen_name);
+                datas.add(to);
+            }
+            return datas;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
     public static String[] user_checker(String username, String password) {
         String[] lvl = new String[3];
         lvl[0] = "-1";

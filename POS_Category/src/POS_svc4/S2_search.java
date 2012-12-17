@@ -26,7 +26,7 @@ public class S2_search {
         List<to_search_prod> datas = new ArrayList();
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "select product_name,description,price,product_qty from "+MyDB.getNames()+".inventory2_stocks_left where description like '%" + name + "%' or lookup_code like '%" + name + "%' or product_name like '" + name + "%' ";
+            String s0 = "select product_name,description,price,product_qty from " + MyDB.getNames() + ".inventory2_stocks_left where description like '%" + name + "%' or lookup_code like '%" + name + "%' or product_name like '" + name + "%' ";
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -57,8 +57,9 @@ public class S2_search {
         public double qty2;
         public final String guest_id;
         public final String cat_id;
+        public final String category_name;
 
-        public to_items(String name, String uom, String desc, double price, double qty, String img_path, double qty2, String guest_id, String cat_id) {
+        public to_items(String name, String uom, String desc, double price, double qty, String img_path, double qty2, String guest_id, String cat_id, String category_name) {
             this.name = name;
             this.uom = uom;
             this.desc = desc;
@@ -68,6 +69,7 @@ public class S2_search {
             this.qty2 = qty2;
             this.guest_id = guest_id;
             this.cat_id = cat_id;
+            this.category_name = category_name;
         }
 
         public String getDesc() {
@@ -218,8 +220,9 @@ public class S2_search {
         public List<S2_search.to_items_status> to_sub;
         public double amount_to_pay;
         public String cat_id;
+        public final String category_name;
 
-        public to_orders(String name, String uom, String desc, double price, double qty, String img_path, double qty2, List<to_items_status> to_sub, double amount_to_pay, String cat_id) {
+        public to_orders(String name, String uom, String desc, double price, double qty, String img_path, double qty2, List<to_items_status> to_sub, double amount_to_pay, String cat_id, String category_name) {
             this.name = name;
             this.uom = uom;
             this.desc = desc;
@@ -230,6 +233,7 @@ public class S2_search {
             this.to_sub = to_sub;
             this.amount_to_pay = amount_to_pay;
             this.cat_id = cat_id;
+            this.category_name = category_name;
         }
 
         public double getAmount_to_pay() {
@@ -319,7 +323,7 @@ public class S2_search {
         public final double room_rate;
         public final List<Dlg_check.to_guests> to_guest;
         public final String type;
-        public final double percentage;
+        public double percentage;
 
         public to_rooms(String id, String name, String num, String status, double topay, String guest_id, String guest_name, String date_added, String room, double room_rate, List<to_guests> to_guest, String type, double percentage) {
             this.id = id;
@@ -336,8 +340,14 @@ public class S2_search {
             this.type = type;
             this.percentage = percentage;
         }
-        
-       
+
+        public double getPercentage() {
+            return percentage;
+        }
+
+        public void setPercentage(double percentage) {
+            this.percentage = percentage;
+        }
     }
 
     public static List<to_items> ret_items(String cat_id, String name) {
@@ -352,7 +362,7 @@ public class S2_search {
                         + ",product_qty"
                         + ",img_path "
                         + ",cat_id "
-                        + "from "+MyDB.getNames()+".inventory2_stocks_left "
+                        + "from " + MyDB.getNames() + ".inventory2_stocks_left "
                         + "where "
                         + "description like '%" + name + "%' and cat_id like '%" + cat_id + "%' or "
                         + "lookup_code like '%" + name + "%' and cat_id like '%" + cat_id + "%' or "
@@ -370,7 +380,18 @@ public class S2_search {
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, "-1", cat_ids);
+                String s2 = "select "
+                            + "cat_name"
+                            + " from " + MyDB.getNames() + ".category where "
+                            + " id ='" + cat_ids + "' "
+                            + " ";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                String cat_name = "";
+                if (rs2.next()) {
+                    cat_name = rs2.getString(1);
+                }
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, "-1", cat_ids, cat_name);
                 datas.add(to);
             }
             return datas;
@@ -394,7 +415,7 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
-                        + "from "+MyDB.getNames()+".customer_tables_details "
+                        + "from " + MyDB.getNames() + ".customer_tables_details "
                         + "where "
                         + "table_no_id = '" + room_no + "' and status ='" + "0" + "'";
 
@@ -411,7 +432,18 @@ public class S2_search {
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id);
+                String s2 = "select "
+                            + "cat_name"
+                            + " from " + MyDB.getNames() + ".category where "
+                            + " id ='" + cat_id + "' "
+                            + " ";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                String cat_name = "";
+                if (rs2.next()) {
+                    cat_name = rs2.getString(1);
+                }
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
                 datas.add(to);
             }
             return datas;
@@ -435,7 +467,7 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
-                        + "from "+MyDB.getNames()+".customer_tables_details "
+                        + "from " + MyDB.getNames() + ".customer_tables_details "
                         + "where "
                         + "table_no_id = '" + room_no + "' and status<>'" + "1" + "' and guest_name like '%" + guest_name + "%'";
             Statement stmt = conn.createStatement();
@@ -452,7 +484,18 @@ public class S2_search {
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id);
+                String s2 = "select "
+                            + "cat_name"
+                            + " from " + MyDB.getNames() + ".category where "
+                            + " id ='" + cat_id + "' "
+                            + " ";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                String cat_name = "";
+                if (rs2.next()) {
+                    cat_name = rs2.getString(1);
+                }
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
                 datas.add(to);
             }
             return datas;
@@ -476,7 +519,7 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
-                        + "from "+MyDB.getNames()+".customer_tables_details "
+                        + "from " + MyDB.getNames() + ".customer_tables_details "
                         + " " + where;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -492,7 +535,21 @@ public class S2_search {
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id);
+                if (img_path.equals("empty")) {
+                    img_path = "siopao.jpeg";
+                }
+                String s2 = "select "
+                            + "cat_name"
+                            + " from " + MyDB.getNames() + ".category where "
+                            + " id ='" + cat_id + "' "
+                            + " ";
+                Statement stmt2 = conn.createStatement();
+                ResultSet rs2 = stmt2.executeQuery(s2);
+                String cat_name = "";
+                if (rs2.next()) {
+                    cat_name = rs2.getString(1);
+                }
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
                 datas.add(to);
             }
             return datas;
@@ -510,7 +567,7 @@ public class S2_search {
             Connection conn = PoolConnection.connect();
             String s0 = "select "
                         + "sum(amount)"
-                        + "from "+MyDB.getNames()+".guest_charges "
+                        + "from " + MyDB.getNames() + ".guest_charges "
                         + " " + where;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -524,14 +581,15 @@ public class S2_search {
             PoolConnection.close();
         }
     }
-     public static int ret_guest_charge_count(String room_no, String where) {
+
+    public static int ret_guest_charge_count(String room_no, String where) {
 
         int charge = 0;
         try {
             Connection conn = PoolConnection.connect();
             String s0 = "select "
                         + "count(amount)"
-                        + "from "+MyDB.getNames()+".guest_charges "
+                        + "from " + MyDB.getNames() + ".guest_charges "
                         + " " + where;
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -553,7 +611,7 @@ public class S2_search {
             Connection conn = PoolConnection.connect();
             String s0 = "select "
                         + "sum(amount)"
-                        + "from "+MyDB.getNames()+".guest_charges "
+                        + "from " + MyDB.getNames() + ".guest_charges "
                         + " where status='" + "0" + "' and table_no = '" + room_no + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);

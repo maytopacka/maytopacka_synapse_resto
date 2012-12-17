@@ -255,7 +255,6 @@ public class S1_categories {
     }
 
     public static String[] product_category(String name) {
-
         String[] cat = new String[5];
         cat[0] = "";
         cat[1] = "";

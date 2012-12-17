@@ -73,7 +73,6 @@ public class Svc_1 {
 
     public static int p_receipts_add2(int a_cashier_session_id,
             double a_tendered, String a_or_number, Date a_receipt_date, String discount, to_credit to2, int bb, String member_id) {
-
         String app_code = "";
         String payed = "";
         double credit = 0;
@@ -85,7 +84,6 @@ public class Svc_1 {
             app_code = to2.author_code;
             credit = to2.amount;
             payed = "no";
-
         }
         if (bb == 3) {
             credit = 0;
@@ -98,47 +96,49 @@ public class Svc_1 {
 
             String s0 = "insert into " + MyDB.getNames() + ".receipts(cashier_session_id,tendered,or_number,receipt_date,discount,credit,approval_code,member_id,is_payed)"
                         + "values(:a_cashier_session_id,:a_tendered,:a_or_number,:a_receipt_date,:a_discount,:a_credit,:a_approval_code,:a_member_id,:a_is_payed)  ";
-
             s0 = SqlStringUtil.parse(s0).setNumber("a_cashier_session_id", a_cashier_session_id).setNumber("a_tendered", a_tendered).setString("a_or_number", a_or_number).setDate("a_receipt_date", a_receipt_date).setString("a_discount", discount).setNumber("a_credit", credit).setString("a_approval_code", app_code).setString("a_member_id", member_id).setString("a_is_payed", payed).ok();
 
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.execute();
             Lg.s(Svc_1.class, "Successfully Added");
             return FitIn.toInt(a_or_number);
-
         } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, "adadad");
             throw new RuntimeException(e);
         } finally {
             PoolConnection.close();
         }
-
-
     }
 
     public static void p_receipt_items_add(int a_receipt_id,
             String a_product_name, double a_unit_price, double a_qty, String num, String tot_disc, String prod_name) {
-
         String[] cat = new String[5];
         cat = S1_categories.product_category(a_product_name);
+
         try {
-            String s0 = "call pb_pos_restaurant.p_receipt_items_add( "
-                        + "  :a_receipt_id "
-                        + " ,:a_product_name "
-                        + " ,:a_unit_price "
-                        + " ,:a_qty "
-                        + " ,:a_category "
-                        + " ,:a_type "
-                        + " ,:a_desc "
-                        + "); ";
-
-            s0 = SqlStringUtil.parse(s0).setString("a_receipt_id", num).setString("a_product_name", a_product_name).setNumber("a_unit_price", a_unit_price).setNumber("a_qty", a_qty).setString("a_category", cat[1]).setString("a_type", cat[0]).setString("a_desc", prod_name).ok();
-
             Connection conn = PoolConnection.connect();
+            String s0 = "insert into " + MyDB.getNames() + ".receipt_items("
+                        + "receipt_id"
+                        + ",product_name"
+                        + ",unit_price"
+                        + ",qty"
+                        + ",type_name"
+                        + ",cat_name"
+                        + ",description"
+                        + ")values("
+                        + ":receipt_id"
+                        + ",:product_name"
+                        + ",:unit_price"
+                        + ",:qty"
+                        + ",:type_name"
+                        + ",:cat_name"
+                        + ",:description"
+                        + ")";
+
+            s0 = SqlStringUtil.parse(s0).setString("receipt_id", num).setString("product_name", a_product_name).setNumber("unit_price", a_unit_price).setNumber("qty", a_qty).setString("type_name", "type").setString("cat_name", "category").setString("description", prod_name).ok();
             PreparedStatement pstmt = conn.prepareStatement(s0);
             pstmt.execute();
-
-
+            Lg.s(Svc_1.class, "Successfully AddedReceipt Item");
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -380,7 +380,32 @@ public class Svc_1 {
             }
             List<to_order> tps = to_pay.orders;
             for (to_order too : tps) {
-                p_receipt_items_add(receipt_id, too.code, too.unit_price, too.hd_uom, to_pay.or, "0", too.product_name);
+//                p_receipt_items_add(receipt_id, too.code, too.unit_price, too.hd_uom, to_pay.or, "0", too.product_name);
+                String s9 = "insert into " + MyDB.getNames() + ".receipt_items("
+                            + "receipt_id"
+                            + ",product_name"
+                            + ",unit_price"
+                            + ",qty"
+                            + ",type_name"
+                            + ",cat_name"
+                            + ",description"
+                            + ")values("
+                            + ":receipt_id"
+                            + ",:product_name"
+                            + ",:unit_price"
+                            + ",:qty"
+                            + ",:type_name"
+                            + ",:cat_name"
+                            + ",:description"
+                            + ")";
+
+                s9 = SqlStringUtil.parse(s9).setNumber("receipt_id", receipt_id).setString("product_name", too.code).setNumber("unit_price", too.unit_price).setNumber("qty", too.hd_uom).setString("type_name", "type")
+                        .setString("cat_name", too.category_name)
+                        .setString("description", too.product_name).ok();
+                PreparedStatement pstmt = conn.prepareStatement(s9);
+                pstmt.execute();
+                Lg.s(Svc_1.class, "Successfully AddedReceipt Item");
+
             }
             for (to_order too : tps) {
                 String s1 = "update " + MyDB.getNames() + ".inventory2_stocks_left p set p.product_qty = :total where p.product_name = :product_name; ";

@@ -10,6 +10,7 @@
  */
 package POS.dlg;
 
+import POS.Main.MyDB;
 import POS.dlg3.Dlg_customer_charges;
 import POS.dlg3.Dlg_discount;
 import POS.to.to_order;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import overallPOS.modules.share.utils.*;
@@ -873,7 +875,7 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     //<editor-fold defaultstate="collapsed" desc=" myInit ">
 
     private void myInit() {
-
+        MyDB.setNames("db_pos_restaurant");
 //        if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
 //           
 //            this.setUndecorated(true);
@@ -1034,8 +1036,12 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
             String str_tendered = lbl_tendered.getText();
             if (str_tendered.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Asang Bayad?");
-//                return false;
+                if (System.getProperty("version", "resto").equals("resto")) {
+                } else {
+                    JOptionPane.showMessageDialog(this, "Asang Bayad?");
+                    return false;
+                }
+
             }
 
             amt_tendered = Double.parseDouble(str_tendered);

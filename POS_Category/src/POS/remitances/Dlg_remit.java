@@ -7,6 +7,8 @@ package POS.remitances;
 import POS.Main.MyDB;
 import POS.dlg2.Dlg_confirm;
 import POS.remitances.S1_remitances.to_remitances;
+import POS.svc.S11_cash_out;
+import POS.svc2.S12_cashier_sessions;
 import POS.utl.DateType;
 import POS.utl.Prompt;
 import com.jgoodies.binding.adapter.AbstractTableAdapter;
@@ -22,6 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import overallPOS.modules.share.utils.CloseDialog;
@@ -380,8 +383,12 @@ public class Dlg_remit extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tf_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,11 +396,7 @@ public class Dlg_remit extends javax.swing.JDialog {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(235, 235, 235))))
+                        .addGap(64, 64, 64))))
         );
 
         pack();
@@ -463,8 +466,13 @@ public class Dlg_remit extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
-        MyDB.setNames("db_pos_restaurant");
+//        MyDB.setNames("db_pos_restaurant");
         tf_search.grabFocus();
+        jLabel1.setVisible(false);
+        tf_user.setVisible(false);
+        jLabel3.setVisible(false);
+        tf_password.setVisible(false);
+
         dp_date.setDate(new Date());
         init_key();
         init_tbl_remitances();
@@ -508,7 +516,7 @@ public class Dlg_remit extends javax.swing.JDialog {
         tbl_remitances.setModel(tbl_remitances_M);
         tbl_remitances.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tbl_remitances.setRowHeight(25);
-        int[] tbl_widths_remitances = {0, 0, 100, 0, 100, 0};
+        int[] tbl_widths_remitances = {0, 0, 100, 0, 0, 0};
         for (int i = 0, n = tbl_widths_remitances.length; i < n; i++) {
             if (i == 2) {
                 continue;
@@ -577,42 +585,70 @@ public class Dlg_remit extends javax.swing.JDialog {
     private void data_cols() {
         String search = tf_search.getText();
         String date = DateType.sf.format(dp_date.getDate());
-        loadData_remitances(S1_remitances.ret_data(search, date));
+        loadData_remitances(S1_remitances.ret_data2(search, date));
     }
 
     private void add() {
         String user = tf_user.getText();
-        String password = tf_password.getText();
+//        String password = tf_password.getText();
+//        double am = FitIn.toDouble(tf_amount.getText());
+//        if (am == 0) {
+////            return;
+//        }
+//
+//        String[] lvl = S1_remitances.user_checker(user, password);
+//        if (lvl[1].equals("5") || lvl[1].equals("6")) {
+//        } else {
+//            Prompt.call("Wrong UserName/Password");
+//            tf_user.setText("");
+//            tf_password.setText("");
+//            tf_amount.setText("");
+//            return;
+//        }
+//        int id = FitIn.toInt(lvl[0]);
+//        String user_id = "" + lvl[0];
+//        String user_name = user;
+//        String user_lvl = "" + lvl[1];
+//        double amount = am;
+//        String date_added = DateType.datetime.format(new Date());
+//
+//        String version = System.getProperty("version", "resto");
+//        if (version.equals("resto")) {
+//        }
+//        S1_remitances.to_remitances to = new to_remitances(id, user_id, user_name, user_lvl, amount, date_added, lvl[2]);
+//        S1_remitances.add_data(to);
+//        data_cols();
+//        tf_user.setText("");
+//        tf_password.setText("");
+//        tf_amount.setText("");
+
+        int idx = tbl_remitances.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
         double am = FitIn.toDouble(tf_amount.getText());
         if (am == 0) {
 //            return;
         }
 
-        String[] lvl = S1_remitances.user_checker(user, password);
-        if (lvl[1].equals("5") || lvl[1].equals("6")) {
-        } else {
-            Prompt.call("Wrong UserName/Password");
-            tf_user.setText("");
-            tf_password.setText("");
-            tf_amount.setText("");
+        final to_remitances to = (to_remitances) tbl_remitances_ALM.get(tbl_remitances.convertRowIndexToModel(idx));
+        int id = to.id;
+        double amount = FitIn.toDouble(tf_amount.getText());
+
+        final int ses_id = S12_cashier_sessions.get_cashier_ses_id(to.user_name);
+
+        if (amount == 0) {
+            JOptionPane.showMessageDialog(null, "Input Amount");
             return;
         }
-        int id = FitIn.toInt(lvl[0]);
-        String user_id = "" + lvl[0];
-        String user_name = user;
-        String user_lvl = "" + lvl[1];
-        double amount = am;
-        String date_added = DateType.datetime.format(new Date());
+        S11_cash_out.p_cash_count(ses_id, amount, 0);
 
-        String version = System.getProperty("version", "resto");
-        if (version.equals("resto")) {
-        }
-        S1_remitances.to_remitances to = new to_remitances(id, user_id, user_name, user_lvl, amount, date_added, lvl[2]);
-        S1_remitances.add_data(to);
+        S12_cashier_sessions.update_sessions(to.user_name);
         data_cols();
         tf_user.setText("");
         tf_password.setText("");
         tf_amount.setText("");
+        JOptionPane.showMessageDialog(null, "Successfully Added");
     }
 
     private void edit() {

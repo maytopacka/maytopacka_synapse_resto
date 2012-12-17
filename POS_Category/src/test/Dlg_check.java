@@ -68,9 +68,11 @@ public class Dlg_check extends javax.swing.JDialog {
     public static class OutputData {
 
         public final List<to_guests> to1;
+        public final double percentages;
 
-        public OutputData(List<to_guests> to1) {
+        public OutputData(List<to_guests> to1, double percentages) {
             this.to1 = to1;
+            this.percentages = percentages;
         }
     }
 //</editor-fold>
@@ -275,6 +277,7 @@ public class Dlg_check extends javax.swing.JDialog {
 
         btn_p_cancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_p_cancel.setText("VOID");
+        btn_p_cancel.setEnabled(false);
         btn_p_cancel.setFocusable(false);
         btn_p_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -912,16 +915,18 @@ public class Dlg_check extends javax.swing.JDialog {
     JGrid jg_orders1 = new JGrid();
     DefaultListModel orders_model1 = new DefaultListModel();
     int row_selected = 0;
-    String room_no="";
-    String type="";
-    double percentage=0;
-    public void do_pass2(JGrid jg_orders, DefaultListModel orders_model, int selected,String room,String types,double percent) {
+    String room_no = "";
+    String type = "";
+    double percentage = 0;
+
+    public void do_pass2(JGrid jg_orders, DefaultListModel orders_model, int selected, String room, String types, double percent) {
         jg_orders1 = jg_orders;
         orders_model1 = orders_model;
         row_selected = selected;
-        room_no=room;
-        type=types;
-        percentage=percent;
+        room_no = room;
+        type = types;
+        percentage = percent;
+
     }
 
     private void refresh_guest() {
@@ -1006,7 +1011,13 @@ public class Dlg_check extends javax.swing.JDialog {
             btn_p_order.setEnabled(false);
             btn_p_cancel.setEnabled(false);
         } else {
-            btn_p_check.setText("CHECK-OUT");
+            final String version = System.getProperty("version", "ordering");
+            if (version.equals("ordering")) {
+                btn_p_check.setText("TAKE-OUT");
+            } else {
+                btn_p_check.setText("CHECK-OUT");
+            }
+
         }
 
         my_guests.clear();
@@ -1249,19 +1260,32 @@ public class Dlg_check extends javax.swing.JDialog {
                 ok.add(to);
             }
         }
-
-
         if (callback != null) {
             if (btn_p_check.getText().equals("CHECK IN")) {
                 this.dispose();
-                callback.check_in(new CloseDialog(this), new OutputData(ok));
+                callback.check_in(new CloseDialog(this), new OutputData(ok, percentag));
             } else {
-                if (ok.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Choose Guest");
-                    return;
+
+                if (System.getProperty("version", "resto").equals("resto")) {
+                    if (my_guests.isEmpty()) {
+//                        JOptionPane.showMessageDialog(null, "Enter Guest");
+                        return;
+                    }
+                } else {
                 }
+
+                if (System.getProperty("version", "resto").equals("ordering")) {
+//                JOptionPane.showMessageDialog(null, my_guests.size());
+                    if (my_guests.size() == 1) {
+                        to_guests to = (to_guests) my_guests.get((0));
+//                    JOptionPane.showMessageDialog(null, to.name);
+                        ok.add(to);
+                    }
+
+                }
+
                 this.dispose();
-                callback.check_out(new CloseDialog(this), new OutputData(ok));
+                callback.check_out(new CloseDialog(this), new OutputData(ok, percentag));
 
                 refresh_guest();
             }
@@ -1274,7 +1298,6 @@ public class Dlg_check extends javax.swing.JDialog {
         for (to_guests a : my_guests) {
             System.out.println(a.status);
             if (a.status == true) {
-
                 to_guests to = new to_guests(a.id, a.name, a.status);
 //                System.out.println(a.id);
                 ok.add(to);
@@ -1282,21 +1305,26 @@ public class Dlg_check extends javax.swing.JDialog {
         }
 //        System.out.println(ok.size());
         String version = System.getProperty("version", "ordering");
-
-
         if (ok.isEmpty()) {
             if (version.equals("ordering")) {
-                JOptionPane.showMessageDialog(null, "Choose Customer");
+//                JOptionPane.showMessageDialog(null, my_guests.size());
+                if (my_guests.size() == 1) {
+                    to_guests to = (to_guests) my_guests.get((0));
+//                    JOptionPane.showMessageDialog(null, to.name);
+                    ok.add(to);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Choose Guest");
                 return;
             }
-            JOptionPane.showMessageDialog(null, "Choose Guest");
-            return;
         }
         if (callback != null) {
             this.dispose();
-            callback.order(new CloseDialog(this), new OutputData(ok));
+            callback.order(new CloseDialog(this), new OutputData(ok, percentag));
         }
     }
+    double percentag = 0;
 
     private void add_guests() {
         Object value = orders_model1.getElementAt(row_selected);
@@ -1306,12 +1334,13 @@ public class Dlg_check extends javax.swing.JDialog {
         Window p = (Window) this;
         Dlg_guest nd = Dlg_guest.create(p, true);
         nd.setTitle("");
-        nd.do_pass(version,room_no,type,percentage);
+        nd.do_pass(version, room_no, type, percentage);
         nd.setCallback(new Dlg_guest.Callback() {
 
             @Override
             public void ok(CloseDialog closeDialog, Dlg_guest.OutputData data) {
                 closeDialog.ok();
+                percentag = data.percentages;
                 String id = "0";
                 String table_no = t.id;
                 String date_added = DateType.datetime.format(new Date());
@@ -1336,7 +1365,7 @@ public class Dlg_check extends javax.swing.JDialog {
         List<to_guests> ok = new ArrayList();
         if (callback != null) {
             this.dispose();
-            callback.add_guest(new CloseDialog(this), new OutputData(ok));
+            callback.add_guest(new CloseDialog(this), new OutputData(ok, percentag));
         }
     }
 
@@ -1360,7 +1389,7 @@ public class Dlg_check extends javax.swing.JDialog {
         }
         if (callback != null) {
             this.dispose();
-            callback.cancel(new CloseDialog(this), new OutputData(ok));
+            callback.cancel(new CloseDialog(this), new OutputData(ok, percentag));
         }
     }
 
@@ -1382,7 +1411,7 @@ public class Dlg_check extends javax.swing.JDialog {
 //        }
         if (callback != null) {
 //            this.dispose();
-            callback.set_order(new CloseDialog(this), new OutputData(ok));
+            callback.set_order(new CloseDialog(this), new OutputData(ok, percentag));
         }
     }
 }

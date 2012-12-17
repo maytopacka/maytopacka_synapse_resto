@@ -469,7 +469,7 @@ public class Dlg_add_assembly extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     disposed();
+        disposed();
     }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * @param args the command line arguments
@@ -748,6 +748,11 @@ public class Dlg_add_assembly extends javax.swing.JDialog {
                 datas.add(to);
                 loadData_assembly(datas);
             }
+
+            @Override
+            public void cancel(CloseDialog closeDialog, Dlg_number2.OutputData data) {
+                closeDialog.ok();
+            }
         });
         nd.setLocationRelativeTo(jScrollPane1);
 //        Center.setCenter(nd);
@@ -810,6 +815,11 @@ public class Dlg_add_assembly extends javax.swing.JDialog {
                 tbl_assembly_M.fireTableDataChanged();
 //                datas.add(to);
 //                loadData_assembly(datas);
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog, Dlg_number2.OutputData data) {
+                closeDialog.ok();
             }
         });
         nd.setLocationRelativeTo(jScrollPane2);
@@ -974,6 +984,11 @@ public class Dlg_add_assembly extends javax.swing.JDialog {
                 S2_assembly.to_assembly to = new S2_assembly.to_assembly(id, prod_num, description, price, data.qty, ref_num, status);
                 S2_assembly.edit_assembly(to);
                 load_date_e();
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog, Dlg_number2.OutputData data) {
+                closeDialog.ok();
             }
         });
         nd.setLocationRelativeTo(jScrollPane3);

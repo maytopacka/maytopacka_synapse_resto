@@ -298,7 +298,7 @@ public class Dlg_customers extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Birth Date:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 314, -1, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 304, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Civil Status:");
@@ -314,7 +314,7 @@ public class Dlg_customers extends javax.swing.JDialog {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Gender:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, -1, 30));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Balance:");
@@ -466,7 +466,7 @@ public class Dlg_customers extends javax.swing.JDialog {
     double bal = 0;
     String num11 = "0";
 
-    public void do_pass(String member_name, String address, String contact, String occupation, String income, String b_date, String civil_status, String is_male, double balance, String num,double credit_limit) {
+    public void do_pass(String member_name, String address, String contact, String occupation, String income, String b_date, String civil_status, String is_male, double balance, String num, double credit_limit) {
         num11 = num;
         bal = balance;
         lb_balance.setText("" + NumType.with_comma(balance));
@@ -490,7 +490,7 @@ public class Dlg_customers extends javax.swing.JDialog {
         }
         dp_bday.setDate(d);
 
-        tf_limit.setText(""+credit_limit);
+        tf_limit.setText("" + credit_limit);
 
     }
     // <editor-fold defaultstate="collapsed" desc="Key">
@@ -533,7 +533,12 @@ public class Dlg_customers extends javax.swing.JDialog {
 
     private void update_balance(double b) {
         double new_bal = b + bal;
-        S2_customers.update_balance(num11, new_bal);
+        if (System.getProperty("version", "resto").equals("resto")) {
+            S2_customers.update_balance_guest(num11, new_bal);
+        } else {
+            S2_customers.update_balance(num11, new_bal);
+        }
+
         lb_balance.setText(NumType.with_comma(new_bal));
         ok_bal();
         bal = new_bal;
@@ -560,21 +565,21 @@ public class Dlg_customers extends javax.swing.JDialog {
             gender = "0";
         }
 
-        if (name.isEmpty()) {
-            Prompt.call("Please Input name");
-//            JOptionPane.showMessageDialog(null, "Please Input name");
-            return;
-        }
+//        if (name.isEmpty()) {
+//            Prompt.call("Please Input name");
+////            JOptionPane.showMessageDialog(null, "Please Input name");
+//            return;
+//        }
         double credit_limit = 0;
 
         try {
-            
-            if(tf_limit.getText().isEmpty()){
-                  Prompt.call("Fillup Entry for Limit");
-            }else{
-                credit_limit=Double.parseDouble(tf_limit.getText());
+
+            if (tf_limit.getText().isEmpty()) {
+                Prompt.call("Fillup Entry for Limit");
+            } else {
+                credit_limit = Double.parseDouble(tf_limit.getText());
             }
-            
+
         } catch (Exception e) {
             Prompt.call("Incorrect Entry for Limit");
         }
@@ -583,7 +588,7 @@ public class Dlg_customers extends javax.swing.JDialog {
 
         double bal = FitIn.toDouble(lb_balance.getText());
         if (callback != null) {
-            callback.ok(new CloseDialog(this), new OutputData(name, ad, con, occupation, income, bday, civil_status, gender, bal,credit_limit));
+            callback.ok(new CloseDialog(this), new OutputData(name, ad, con, occupation, income, bday, civil_status, gender, bal, credit_limit));
         }
     }
 }

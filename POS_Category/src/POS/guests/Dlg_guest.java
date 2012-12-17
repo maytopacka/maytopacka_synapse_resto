@@ -7,6 +7,7 @@ package POS.guests;
 import POS.Main;
 import POS.dlg.country.S1_countries;
 import POS.guests.S1_guest.to_guests;
+import POS.tables.S1_table_types;
 import com.jgoodies.binding.adapter.AbstractTableAdapter;
 import com.jgoodies.binding.list.ArrayListModel;
 import com.lowagie.text.Font;
@@ -24,6 +25,7 @@ import javax.swing.ListSelectionModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import overallPOS.modules.share.utils.CloseDialog;
+import overallPOS.modules.share.utils.FitIn;
 import overallPOS.modules.share.utils.KeyMapping;
 import overallPOS.modules.share.utils.KeyMapping.KeyAction;
 import overallPOS.modules.share.utils.TableWidthUtilities;
@@ -39,27 +41,29 @@ public class Dlg_guest extends javax.swing.JDialog {
      */
     //<editor-fold defaultstate="collapsed" desc=" callback ">
     private Callback callback;
-    
+
     public void setCallback(Callback callback) {
         this.callback = callback;
-        
-        
+
+
     }
-    
+
     public static interface Callback {
-        
+
         void ok(CloseDialog closeDialog, OutputData data);
     }
-    
+
     public static class InputData {
     }
-    
+
     public static class OutputData {
-        
+
         public final List<to_guests> to1;
-        
-        public OutputData(List<to_guests> to1) {
+        public final double percentages;
+
+        public OutputData(List<to_guests> to1, double percentages) {
             this.to1 = to1;
+            this.percentages = percentages;
         }
     }
 //</editor-fold>
@@ -70,48 +74,48 @@ public class Dlg_guest extends javax.swing.JDialog {
         initComponents();
         myInit();
     }
-    
+
     private Dlg_guest(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         myInit();
     }
-    
+
     public Dlg_guest() {
         super();
         initComponents();
         myInit();
-        
+
     }
     private Dlg_guest myRef;
-    
+
     private void setThisRef(Dlg_guest myRef) {
         this.myRef = myRef;
     }
     private static java.util.Map<Object, Dlg_guest> dialogContainer = new java.util.HashMap();
-    
+
     public static void clearUpFirst(java.awt.Window parent) {
         if (dialogContainer.containsKey(parent)) {
             dialogContainer.remove(parent);
         }
     }
-    
+
     public static Dlg_guest create(java.awt.Window parent, boolean modal) {
-        
+
         if (modal) {
             return create(parent, ModalityType.APPLICATION_MODAL);
         }
-        
+
         return create(parent, ModalityType.MODELESS);
-        
+
     }
-    
+
     public static Dlg_guest create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
-        
+
         if (parent instanceof java.awt.Frame) {
-            
+
             Dlg_guest dialog = dialogContainer.get(parent);
-            
+
             if (dialog == null) {
                 dialog = new Dlg_guest((java.awt.Frame) parent, false);
                 dialog.setModalityType(modalType);
@@ -124,12 +128,12 @@ public class Dlg_guest extends javax.swing.JDialog {
                 dialog.setModalityType(modalType);
                 return dialog;
             }
-            
+
         }
-        
+
         if (parent instanceof java.awt.Dialog) {
             Dlg_guest dialog = dialogContainer.get(parent);
-            
+
             if (dialog == null) {
                 dialog = new Dlg_guest((java.awt.Dialog) parent, false);
                 dialog.setModalityType(modalType);
@@ -142,27 +146,27 @@ public class Dlg_guest extends javax.swing.JDialog {
                 dialog.setModalityType(modalType);
                 return dialog;
             }
-            
+
         }
-        
+
         return null;
-        
+
     }
     //</editor-fold>    
 
     //<editor-fold defaultstate="collapsed" desc=" main ">
     public static void main(String args[]) {
-        
+
         try {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        
-        
+
+
         Dlg_guest dialog = Dlg_guest.create(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
-        
+
     }
     //</editor-fold>
 
@@ -177,14 +181,14 @@ public class Dlg_guest extends javax.swing.JDialog {
             myInit();
             repaint();
         }
-        
-        
+
+
     }
-    
+
     public javax.swing.JPanel getSurface() {
         return (javax.swing.JPanel) getContentPane();
     }
-    
+
     public void nullify() {
         myRef.setVisible(false);
         myRef = null;
@@ -246,7 +250,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         lbl_rate = new javax.swing.JLabel();
-        lbl_rate_type = new javax.swing.JLabel();
+        cb_rate_type = new javax.swing.JComboBox();
 
         pm_a.setText("ADD");
         pm_a.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +372,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("HOW DID YOU KNOW?");
 
-        cb_how.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_how.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Friends?", "Love Ones?", "Advertisement?", "Web?", "Dont Know" }));
 
         cx_updates.setSelected(true);
         cx_updates.setText("AUTOMATIC UPDATES?");
@@ -509,11 +513,8 @@ public class Dlg_guest extends javax.swing.JDialog {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cx_updates)
                                 .addComponent(tf_s_lname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -536,11 +537,12 @@ public class Dlg_guest extends javax.swing.JDialog {
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_remarks, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_how, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tf_contact_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_contact_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_how, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
@@ -592,9 +594,13 @@ public class Dlg_guest extends javax.swing.JDialog {
         lbl_rate.setText("0.00");
         lbl_rate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lbl_rate_type.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbl_rate_type.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_rate_type.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        cb_rate_type.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cb_rate_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_rate_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_rate_typeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -616,17 +622,17 @@ public class Dlg_guest extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbl_room, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lbl_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_rate_type, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbl_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cb_rate_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -644,9 +650,13 @@ public class Dlg_guest extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbl_rate_type, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(cb_rate_type)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_rate, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -685,54 +695,58 @@ public class Dlg_guest extends javax.swing.JDialog {
         // TODO add your handling code here:
         disposed();
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         delete();
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         edit();
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         add();
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void tbl_guestsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_guestsMouseClicked
         // TODO add your handling code here:
         select();
     }//GEN-LAST:event_tbl_guestsMouseClicked
-    
+
     private void tf_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_searchKeyReleased
         // TODO add your handling code here:
         ret_data();
     }//GEN-LAST:event_tf_searchKeyReleased
-    
+
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
         ok1();
     }//GEN-LAST:event_btn_okActionPerformed
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         clear();
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     private void tbl_guestsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_guestsMousePressed
         pm_tbl_users(evt);
     }//GEN-LAST:event_tbl_guestsMousePressed
-    
+
     private void tbl_guestsMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_guestsMouseReleased
         pm_tbl_users(evt);
     }//GEN-LAST:event_tbl_guestsMouseReleased
-    
+
     private void pm_aActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pm_aActionPerformed
         add_guest();
     }//GEN-LAST:event_pm_aActionPerformed
-    
+
     private void btn_walkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_walkinActionPerformed
         add_walkin();
     }//GEN-LAST:event_btn_walkinActionPerformed
+
+    private void cb_rate_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_rate_typeActionPerformed
+        get_rate();
+    }//GEN-LAST:event_cb_rate_typeActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -740,6 +754,7 @@ public class Dlg_guest extends javax.swing.JDialog {
     private javax.swing.JButton btn_ok;
     private javax.swing.JButton btn_walkin;
     private javax.swing.JComboBox cb_how;
+    private javax.swing.JComboBox cb_rate_type;
     private javax.swing.JComboBox cb_s_county;
     private javax.swing.JCheckBox cx_updates;
     private javax.swing.JButton jButton1;
@@ -768,7 +783,6 @@ public class Dlg_guest extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_i_id;
     private javax.swing.JLabel lbl_rate;
-    private javax.swing.JLabel lbl_rate_type;
     private javax.swing.JLabel lbl_room;
     private javax.swing.JMenuItem pm_a;
     private javax.swing.JPopupMenu pm_add;
@@ -796,8 +810,18 @@ public class Dlg_guest extends javax.swing.JDialog {
         init_tbl_guests();
         ret_data();
         init_tbl_add();
+        init_room();
+        get_rate();
     }
-    
+
+    private void init_room() {
+        cb_rate_type.setModel(new ListComboBoxModel(S1_table_types.ret_cb_data()));
+    }
+
+    private void get_rate() {
+        lbl_rate.setText("" + S1_table_types.ret_data(cb_rate_type.getSelectedItem().toString()));
+    }
+
     private void set_country() {
         List<String> countries = S1_countries.ret_cb_data();
 
@@ -820,23 +844,24 @@ public class Dlg_guest extends javax.swing.JDialog {
         AutoCompleteDecorator.decorate(cb_s_county);
         cb_s_county.setModel(new ListComboBoxModel(countries));
     }
-    
+
     private void init_id() {
         lbl_i_id.setText(S1_guest.get_id());
     }
-    
+
     public void do_pass(String version, String room_no, String type, double percentage) {
-        
+
         lbl_room.setVisible(true);
         btn_ok.setVisible(true);
         jScrollPane2.setVisible(true);
         jLabel8.setVisible(true);
         lbl_room.setText("ROOM" + room_no);
-        lbl_rate_type.setText(type);
+        cb_rate_type.setSelectedItem(type);
         lbl_rate.setText("" + percentage);
-        
+
         if (version.equals("resto")) {
             btn_walkin.setVisible(false);
+
         }
     }
     // <editor-fold defaultstate="collapsed" desc="Key">
@@ -844,11 +869,11 @@ public class Dlg_guest extends javax.swing.JDialog {
     private void disposed() {
         this.dispose();
     }
-    
+
     private void init_key() {
         KeyMapping.mapKeyWIFW(getSurface(),
                 KeyEvent.VK_ESCAPE, new KeyAction() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
 //                btn_0.doClick();
@@ -860,7 +885,7 @@ public class Dlg_guest extends javax.swing.JDialog {
 //-- 
     private ArrayListModel tbl_guests_ALM;
     private TblguestsModel tbl_guests_M;
-    
+
     private void init_tbl_guests() {
         tbl_guests_ALM = new ArrayListModel();
         tbl_guests_M = new TblguestsModel(tbl_guests_ALM);
@@ -883,22 +908,22 @@ public class Dlg_guest extends javax.swing.JDialog {
         tbl_guests.setRowHeight(35);
         tbl_guests.setFont(new java.awt.Font("Arial", 1, 12));
     }
-    
+
     private void loadData_guests(List<to_guests> acc) {
         tbl_guests_ALM.clear();
         tbl_guests_ALM.addAll(acc);
     }
-    
+
     public static class TblguestsModel extends AbstractTableAdapter {
-        
+
         public static String[] COLUMNS = {
             "id", "guest_id", "FIRST NAME", "LAST NAME", "MI", "COUNTRY", "EMAIL ADDRESS", "status", "DIVER'S LEVEL", "CONTACT NO", "EM. CONTACT NAME", "PASSPORT NO", "REMARKS", "HOW", "UPDATES"
         };
-        
+
         public TblguestsModel(ListModel listmodel) {
             super(listmodel, COLUMNS);
         }
-        
+
         @Override
         public boolean isCellEditable(int row, int column) {
             if (column == 1) {
@@ -906,7 +931,7 @@ public class Dlg_guest extends javax.swing.JDialog {
             }
             return false;
         }
-        
+
         @Override
         public Class getColumnClass(int col) {
             if (col == 1000) {
@@ -914,7 +939,7 @@ public class Dlg_guest extends javax.swing.JDialog {
             }
             return Object.class;
         }
-        
+
         @Override
         public Object getValueAt(int row, int col) {
             to_guests tt = (to_guests) getRow(row);
@@ -952,11 +977,11 @@ public class Dlg_guest extends javax.swing.JDialog {
             }
         }
     }
-    
+
     private void ret_data() {
         loadData_guests(S1_guest.ret_data(tf_search.getText()));
     }
-    
+
     private void add() {
         int id = 0;
         String guest_id = lbl_i_id.getText();
@@ -973,19 +998,18 @@ public class Dlg_guest extends javax.swing.JDialog {
         String passport_no = tf_passport.getText();
         String remarks = tf_remarks.getText();
         String how = cb_how.getSelectedItem().toString();
-        
         int newsletter = 0;
         if (cx_updates.isSelected()) {
             newsletter = 1;
         }
         to_guests to = new to_guests(id, guest_id, fname, lname, mi, country, email_address, status, diver_cert_lvl, contact_no, emergency_contact_name, passport_no, remarks, how, newsletter);
-        
+
         S1_guest.add_guest(to);
         ret_data();
         clear();
 //        JOptionPane.showMessageDialog(null, "Successfully Added");
     }
-    
+
     private void clear() {
         tf_email_address.setText("");
         tf_s_fname.setText("");
@@ -1002,15 +1026,15 @@ public class Dlg_guest extends javax.swing.JDialog {
         init_id();
     }
     int ids = 0;
-    
+
     private void select() {
         int row = tbl_guests.getSelectedRow();
         if (row < 0) {
             return;
         }
         ids = Integer.parseInt(tbl_guests.getModel().getValueAt(row, 0).toString());
-        
-        
+
+
         String guest_id = (tbl_guests.getModel().
                 getValueAt(row, 1).
                 toString());
@@ -1033,7 +1057,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         int status = Integer.parseInt(tbl_guests.getModel().
                 getValueAt(row, 7).
                 toString());
-        
+
         String diver_cert_lvl = (tbl_guests.getModel().getValueAt(row, 8).toString());
         String contact_no = (tbl_guests.getModel().getValueAt(row, 9).toString());
         String emergency_contact_name = (tbl_guests.getModel().getValueAt(row, 10).toString());
@@ -1046,7 +1070,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         } else {
             cx_updates.setSelected(false);
         }
-        
+
         lbl_i_id.setText("" + guest_id);
         tf_s_fname.setText(fname);
         tf_s_lname.setText(lname);
@@ -1060,9 +1084,9 @@ public class Dlg_guest extends javax.swing.JDialog {
         cb_how.setSelectedItem(how);
         tf_level.setText(diver_cert_lvl);
     }
-    
+
     private void edit() {
-        
+
         int id = ids;
         String guest_id = lbl_i_id.getText();
         String fname = tf_s_fname.getText();
@@ -1078,19 +1102,19 @@ public class Dlg_guest extends javax.swing.JDialog {
         String passport_no = tf_passport.getText();
         String remarks = tf_remarks.getText();
         String how = cb_s_county.getSelectedItem().toString();
-        
+
         int newsletter = 0;
         if (cx_updates.isSelected()) {
             newsletter = 1;
         }
         to_guests to = new to_guests(id, guest_id, fname, lname, mi, country, email_address, status, diver_cert_lvl, contact_no, emergency_contact_name, passport_no, remarks, how, newsletter);
-        
+
         S1_guest.edit_guest(to);
         ret_data();
         clear();
         JOptionPane.showMessageDialog(null, "Successfully Updated");
     }
-    
+
     private void delete() {
         int id = 0;
         String guest_id = lbl_i_id.getText();
@@ -1107,40 +1131,41 @@ public class Dlg_guest extends javax.swing.JDialog {
         String passport_no = tf_passport.getText();
         String remarks = tf_remarks.getText();
         String how = cb_s_county.getSelectedItem().toString();
-        
+
         int newsletter = 0;
         if (cx_updates.isSelected()) {
             newsletter = 1;
         }
         to_guests to = new to_guests(id, guest_id, fname, lname, mi, country, email_address, status, diver_cert_lvl, contact_no, emergency_contact_name, passport_no, remarks, how, newsletter);
-        
-        
+
+
         S1_guest.delete_guest(to, ids);
         ret_data();
         clear();
     }
-    
+
     private void ok1() {
         if (tbl_add_ALM.isEmpty()) {
             return;
         }
+        double per = FitIn.toDouble(lbl_rate.getText());
         if (callback != null) {
-            callback.ok(new CloseDialog(this), new OutputData(tbl_add_ALM));
+            callback.ok(new CloseDialog(this), new OutputData(tbl_add_ALM, per));
         }
     }
-    
+
     private void pm_tbl_users(MouseEvent evt) {
         if (evt.isPopupTrigger()) {
             pm_add.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
-    
+
     private void add_guest() {
         int row = tbl_guests.getSelectedRow();
         if (row < 0) {
             return;
         }
-        
+
         int id = Integer.parseInt(tbl_guests.getModel().getValueAt(row, 0).toString());
         String guest_id = tbl_guests.getModel().getValueAt(row, 1).toString();
         String fname = tbl_guests.getModel().getValueAt(row, 2).toString();
@@ -1161,7 +1186,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         datas.add(to);
         loadData_add(datas);
     }
-    
+
     private void add_walkin() {
         int id = -1;
         String guest_id = "-1";
@@ -1186,7 +1211,7 @@ public class Dlg_guest extends javax.swing.JDialog {
     }
     private ArrayListModel tbl_add_ALM;
     private TbladdModel tbl_add_M;
-    
+
     private void init_tbl_add() {
         tbl_add_ALM = new ArrayListModel();
         tbl_add_M = new TbladdModel(tbl_add_ALM);
@@ -1194,7 +1219,7 @@ public class Dlg_guest extends javax.swing.JDialog {
         tbl_add.setModel(tbl_add_M);
         tbl_add.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         tbl_add.setRowHeight(25);
-        tbl_add.setAutoResizeMode(0);
+//        tbl_add.setAutoResizeMode(0);
         int[] tbl_widths_guests = {0, 0, 100, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         for (int i = 0, n = tbl_widths_guests.length; i < n; i++) {
             if (i == 2) {
@@ -1209,22 +1234,22 @@ public class Dlg_guest extends javax.swing.JDialog {
         tbl_add.setRowHeight(35);
         tbl_add.setFont(new java.awt.Font("Arial", 1, 12));
     }
-    
+
     private void loadData_add(List<to_guests> acc) {
 //        tbl_add_ALM.clear();
         tbl_add_ALM.addAll(acc);
     }
-    
+
     public static class TbladdModel extends AbstractTableAdapter {
-        
+
         public static String[] COLUMNS = {
             "id", "guest_id", "FIRST NAME", "LAST NAME", "MI", "COUNTRY", "EMAIL ADDRESS", "status", "DIVER'S LEVEL", "CONTACT NO", "EM. CONTACT NAME", "PASSPORT NO", "REMARKS", "HOW", "UPDATES"
         };
-        
+
         public TbladdModel(ListModel listmodel) {
             super(listmodel, COLUMNS);
         }
-        
+
         @Override
         public boolean isCellEditable(int row, int column) {
             if (column == 1) {
@@ -1232,7 +1257,7 @@ public class Dlg_guest extends javax.swing.JDialog {
             }
             return false;
         }
-        
+
         @Override
         public Class getColumnClass(int col) {
             if (col == 1000) {
@@ -1240,7 +1265,7 @@ public class Dlg_guest extends javax.swing.JDialog {
             }
             return Object.class;
         }
-        
+
         @Override
         public Object getValueAt(int row, int col) {
             to_guests tt = (to_guests) getRow(row);
