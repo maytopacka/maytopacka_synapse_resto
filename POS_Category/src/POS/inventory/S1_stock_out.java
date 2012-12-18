@@ -5,6 +5,8 @@
 package POS.inventory;
 
 import POS.Main.MyDB;
+import POS.svc.S3_insert_new_user;
+import POS.to.to_users;
 import POS.to2.to_add_product;
 import POS.utl.DateType;
 import java.sql.Connection;
@@ -13,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import overallPOS.modules.share.utils.FitIn;
 import overallPOS.modules.share.utils.Lg;
 import overallPOS.modules.share.utils.PoolConnection;
@@ -31,6 +34,8 @@ public class S1_stock_out {
             Connection conn = PoolConnection.connect();
 
 
+            String user = to_users.get_user();
+            String user_id = S3_insert_new_user.get_id(to_users.get_user());
             for (to_add_product t : datas) {
                 String s0 = "insert into " + MyDB.getNames() + ".stock_out(prod_num,prod_name,qty,amount,date_added,cashier_name,cashier_id,remarks,status,branch,branch_id)values(?,?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement stmt = conn.prepareStatement(s0);
@@ -59,6 +64,27 @@ public class S1_stock_out {
                 String s1 = "update " + MyDB.getNames() + ".inventory2_stocks_left set product_qty='" + new_qty + "' where product_name='" + t.name + "' ";
                 PreparedStatement stmt1 = conn.prepareStatement(s1);
                 stmt1.execute();
+
+
+                String s3 = "insert into " + MyDB.getNames() + ".stock_out("
+                            + "prod_num"
+                            + ",prod_name"
+                            + ",qty"
+                            + ",amount"
+                            + ",date_added"
+                            + ",cashier_name"
+                            + ",cashier_id"
+                            + ",remarks)values(?,?,?,?,?,?,?,?)";
+                PreparedStatement stmt3 = conn.prepareStatement(s3);
+                stmt3.setString(1, t.name);
+                stmt3.setString(2, t.desc);
+                stmt3.setDouble(3, FitIn.toDouble(t.qty));
+                stmt3.setDouble(4, FitIn.toDouble(t.price));
+                stmt3.setString(5, date);
+                stmt3.setString(6, user);
+                stmt3.setString(7, user_id);
+                stmt3.setString(8, t.cat_id);
+                stmt3.execute();
             }
             String s0 = "insert into " + MyDB.getNames() + ".stock_out_main("
                         + "ref_no"
@@ -129,6 +155,29 @@ public class S1_stock_out {
                 String s1 = "update " + MyDB.getNames() + ".inventory2_stocks_left set product_qty='" + new_qty + "' where product_name='" + t.name + "' ";
                 PreparedStatement stmt1 = conn.prepareStatement(s1);
                 stmt1.execute();
+
+                String s3 = "insert into " + MyDB.getNames() + ".inventory2("
+                            + "prod_num"
+                            + ",product_name"
+                            + ",description"
+                            + ",price"
+                            + ",product_qty"
+                            + ",remarks"
+                            + ",types,types_num"
+                            + ",supplier_id,cost)values(?,?,?,?,?,?,?,?,?,?)";
+                PreparedStatement stmt3 = conn.prepareStatement(s3);
+                stmt3.setString(1, t.name);
+                stmt3.setString(2, t.name);
+                stmt3.setString(3, t.desc);
+                stmt3.setDouble(4, FitIn.toDouble(t.price));
+                stmt3.setDouble(5, FitIn.toDouble(t.qty));
+                stmt3.setString(6, remarks);
+                stmt3.setString(7, t.cat_id);
+                stmt3.setString(8, "0");
+                stmt3.setString(9, t_main.branch_id);
+                stmt3.setDouble(10, FitIn.toDouble(t.price));
+                stmt3.execute();
+//                JOptionPane.showMessageDialog(null, t.cat_id);
             }
 
             String s0 = "insert into " + MyDB.getNames() + ".stock_in_main("

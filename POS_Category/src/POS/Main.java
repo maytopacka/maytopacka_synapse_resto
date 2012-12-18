@@ -113,6 +113,7 @@ public class Main {
 
             System.setProperty("cashiering_for", prop.getProperty("cashiering_for", "coop"));
             System.setProperty("version", prop.getProperty("version", "retail"));
+            System.setProperty("admin", prop.getProperty("admin", "false"));
             System.setProperty("img_path", prop.getProperty("img_path", "C:\\Users\\Dummy\\"));
             System.setProperty("license", prop.getProperty("license", ""));
             System.setProperty("terminal", prop.getProperty("terminal", "T1"));

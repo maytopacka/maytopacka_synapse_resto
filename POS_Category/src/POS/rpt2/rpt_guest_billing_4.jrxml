@@ -13,18 +13,18 @@
 	<parameter name="img_path" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select
-  id 
- ,table_no_id
- ,or_no 
- ,qty
- ,product_name
- ,description
- ,price
- ,img_path
- ,status
- ,guest_id 
- ,guest_name  
- ,case cat_id
+  ifnull(id,0) as id
+ ,ifnull(table_no_id,-1) as table_no
+ ,ifnull(or_no,-1) as or_no
+ ,ifnull(qty,0) as qty
+ ,ifnull(product_name,'') as product_name
+ ,ifnull(description,'') as description
+ ,ifnull(price,0) as price
+ ,ifnull(img_path,'') as img_path
+ ,ifnull(status,0) as status
+ ,ifnull(guest_id,'-1') as guest_id
+ ,ifnull(guest_name,'') as guest_name
+ ,ifnull(case cat_id
 	when '1' then 'DIVING'
  	when '2' then 'DIVING'
  	when '3' then 'DIVING'
@@ -37,25 +37,25 @@
 	when '6' then 'EXTRAS'
 	when '11' then 'EXTRAS'
         	when '10' then 'BAR AND RESTAURANT'
-    end as cat_id
- ,date_added
+    end ,'')as cat_id
+ ,ifnull(date_added,'') as date_added
 
 from db_pos_restaurant.customer_tables_details
 where table_no_id=$P{table_no} and status ='0' and  guest_id =$P{guest_id} ORDER by cat_id asc;]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer"/>
-	<field name="table_no_id" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="table_no" class="java.lang.String"/>
 	<field name="or_no" class="java.lang.String"/>
 	<field name="qty" class="java.lang.Double"/>
 	<field name="product_name" class="java.lang.String"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="price" class="java.lang.Double"/>
 	<field name="img_path" class="java.lang.String"/>
-	<field name="status" class="java.lang.Integer"/>
+	<field name="status" class="java.lang.Long"/>
 	<field name="guest_id" class="java.lang.String"/>
 	<field name="guest_name" class="java.lang.String"/>
 	<field name="cat_id" class="java.lang.String"/>
-	<field name="date_added" class="java.sql.Timestamp"/>
+	<field name="date_added" class="java.lang.String"/>
 	<variable name="tor" class="java.lang.Double" resetType="None">
 		<variableExpression><![CDATA[$F{qty} *$F{price}]]></variableExpression>
 	</variable>

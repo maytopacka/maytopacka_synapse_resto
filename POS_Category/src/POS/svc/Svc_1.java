@@ -308,7 +308,7 @@ public class Svc_1 {
                 to_receipt.particulars.add(particular);
             }
             DBOutlet dbo1 = DBConnectionPool.db_outlet(conn, false);
-            svc_bir.issue_receipt(dbo1, to_receipt);   //-kani
+//            svc_bir.issue_receipt(dbo1, to_receipt);   //-kani
 
             // bir
 
@@ -399,9 +399,7 @@ public class Svc_1 {
                             + ",:description"
                             + ")";
 
-                s9 = SqlStringUtil.parse(s9).setNumber("receipt_id", receipt_id).setString("product_name", too.code).setNumber("unit_price", too.unit_price).setNumber("qty", too.hd_uom).setString("type_name", "type")
-                        .setString("cat_name", too.category_name)
-                        .setString("description", too.product_name).ok();
+                s9 = SqlStringUtil.parse(s9).setNumber("receipt_id", receipt_id).setString("product_name", too.code).setNumber("unit_price", too.unit_price).setNumber("qty", too.hd_uom).setString("type_name", "type").setString("cat_name", too.category_name).setString("description", too.product_name).ok();
                 PreparedStatement pstmt = conn.prepareStatement(s9);
                 pstmt.execute();
                 Lg.s(Svc_1.class, "Successfully AddedReceipt Item");
@@ -500,7 +498,7 @@ public class Svc_1 {
 
                 to_receipt.particulars.add(particular);
             }
-            birsession.svc.svc_bir.issue_receipt(dbo, to_receipt); //-kani
+//            birsession.svc.svc_bir.issue_receipt(dbo, to_receipt); //-kani
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {

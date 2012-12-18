@@ -557,7 +557,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
-//        Main.MyDB.setNames("db_pos_restaurant");
+        Main.MyDB.setNames("db_pos_restaurant");
         init_key();
         init_ref_no();
         tf_search.grabFocus();

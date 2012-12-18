@@ -10,6 +10,7 @@
  */
 package POS.dlg;
 
+import POS.Dlg_version;
 import POS.dlg2.Dlg_confirm;
 import POS.dlg2.dlg_keyboard;
 import POS.svc.S12_retval_user_level;
@@ -27,7 +28,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import overallPOS.modules.share.utils.Application;
@@ -167,7 +167,8 @@ public class Dlg_login1 extends javax.swing.JDialog {
     public static void main(String args[]) {
 
         try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.
+                    getSystemLookAndFeelClassName());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1762,12 +1763,24 @@ private void btn_returnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 out();
             }
         });
+
         KeyMapping.mapKeyWIFW(getSurface(),
                 KeyEvent.VK_ENTER, new KeyAction() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 do_ok();
+            }
+        });
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_F10, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (System.getProperty("admin", "true").
+                        equals("true")) {
+                    set_ver();
+                }
             }
         });
 
@@ -1779,6 +1792,24 @@ private void btn_returnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                 do_clear();
             }
         });
+    }
+
+    private void set_ver() {
+        Window p = (Window) this;
+        Dlg_version nd = Dlg_version.create(p, true);
+        nd.setTitle("");
+//                   nd.do_pass("");
+        nd.setCallback(new Dlg_version.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_version.OutputData data) {
+                closeDialog.ok();
+                System.setProperty("version", data.version);
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
     }
     //</editor-fold>
 
@@ -1907,6 +1938,18 @@ private void btn_returnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
                         tf_username.grabFocus();
                         tf_username.setCaretPosition(0);
                         return;
+                    }
+                }
+                if (version.equals("retail")) {
+                    if (user_level == 6 || user_level == 7 || user_level == 5) {
+                        Prompt.call("Wrong UserName/Password");
+                        tf_username.setText("");
+                        pf_password.setText("");
+                        tf_user_name.setText("");
+                        tf_username.grabFocus();
+                        tf_username.setCaretPosition(0);
+                        return;
+                    } else {
                     }
                 }
                 if (version.equals("resto")) {

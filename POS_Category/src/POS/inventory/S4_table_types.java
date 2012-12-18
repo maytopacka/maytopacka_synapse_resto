@@ -163,4 +163,22 @@ public class S4_table_types {
             PoolConnection.close();
         }
     }
+//      public static String ret_percentage(String name) {
+//         String cat_id="0";
+//
+//        try {
+//            Connection conn = PoolConnection.connect();
+//            String s0 = "select id from " + MyDB.getNames() + ".category where table_type='" + name + "'";
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(s0);
+//            if (rs.next()) {
+//                rate = rs.getDouble(1);
+//            }
+//            return rate;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            PoolConnection.close();
+//        }
+//    }
 }

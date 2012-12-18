@@ -5,6 +5,7 @@
 package POS.dlg3;
 
 import POS.dlg2.dlg_keyboard;
+import POS.remitances.Dlg_credit_card_2;
 import POS.svc4.S1_bank;
 import POS.svc4.S4_charge_invoice;
 import POS.to2.to_credit;
@@ -15,7 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import POS.utl.Center;
@@ -207,7 +207,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         tf_contact_no = new javax.swing.JTextField();
         tf_amount = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         tf_ci_num = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         lb_balance = new javax.swing.JLabel();
@@ -231,7 +230,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        tf_credit_card_no = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -296,10 +294,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
             }
         });
         jPanel2.add(tf_amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 176, 33));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("CREDIT CARD #:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 310, 120, 30));
 
         tf_ci_num.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tf_ci_num.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -531,14 +525,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         jLabel9.setText("AMOUNT:");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
 
-        tf_credit_card_no.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tf_credit_card_no.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tf_credit_card_noMouseClicked(evt);
-            }
-        });
-        jPanel2.add(tf_credit_card_no, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 450, 30));
-
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 510));
 
         pack();
@@ -613,10 +599,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void tf_credit_card_noMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tf_credit_card_noMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_credit_card_noMouseClicked
     /**
      * @param args the command line arguments
      */
@@ -640,7 +622,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -653,7 +634,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     private javax.swing.JTextField tf_amount;
     private javax.swing.JTextField tf_ci_num;
     private javax.swing.JTextField tf_contact_no;
-    private javax.swing.JTextField tf_credit_card_no;
     private javax.swing.JTextField tf_owner;
     // End of variables declaration//GEN-END:variables
 
@@ -778,7 +758,26 @@ public class Dlg_credit_card extends javax.swing.JDialog {
     private void ok_credit() {
 
 
+        Window p = (Window) this;
+        Dlg_credit_card_2 nd = Dlg_credit_card_2.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_credit_card_2.Callback() {
 
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_credit_card_2.OutputData data) {
+                closeDialog.ok();
+                do_credt();
+            }
+        });
+        nd.setLocationRelativeTo(this);
+
+        nd.setVisible(true);
+
+
+    }
+
+    private void do_credt() {
         if (callback != null) {
             if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || tf_ci_num.getText().isEmpty()) {
                 Prompt.call("Please Complete Details");
@@ -805,8 +804,6 @@ public class Dlg_credit_card extends javax.swing.JDialog {
 
     private void ok_prepaid() {
 
-
-
         if (balance1 == 0) {
             Prompt.call("Sorry!!! Zero Balance");
 //            JOptionPane.showMessageDialog(null, "Sorry!!! Zero Balance");
@@ -814,7 +811,7 @@ public class Dlg_credit_card extends javax.swing.JDialog {
         }
 
         if (callback != null) {
-            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty() || tf_credit_card_no.getText().isEmpty()) {
+            if (tf_amount.getText().isEmpty() || tf_owner.getText().isEmpty()) {
                 Prompt.call("Please Complete Details");
 //                JOptionPane.showMessageDialog(null, "Please Complete Details");
                 return;

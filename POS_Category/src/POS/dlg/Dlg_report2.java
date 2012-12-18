@@ -536,9 +536,9 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
                     }
 
                 }
@@ -551,9 +551,9 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
                     }
                 }
             });
@@ -587,7 +587,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_daily_2_1");
+                rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_daily_2_1_1");
             }
         });
 
@@ -604,7 +604,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_1_1");
+                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_1_1_1");
             }
         });
 

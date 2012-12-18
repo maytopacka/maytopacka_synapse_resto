@@ -163,6 +163,7 @@ public class Dashboard extends javax.swing.JFrame {
         btn_pay = new javax.swing.JButton();
         tf_barcode = new javax.swing.JTextField();
         lbl_remit = new javax.swing.JButton();
+        lbl_next_customer = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -754,14 +755,17 @@ public class Dashboard extends javax.swing.JFrame {
         jg_orders.setMaximumSize(new java.awt.Dimension(180, 0));
         jg_orders.setMinimumSize(new java.awt.Dimension(180, 0));
         jg_orders.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jg_ordersMouseReleased(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jg_ordersMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jg_ordersMouseEntered(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jg_ordersMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jg_ordersMouseReleased(evt);
             }
         });
         jg_orders.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -903,12 +907,20 @@ public class Dashboard extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        lbl_next_customer.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_next_customer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_next_customer.setForeground(new java.awt.Color(0, 255, 0));
+        lbl_next_customer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_next_customer.setText("NEXT CUSTOMER PLEASE");
+        lbl_next_customer.setOpaque(true);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_next_customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sp_orders, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -921,12 +933,14 @@ public class Dashboard extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_next_customer, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sp_orders, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(sp_orders)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(js_items, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addComponent(js_items, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1090,6 +1104,10 @@ public class Dashboard extends javax.swing.JFrame {
         advance_payment();
     }//GEN-LAST:event_lbl_paymentMouseClicked
 
+    private void jg_ordersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jg_ordersMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jg_ordersMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1167,6 +1185,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_check_date;
     private javax.swing.JLabel lbl_guest_no;
     private javax.swing.JLabel lbl_guest_total;
+    private javax.swing.JLabel lbl_next_customer;
     private javax.swing.JLabel lbl_oders_payment;
     private javax.swing.JLabel lbl_or_no;
     private javax.swing.JLabel lbl_order_count;
@@ -1194,7 +1213,8 @@ public class Dashboard extends javax.swing.JFrame {
         lbl_remit.setVisible(false);
         pnl_category.setVisible(false);
         tf_barcode.setVisible(false);
-        key();
+        lbl_next_customer.setVisible(false);
+//        key();
 //        init_tf();
         hide_popups();
         scrolling();
@@ -1351,12 +1371,18 @@ public class Dashboard extends javax.swing.JFrame {
                 clear_categories();
                 clear_items();
                 pnl_holder_search.setVisible(true);
+                pnl_category.setVisible(false);
+            } else {
+                lbl_next_customer.setVisible(true);
+                if (user_id.equals("0")) {
+                    btn_clear_all.setVisible(true);
+                    pnl_holder_guest_details.setVisible(false);
+                    btn_pay.setVisible(true);
+                    pnl_category.setVisible(true);
+
+                }
             }
-            if (user_id.equals("0")) {
-                btn_clear_all.setVisible(true);
-                pnl_holder_guest_details.setVisible(false);
-                btn_pay.setVisible(true);
-            }
+
         }
         if (version.equals("resto")) {
             if (user_id.equals("1")) {
@@ -1398,8 +1424,11 @@ public class Dashboard extends javax.swing.JFrame {
             jLabel14.setVisible(false);
             if (user_id.equals("1")) {
                 pnl_holder_search.setVisible(true);
+                lbl_next_customer.setVisible(false);
+//                  pnl_category.setVisible(true);
             } else {
                 pnl_holder_search.setVisible(false);
+//                pnl_category.setVisible(false);
             }
             lbl_advance_payment.setVisible(false);
             if (user_id.equals("7")) {
@@ -1638,6 +1667,7 @@ public class Dashboard extends javax.swing.JFrame {
             Dlg_quantity_menu nd = Dlg_quantity_menu.create(p, true);
             nd.setTitle("");
             nd.do_pass_order(to);
+//            JOptionPane.showMessageDialog(null, "adadad");
             nd.setCallback(new Dlg_quantity_menu.Callback() {
 
                 @Override
@@ -1710,7 +1740,7 @@ public class Dashboard extends javax.swing.JFrame {
             final Dlg_check nd = Dlg_check.create(p, true);
             nd.setTitle("");
             nd.do_pass(datas, t, user_id);
-            nd.do_pass2(jg_orders, orders_model, row, t.id, t.type, t.percentage);
+            nd.do_pass2(jg_orders, orders_model, row, t.id, t.type, t.percentage, user_id);
             nd.setCallback(new Dlg_check.Callback() {
 
                 @Override
@@ -1720,7 +1750,6 @@ public class Dashboard extends javax.swing.JFrame {
                 @Override
                 public void check_in(CloseDialog closeDialog, Dlg_check.OutputData data) {
                     closeDialog.ok();
-
                     lbl_table_no.setText(t.id);
                     check_ins();
                 }
@@ -1735,14 +1764,18 @@ public class Dashboard extends javax.swing.JFrame {
                         my_guest = data.to1;
                         payments(FitIn.fmt_wc_0(lbl_guest_total.getText()));
                     }
-
                 }
 
                 @Override
                 public void order(CloseDialog closeDialog, Dlg_check.OutputData data) {
                     closeDialog.ok();
-                    pnl_category.setVisible(true);
                     my_guest = data.to1;
+                    lbl_table_no.setText(t.id);
+//                    JOptionPane.showMessageDialog(null, my_guest.size());
+                    tbl_id = t.id;
+                    tbl_room_rate = t.room_rate;
+                    tbl_topay = t.topay;
+                    pnl_category.setVisible(true);
                     user_id = "6";
 //                    lbl_table_no.setText(t.id);
                     btn_add_order.setVisible(true);
@@ -2283,6 +2316,7 @@ public class Dashboard extends javax.swing.JFrame {
             S2_search.to_rooms t = (S2_search.to_rooms) value;
             List<S2_search.to_items> results = S2_search.ret_items_room(t.id);
             int i = 0;
+
             lbl_guest_no.setText(t.guest_id);
             lbl_check_date.setText(t.date_added);
             double charge = S2_search.ret_guest_chargers_where_all(t.id);
@@ -3759,49 +3793,55 @@ public class Dashboard extends javax.swing.JFrame {
         pnl.add(lbl_p_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 20, 200));
         return pnl;
     }
+    String tbl_id = "-1";
+    double tbl_room_rate = 0;
+    double tbl_topay = 0;
+
+    private void check_ins_ordering() {
+        String version = System.getProperty("version", "ordering");
+//        int row = jg_orders.getSelectedIndex();
+//        JOptionPane.showMessageDialog(null, row+" sss");
+//        if (row < 0) {
+//            return;
+//        }
+//        Object value = orders_model.getElementAt(row);
+//        final S2_search.to_rooms t = (S2_search.to_rooms) value;
+        int id = -1;
+        String guest_id = "-1";
+        String fname = "Walk-In";
+        String lname = "";
+        String mi = "";
+        String country = "";
+        String email_address = "";
+        int status = 0;
+        String diver_cert_lvl = "0";
+        String contact_no = "0";
+        String emergency_contact_name = "0";
+        String passport_no = "0";
+        String remarks = "0";
+        String how = "0";
+        int newsletter = 0;
+        S1_guest.to_guests to = new S1_guest.to_guests(id, guest_id, fname, lname, mi, country, email_address, status, diver_cert_lvl, contact_no, emergency_contact_name, passport_no, remarks, how, newsletter);
+        List<S1_guest.to_guests> datas = new ArrayList();
+        datas.add(to);
+        String id1 = "0";
+        String table_no = tbl_id;
+//            JOptionPane.showMessageDialog(null, "guest");
+        String date_added = DateType.datetime.format(new Date());
+        double amount = tbl_topay;
+        String or_no = "0";
+        String status1 = "0";
+        S1_check_in.to_customer_tables to1 = new S1_check_in.to_customer_tables(id1, table_no, date_added, amount, or_no, status1);
+        S1_check_in.check_in(to1, datas, tbl_room_rate, 0);
+
+        clear_room();
+        init_rooms();
+    }
 
     private void check_ins() {
         String version = System.getProperty("version", "ordering");
         if (version.equals("ordering")) {
-            int row = jg_orders.getSelectedIndex();
-            if (row < 0) {
-                return;
-            }
-            Object value = orders_model.getElementAt(row);
-            final S2_search.to_rooms t = (S2_search.to_rooms) value;
-            int id = -1;
-            String guest_id = "-1";
-            String fname = "Walk-In";
-            String lname = "";
-            String mi = "";
-            String country = "";
-            String email_address = "";
-            int status = 0;
-            String diver_cert_lvl = "0";
-            String contact_no = "0";
-            String emergency_contact_name = "0";
-            String passport_no = "0";
-            String remarks = "0";
-            String how = "0";
-            int newsletter = 0;
-            S1_guest.to_guests to = new S1_guest.to_guests(id, guest_id, fname, lname, mi, country, email_address, status, diver_cert_lvl, contact_no, emergency_contact_name, passport_no, remarks, how, newsletter);
-            List<S1_guest.to_guests> datas = new ArrayList();
-            datas.add(to);
-
-
-            String id1 = "0";
-            String table_no = t.id;
-//            JOptionPane.showMessageDialog(null, t.num);
-            String date_added = DateType.datetime.format(new Date());
-            double amount = t.topay;
-            String or_no = "0";
-            String status1 = "0";
-            S1_check_in.to_customer_tables to1 = new S1_check_in.to_customer_tables(id1, table_no, date_added, amount, or_no, status1);
-            S1_check_in.check_in(to1, datas, t.room_rate, 0);
-
-            clear_room();
-            init_rooms();
-
+            check_ins_ordering();
         } else {
             int row = jg_orders.getSelectedIndex();
             if (row < 0) {
@@ -4313,6 +4353,7 @@ public class Dashboard extends javax.swing.JFrame {
             amount += t_orders.qty * t_orders.amount_to_pay;
         }
         lbl_amount.setText(FitIn.fmt_wc_0(amount));
+        lbl_next_customer.setText(FitIn.fmt_wc_0(amount));
     }
 
     private void set_amount_items() {
@@ -4391,6 +4432,7 @@ public class Dashboard extends javax.swing.JFrame {
             public void ok2(CloseDialog closeDialog, Dlg_pay.OutputData data) {
                 closeDialog.ok();
                 process_pay(closeDialog, data, data.tt, data.a, data.tc, data.b, data.member_id);
+
             }
         });
         Application.locateOnParentCenter(w, d);
@@ -4446,6 +4488,7 @@ public class Dashboard extends javax.swing.JFrame {
         }
         my_guest.clear();
         set_or();
+        lbl_next_customer.setText("NEXT CUSTOMER PLEASE");
     }
 
     private void clear_orders() {
@@ -4493,7 +4536,14 @@ public class Dashboard extends javax.swing.JFrame {
             S2_search.to_orders t = (S2_search.to_orders) value;
             datas.add(t);
         }
-//        JOptionPane.showMessageDialog(null, datas.size());C
+        if (System.getProperty("version", "ordering").equals("ordering")) {
+        }
+        boolean check = S2_guest_charges.select_guests(lbl_table_no.getText());
+
+        if ((my_guest.size() == 1 && check == false && !datas.isEmpty())) {
+//            JOptionPane.showMessageDialog(null, lbl_table_no.getText() + " " + check + " --asdasdasdads");
+            check_ins_ordering();
+        }
         S1_check_in.add_order_rooms(datas, lbl_table_no.getText(), my_guest, to_sub);
         user_id = "5";
         lbl_table_no.setText("0");

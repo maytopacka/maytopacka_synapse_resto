@@ -1116,7 +1116,7 @@ public class Dlg_add extends javax.swing.JDialog {
 
             @Override
             public void ok(CloseDialog closeDialog, Dlg_stockout.OutputData data) {
-                closeDialog.ok();
+//                closeDialog.ok();
                 data_employee_search();
             }
         });

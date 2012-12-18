@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import overallPOS.modules.share.utils.Lg;
 import overallPOS.modules.share.utils.PoolConnection;
 import overallPOS.modules.share.utils.SqlStringUtil;
@@ -151,8 +152,8 @@ public class S1_check_in {
                 Lg.s(S1_check_in.class, "Successfully Added");
 
             }
-
-            Lg.s(S1_check_in.class, "Successfully Added");
+//            JOptionPane.showMessageDialog(null, "adadad");
+            Lg.s(S1_check_in.class, "Successfully Added check in");
         } catch (Exception e) {
             PoolConnection.close();
             throw new RuntimeException(e);
@@ -186,16 +187,17 @@ public class S1_check_in {
         try {
             double my_amount = 0;
             Connection conn = PoolConnection.connect();
-
-            String room_id = "0";
+            String room_id = table_no;
             String now = DateType.datetime.format(new Date());
-            String s3 = "select id from " + MyDB.getNames() + ".tables where table_name='" + table_no + "' ";
-            Statement stmt2 = conn.createStatement();
-            ResultSet rs2 = stmt2.executeQuery(s3);
-            if (rs2.next()) {
-                room_id = rs2.getString(1);
-            }
+//            String s3 = "select id from " + MyDB.getNames() + ".tables where table_name='" + table_no + "' ";
+//            Statement stmt2 = conn.createStatement();
+////            JOptionPane.showMessageDialog(null, table_no);
+//            ResultSet rs2 = stmt2.executeQuery(s3);
+//            if (rs2.next()) {
+//                room_id = rs2.getString(1);
+//            }
             for (to_guests guest : my_guest) {
+//                JOptionPane.showMessageDialog(null, guest.name);
                 for (S2_search.to_orders t : to) {
                     double qty = 0;
                     String s2 = "select qty from " + MyDB.getNames() + ".customer_tables_details where product_name='" + t.name + "' and table_no_id='" + room_id + "' and guest_id='" + guest.id + "'";

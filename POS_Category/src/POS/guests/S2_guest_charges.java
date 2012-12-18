@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import overallPOS.modules.share.utils.Lg;
 import overallPOS.modules.share.utils.PoolConnection;
 import overallPOS.modules.share.utils.SqlStringUtil;
@@ -256,6 +257,30 @@ public class S2_guest_charges {
 
             }
             return ids;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+    }
+
+    public static boolean select_guests(String table_no) {
+
+//        JOptionPane.showMessageDialog(null, table_no);
+        boolean naa = false;
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "select id "
+                        + " from " + MyDB.getNames() + ".room_guests where "
+                        + " rooom_id ='" + table_no + "' and status='" + "0" + "' "
+                        + " ";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(s0);
+            if (rs.next()) {
+                naa = true;
+            }
+            return naa;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
