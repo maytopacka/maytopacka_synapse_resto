@@ -23,38 +23,38 @@ import overallPOS.modules.share.utils.SqlStringUtil;
  */
 public class S6_check_time {
 
-    public static List<String> check_time(Date d, String timers) {
-
-        SimpleDateFormat ss = new SimpleDateFormat("hh:mm:ss");
-        String times = ss.format(new Date());
-
-//        time(timer);
-
-        List<String> datas = new ArrayList();
-        datas.add("New:");
-        try {
-            Connection conn = PoolConnection.connect();
-//            String s0="select time(p.date_added) from "+MyDB.getNames()+".inventory p where date(p.date_added)=date('"+d+"')";
-            String s0 = "call pb_pos_restaurant.check_time_inventory(:a_date_added)";
-
-            s0 = SqlStringUtil.parse(s0).
-                    setDate("a_date_added", d).
-                    ok();
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(s0);
-            while (rs.next()) {
-                String time = rs.getString(1);
-                datas.add(time);
-            }
-
-            return datas;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            PoolConnection.close();
-        }
-    }
+//    public static List<String> check_time(Date d, String timers) {
+//
+//        SimpleDateFormat ss = new SimpleDateFormat("hh:mm:ss");
+//        String times = ss.format(new Date());
+//
+////        time(timer);
+//
+//        List<String> datas = new ArrayList();
+//        datas.add("New:");
+//        try {
+//            Connection conn = PoolConnection.connect();
+////            String s0="select time(p.date_added) from "+MyDB.getNames()+".inventory p where date(p.date_added)=date('"+d+"')";
+//            String s0 = "call pb_pos_restaurant.check_time_inventory(:a_date_added)";
+//
+//            s0 = SqlStringUtil.parse(s0).
+//                    setDate("a_date_added", d).
+//                    ok();
+//
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(s0);
+//            while (rs.next()) {
+//                String time = rs.getString(1);
+//                datas.add(time);
+//            }
+//
+//            return datas;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            PoolConnection.close();
+//        }
+//    }
 
     private static String time(String timer) {
 

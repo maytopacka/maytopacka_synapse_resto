@@ -45,7 +45,7 @@ public class Svc_1 {
             double a_tendered, String a_or_number, Date a_receipt_date, String discount, to_credit to2) {
         try {
             String s0 = "insert into " + MyDB.getNames() + ".receipts(cashier_session_id,tendered,or_number,receipt_date,discount )"
-                    + "values(:a_cashier_session_id,:a_tendered,:a_or_number,:a_receipt_date ,:a_discount)";
+                        + "values(:a_cashier_session_id,:a_tendered,:a_or_number,:a_receipt_date ,:a_discount)";
 
             s0 = SqlStringUtil.parse(s0).
                     setNumber("a_cashier_session_id", a_cashier_session_id).
@@ -100,7 +100,7 @@ public class Svc_1 {
             Connection conn = PoolConnection.connect();
 
             String s0 = "insert into " + MyDB.getNames() + ".receipts(cashier_session_id,tendered,or_number,receipt_date,discount,credit,approval_code,member_id,is_payed)"
-                    + "values(:a_cashier_session_id,:a_tendered,:a_or_number,:a_receipt_date,:a_discount,:a_credit,:a_approval_code,:a_member_id,:a_is_payed)  ";
+                        + "values(:a_cashier_session_id,:a_tendered,:a_or_number,:a_receipt_date,:a_discount,:a_credit,:a_approval_code,:a_member_id,:a_is_payed)  ";
             s0 = SqlStringUtil.parse(s0).
                     setNumber("a_cashier_session_id", a_cashier_session_id).
                     setNumber("a_tendered", a_tendered).
@@ -133,22 +133,22 @@ public class Svc_1 {
         try {
             Connection conn = PoolConnection.connect();
             String s0 = "insert into " + MyDB.getNames() + ".receipt_items("
-                    + "receipt_id"
-                    + ",product_name"
-                    + ",unit_price"
-                    + ",qty"
-                    + ",type_name"
-                    + ",cat_name"
-                    + ",description"
-                    + ")values("
-                    + ":receipt_id"
-                    + ",:product_name"
-                    + ",:unit_price"
-                    + ",:qty"
-                    + ",:type_name"
-                    + ",:cat_name"
-                    + ",:description"
-                    + ")";
+                        + "receipt_id"
+                        + ",product_name"
+                        + ",unit_price"
+                        + ",qty"
+                        + ",type_name"
+                        + ",cat_name"
+                        + ",description"
+                        + ")values("
+                        + ":receipt_id"
+                        + ",:product_name"
+                        + ",:unit_price"
+                        + ",:qty"
+                        + ",:type_name"
+                        + ",:cat_name"
+                        + ",:description"
+                        + ")";
 
             s0 = SqlStringUtil.parse(s0).
                     setString("receipt_id", num).
@@ -192,15 +192,15 @@ public class Svc_1 {
             if (bb == 2) {
                 receipt_id = p_receipts_add2(id, to_pay.tendered, to_pay.or, date, "0", to2, bb, member_id);
                 String s5 = "insert into " + MyDB.getNames() + ".credits("
-                        + "or_no"
-                        + ",bank_name"
-                        + ",card_type"
-                        + ",card_holder"
-                        + ",card_no"
-                        + ",approval_code"
-                        + ",amount"
-                        + ",user_name"
-                        + ",user_id,date_payed)values(?,?,?,?,?,?,?,?,?,?)";
+                            + "or_no"
+                            + ",bank_name"
+                            + ",card_type"
+                            + ",card_holder"
+                            + ",card_no"
+                            + ",approval_code"
+                            + ",amount"
+                            + ",user_name"
+                            + ",user_id,date_payed)values(?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement stmt5 = conn.prepareStatement(s5);
                 String num = S2_customers.get_cust_num(to2.card_holder);
                 stmt5.setString(1, "" + to_pay.or);
@@ -253,19 +253,19 @@ public class Svc_1 {
 
                 PreparedStatement psmt3 = conn.prepareStatement(s1);
                 psmt3.execute();
-                
-                 String s4 = "update " + MyDB.getNames() + ".customer_tables_details set status='" + "1" + "' where "
-                        + "table_no_id='" + table_no + "' "
-                        + "and product_name='" + too.code + "' "
-                        + "and status<>'" + "1" + "' "
-                        + "and guest_id='" + too.guest_id + "'";
+
+                String s4 = "update " + MyDB.getNames() + ".customer_tables_details set status='" + "1" + "' where "
+                            + "table_no_id='" + table_no + "' "
+                            + "and product_name='" + too.code + "' "
+                            + "and status<>'" + "1" + "' "
+                            + "and guest_id='" + too.guest_id + "'";
 
                 PreparedStatement stmt4 = conn.prepareStatement(s4);
                 stmt4.execute();
                 Lg.s(Svc_1.class, "Status Updated customer_tables" + too.code + " = " + too.guest_id + " = " + table_no);
 
                 String s5 = "update " + MyDB.getNames() + ".guest_charges set status='" + "1" + "' where "
-                        + "guest_id='" + too.guest_id + "' and status='" + "0" + "' and table_no='" + table_no + "'";
+                            + "guest_id='" + too.guest_id + "' and status='" + "0" + "' and table_no='" + table_no + "'";
 
                 PreparedStatement stmt5 = conn.prepareStatement(s5);
                 stmt5.execute();
@@ -320,11 +320,9 @@ public class Svc_1 {
             String a_modified_by = "";
             String a_terminal = "";
 
-            String a_cashier_name = S3_insert_new_user.get_name(to_users.
-                    get_user());
+            String a_cashier_name = S3_insert_new_user.get_name(to_users.get_user());
             Properties prop = new Properties();
-            String a_entity_name = System.setProperty("entityName", prop.
-                    getProperty("entityName", "Synapse Software Technologies"));;
+            String a_entity_name = System.setProperty("entityName", prop.getProperty("entityName", "Synapse Software Technologies"));;
             String a_check_number = "";
             String tbl_no = "1";
             String order_no = "1";
@@ -393,15 +391,15 @@ public class Svc_1 {
                 cust_name = to2.card_holder;
                 cust_address = to2.credit_card_no;
                 String s5 = "insert into " + MyDB.getNames() + ".credits("
-                        + "or_no"
-                        + ",bank_name"
-                        + ",card_type"
-                        + ",card_holder"
-                        + ",card_no"
-                        + ",approval_code"
-                        + ",amount"
-                        + ",user_name"
-                        + ",user_id,date_payed)values(?,?,?,?,?,?,?,?,?,?)";
+                            + "or_no"
+                            + ",bank_name"
+                            + ",card_type"
+                            + ",card_holder"
+                            + ",card_no"
+                            + ",approval_code"
+                            + ",amount"
+                            + ",user_name"
+                            + ",user_id,date_payed)values(?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement stmt5 = conn.prepareStatement(s5);
                 String num = S2_customers.get_cust_num(to2.card_holder);
                 stmt5.setString(1, "" + to_pay.or);
@@ -437,22 +435,22 @@ public class Svc_1 {
             for (to_order too : tps) {
 //                p_receipt_items_add(receipt_id, too.code, too.unit_price, too.hd_uom, to_pay.or, "0", too.product_name);
                 String s9 = "insert into " + MyDB.getNames() + ".receipt_items("
-                        + "receipt_id"
-                        + ",product_name"
-                        + ",unit_price"
-                        + ",qty"
-                        + ",type_name"
-                        + ",cat_name"
-                        + ",description"
-                        + ")values("
-                        + ":receipt_id"
-                        + ",:product_name"
-                        + ",:unit_price"
-                        + ",:qty"
-                        + ",:type_name"
-                        + ",:cat_name"
-                        + ",:description"
-                        + ")";
+                            + "receipt_id"
+                            + ",product_name"
+                            + ",unit_price"
+                            + ",qty"
+                            + ",type_name"
+                            + ",cat_name"
+                            + ",description"
+                            + ")values("
+                            + ":receipt_id"
+                            + ",:product_name"
+                            + ",:unit_price"
+                            + ",:qty"
+                            + ",:type_name"
+                            + ",:cat_name"
+                            + ",:description"
+                            + ")";
 
                 s9 = SqlStringUtil.parse(s9).
                         setNumber("receipt_id", receipt_id).
@@ -481,17 +479,17 @@ public class Svc_1 {
                 psmt3.execute();
 
                 String s4 = "update " + MyDB.getNames() + ".customer_tables_details set status='" + "1" + "' where "
-                        + "table_no_id='" + table_no + "' "
-                        + "and product_name='" + too.code + "' "
-                        + "and status<>'" + "1" + "' "
-                        + "and guest_id='" + too.guest_id + "'";
+                            + "table_no_id='" + table_no + "' "
+                            + "and product_name='" + too.code + "' "
+                            + "and status<>'" + "1" + "' "
+                            + "and guest_id='" + too.guest_id + "'";
 
                 PreparedStatement stmt4 = conn.prepareStatement(s4);
                 stmt4.execute();
                 Lg.s(Svc_1.class, "Status Updated customer_tables" + too.code + " = " + too.guest_id + " = " + table_no);
 
                 String s5 = "update " + MyDB.getNames() + ".guest_charges set status='" + "1" + "' where "
-                        + "guest_id='" + too.guest_id + "' and status='" + "0" + "' and table_no='" + table_no + "'";
+                            + "guest_id='" + too.guest_id + "' and status='" + "0" + "' and table_no='" + table_no + "'";
 
                 PreparedStatement stmt5 = conn.prepareStatement(s5);
                 stmt5.execute();
@@ -531,10 +529,8 @@ public class Svc_1 {
             String a_terminal = "";
             String tbl_no = "";
             String order_no = "";
-            String a_cashier_name = S3_insert_new_user.get_name(to_users.
-                    get_user());
-            String a_entity_name = System.setProperty("entityName", prop.
-                    getProperty("entityName", "Synapse Software Technologies"));;
+            String a_cashier_name = S3_insert_new_user.get_name(to_users.get_user());
+            String a_entity_name = System.setProperty("entityName", prop.getProperty("entityName", "Synapse Software Technologies"));;
             String a_check_number = "";
 
             birsession.to.to_receipt to_receipt = new birsession.to.to_receipt(a_issuance_refid, a_orno,

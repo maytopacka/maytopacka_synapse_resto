@@ -532,7 +532,7 @@ private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:even
         double no_of_heads = Double.parseDouble(tf_kilos.getText());
         to_admin_product tap = new to_admin_product(product_name, price, est_heads, no_of_heads);
 
-        S10_update_product.p_update_product(tap);
+//        S10_update_product.p_update_product(tap);
         callback.ok(new CloseDialog(this), new OutputData(tap));
         this.dispose();
     }

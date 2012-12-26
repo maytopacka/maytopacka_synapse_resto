@@ -34,34 +34,32 @@ public class S7_select_receipts {
             Connection conn = PoolConnection.connect();
 
             String s1 = "select "
-                    + "r.or_number"
-                    + ",r.receipt_date"
-                    + ",r.tendered "
-                     + ",r.discount "
-                    + "from"
-                    + ""+MyDB.getNames()+".receipts r "
-                    + "join "+MyDB.getNames()+".cashier_sessions cs"
-                    + "on r.cashier_session_id=cs.id  where cs.cashier_name='" + name + "' and date(r.receipt_date)=date('" + d + "')";
+                        + "r.or_number"
+                        + ",r.receipt_date"
+                        + ",r.tendered "
+                        + ",r.discount "
+                        + "from"
+                        + "" + MyDB.getNames() + ".receipts r "
+                        + "join " + MyDB.getNames() + ".cashier_sessions cs"
+                        + "on r.cashier_session_id=cs.id  where cs.cashier_name='" + name + "' and date(r.receipt_date)=date('" + d + "')";
 
 //             and date(r.receipt_date)=date('"+d+"') where cs.cashier_name='" + name + "'"
-            String s2 = "call pb_pos_restaurant.get_receipts(:a_name,:a_date);";
-
-            s2 = SqlStringUtil.parse(s2).setString("a_name", name).setDate("a_date", d).ok();
+//            String s2 = "select id,receipt_date,tendered,discount from  " + MyDB.getNames() + ".get_receipts(:a_name,:a_date);";
+//
+//            s2 = SqlStringUtil.parse(s2).setString("a_name", name).setDate("a_date", d).ok();
 
             double qq = 0;
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(s2);
+            ResultSet rs = stmt.executeQuery(s1);
             while (rs.next()) {
                 String num = rs.getString(1);
-//                Date d = sf.format(rs.getDate(2));
                 String aw = sf.format(rs.getTimestamp(2));
-
                 String tendered = (rs.getString(3));
-                 String discount=rs.getString(4);
+                String discount = rs.getString(4);
                 qq = Double.parseDouble(tendered);
-                tendered = ""+(qq + Double.parseDouble(discount));              
-                double amount=Double.parseDouble(tendered)-Double.parseDouble(discount);
-                to_receipts to = new to_receipts(num, aw, tendered,discount,amount);
+                tendered = "" + (qq + Double.parseDouble(discount));
+                double amount = Double.parseDouble(tendered) - Double.parseDouble(discount);
+                to_receipts to = new to_receipts(num, aw, tendered, discount, amount);
                 datas.add(to);
             }
             return datas;
@@ -79,7 +77,7 @@ public class S7_select_receipts {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select description,unit_price,qty,id from "+MyDB.getNames()+".receipt_items where receipt_id='" + num + "'";
+            String s0 = "select description,unit_price,qty,id from " + MyDB.getNames() + ".receipt_items where receipt_id='" + num + "'";
             Statement stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(s0);
@@ -87,7 +85,7 @@ public class S7_select_receipts {
                 String name = rs.getString(1);
                 double price = rs.getDouble(2);
                 double qty = rs.getDouble(3);
-                double amount = price * qty;              
+                double amount = price * qty;
                 String id = rs.getString(4);
                 System.out.println(name);
                 int prod_num = S9_add_product.get_product_num(name);

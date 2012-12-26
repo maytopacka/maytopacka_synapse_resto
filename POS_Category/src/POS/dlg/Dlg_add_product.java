@@ -640,7 +640,7 @@ private void btn_clearallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         double qty=Double.parseDouble(tb_qty.getText());
         String remarks=ta_remarks.getText();
         String desc=ta_description.getText();
-        S6_save_new_product.p_save_new_product(lookup, prod_name, desc, price, qty_per_head, qty, remarks);
+//        S6_save_new_product.p_save_new_product(lookup, prod_name, desc, price, qty_per_head, qty, remarks);
         do_clearall();
     }
     

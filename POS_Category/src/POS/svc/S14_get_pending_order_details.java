@@ -22,42 +22,42 @@ import overallPOS.modules.share.utils.SqlStringUtil;
 public class S14_get_pending_order_details {
 
     //<editor-fold defaultstate="collapsed" desc="p_select_pending_lists">
-    public static List<to_order> p_select_pending_lists(String cust_name) {
-        try {
-            String s0 = "call pb_pos_restaurant.p_select_pending_lists( "
-                        + "  :a_customer_name "
-                        + "); ";
-            s0 = SqlStringUtil.parse(s0).setString("a_customer_name", cust_name).ok();
-
-            Lg.$.severe(s0);
-
-            Connection conn = PoolConnection.connect();
-
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(s0);
-
-            List<to_order> retval = new ArrayList();
-            while (rs.next()) {
-                String product_name = rs.getString("product_name");
-                double price = rs.getDouble("price");
-                double qty = rs.getDouble("qty");
-                String desc = rs.getString("description");
-                to_order to = new to_order(desc, price, qty, "", product_name, 0, "-1", "-1","cat",0);
-                retval.add(to);
-            }
-
-            return retval;
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            PoolConnection.close();
-        }
-    }
+//    public static List<to_order> p_select_pending_lists(String cust_name) {
+//        try {
+//            String s0 = "call pb_pos_restaurant.p_select_pending_lists( "
+//                        + "  :a_customer_name "
+//                        + "); ";
+//            s0 = SqlStringUtil.parse(s0).setString("a_customer_name", cust_name).ok();
+//
+//            Lg.$.severe(s0);
+//
+//            Connection conn = PoolConnection.connect();
+//
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(s0);
+//
+//            List<to_order> retval = new ArrayList();
+//            while (rs.next()) {
+//                String product_name = rs.getString("product_name");
+//                double price = rs.getDouble("price");
+//                double qty = rs.getDouble("qty");
+//                String desc = rs.getString("description");
+//                to_order to = new to_order(desc, price, qty, "", product_name, 0, "-1", "-1","cat",0);
+//                retval.add(to);
+//            }
+//
+//            return retval;
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            PoolConnection.close();
+//        }
+//    }
     //</editor-fold>
 
     public static void main(String[] args) {
-        p_select_pending_lists("pascua");
+//        p_select_pending_lists("pascua");
 
     }
 }

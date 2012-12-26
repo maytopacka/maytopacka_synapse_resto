@@ -1156,8 +1156,8 @@ private void cb_timeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 
     private void set_time(String time) {
 
-        cb_time.setModel(new ListComboBoxModel(S6_check_time.check_time(dp_date.
-                getDate(), timer)));
+//        cb_time.setModel(new ListComboBoxModel(S6_check_time.check_time(dp_date.
+//                getDate(), timer)));
 
 //          JOptionPane.showMessageDialog(null, "adad");
     }
