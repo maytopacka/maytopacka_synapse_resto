@@ -1262,11 +1262,16 @@ private void tf_usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_tf_usernameMouseClicked
 
     private void show_keyboard_user_name() {
-        type = 1;
-        tf_password.setVisible(false);
-        tf_user_name.setVisible(true);
-        tf_user_name.setText(tf_username.getText());
-        show_cp();
+        if (System.getProperty("touch", "false").
+                equals("true")) {
+            type = 1;
+            tf_password.setVisible(false);
+            tf_user_name.setVisible(true);
+            tf_user_name.setText(tf_username.getText());
+            show_cp();
+        } else {
+        }
+
     }
 
 private void btn_returnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_returnActionPerformed
@@ -1280,11 +1285,16 @@ private void pf_passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_pf_passwordMouseClicked
 
     private void show_keyboard_user_password() {
-        type = 2;
-        tf_password.setVisible(true);
-        tf_user_name.setVisible(false);
-        tf_user_name.setText(pf_password.getText());
-        show_cp();
+        if (System.getProperty("touch", "false").
+                equals("true")) {
+            type = 2;
+            tf_password.setVisible(true);
+            tf_user_name.setVisible(false);
+            tf_user_name.setText(pf_password.getText());
+            show_cp();
+        } else {
+        }
+
     }
 private void btn_returnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_returnMouseClicked
 // TODO add your handling code here:

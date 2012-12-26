@@ -249,14 +249,10 @@ public class Dlg_scroll extends javax.swing.JDialog {
         List<S2_search.to_items> results = S2_search.ret_items("", "");
         int i = 0;
         for (S2_search.to_items s : results) {
-//            System.out.println(img_path + s);
-//            to_details to = new to_details(img_path + s, "NAME", 100, 100);
-//            names, "pcs", desc, price, qty,img_path
-            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, "-1", s.cat_id, s.category_name);
+            S2_search.to_items to = new S2_search.to_items(s.name, s.uom, s.desc, s.price, s.qty, s.img_path, s.qty2, "-1", s.cat_id, s.category_name, s.printing_assembly, s.status);
             item_model.add(i, to);
             i++;
         }
-
         jg_orders.setModel(item_model);
 //        jg_items.setPreferredSize(new Dimension(400, 400));
         jg_orders.setFixedCellDimension(170);

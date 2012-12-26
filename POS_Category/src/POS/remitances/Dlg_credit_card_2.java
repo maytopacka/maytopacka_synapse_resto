@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import overallPOS.modules.share.utils.CloseDialog;
+import overallPOS.modules.share.utils.FitIn;
 import overallPOS.modules.share.utils.KeyMapping;
 import overallPOS.modules.share.utils.KeyMapping.KeyAction;
 
@@ -40,16 +41,20 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
 
     public static class OutputData {
 
+        public final String card_holder;
         public final String card_no;
         public final String bank;
         public final String type;
         public final String app_code;
+        public final double credit_amount;
 
-        public OutputData(String card_no, String bank, String type, String app_code) {
+        public OutputData(String card_holder, String card_no, String bank, String type, String app_code, double credit_amount) {
+            this.card_holder = card_holder;
             this.card_no = card_no;
             this.bank = bank;
             this.type = type;
             this.app_code = app_code;
+            this.credit_amount = credit_amount;
         }
     }
 //</editor-fold>
@@ -106,7 +111,8 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
                 dialog = new Dlg_credit_card_2((java.awt.Frame) parent, false);
                 dialog.setModalityType(modalType);
                 dialogContainer.put(parent, dialog);
-                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
                 dialog.setThisRef(dialog);
                 return dialog;
             } else {
@@ -123,7 +129,8 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
                 dialog = new Dlg_credit_card_2((java.awt.Dialog) parent, false);
                 dialog.setModalityType(modalType);
                 dialogContainer.put(parent, dialog);
-                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
                 dialog.setThisRef(dialog);
                 return dialog;
             } else {
@@ -142,7 +149,8 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
     public static void main(String args[]) {
 
         try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.
+                    getSystemLookAndFeelClassName());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -159,7 +167,8 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible == true) {
-            getContentPane().removeAll();
+            getContentPane().
+                    removeAll();
             initComponents();
             myInit();
             repaint();
@@ -198,6 +207,10 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cb_card_type = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        tf_amount = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tf_card_holder = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -247,42 +260,74 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
         cb_card_type.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cb_card_type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PREMIUM", "SILVER", "GOLD" }));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("AMOUNT:");
+
+        tf_amount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tf_amount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_amount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_amountActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("CARD HOLDER:");
+
+        tf_card_holder.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tf_card_holder.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cb_card_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(cb_bank, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tf_app_code, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_card_holder, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cb_card_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cb_bank, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(tf_app_code, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(4, 4, 4))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(tf_credit_card, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_card_holder, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_credit_card, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,7 +344,11 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_app_code, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -320,6 +369,10 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
     private void tf_app_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_app_codeActionPerformed
         ok1();
     }//GEN-LAST:event_tf_app_codeActionPerformed
+
+    private void tf_amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_amountActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_amountActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -333,15 +386,21 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField tf_amount;
     private javax.swing.JTextField tf_app_code;
+    private javax.swing.JTextField tf_card_holder;
     private javax.swing.JTextField tf_credit_card;
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
         init_key();
     }
+    double amounts = 0;
 
-    public void do_pass() {
+    public void do_pass(double to_pay) {
+        amounts = to_pay;
     }
     // <editor-fold defaultstate="collapsed" desc="Key">
 
@@ -364,18 +423,26 @@ public class Dlg_credit_card_2 extends javax.swing.JDialog {
 
     private void ok1() {
         String card_no = tf_app_code.getText();
-        String bank = cb_bank.getSelectedItem().toString();
-        String card_type = cb_bank.getSelectedItem().toString();
+        String bank = cb_bank.getSelectedItem().
+                toString();
+        String card_type = cb_bank.getSelectedItem().
+                toString();
         String app_code = tf_app_code.getText();
+        String card_holder = tf_card_holder.getText();
+        double amount = FitIn.toDouble(tf_amount.getText());
 
-
-        if (card_no.isEmpty() || bank.isEmpty() || card_type.isEmpty() || app_code.isEmpty()) {
+        if (amount <= 0 || amount > amounts) {
+            JOptionPane.showMessageDialog(null, "Input Amount");
+            return;
+        }
+        if (card_no.isEmpty() || bank.isEmpty() || card_type.isEmpty() || app_code.
+                isEmpty() || card_holder.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Complete Details");
             return;
         }
         if (callback != null) {
-            callback.ok(new CloseDialog(this), new OutputData(card_no, bank, card_type, app_code));
+            callback.ok(new CloseDialog(this), new OutputData(card_holder, card_no, bank, card_type, app_code, amount));
         }
     }
 }

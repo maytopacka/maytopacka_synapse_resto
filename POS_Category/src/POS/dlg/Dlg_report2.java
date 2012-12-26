@@ -416,6 +416,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         initActionKey();
         do_set_date();
         hide_period();
+        b_name = System.getProperty("entityName", "");
         if (System.getProperty("version", "resto").equals("resto")) {
             jButton2.setVisible(false);
             jButton5.setVisible(false);
@@ -428,6 +429,10 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton5.setVisible(false);
             jButton8.setVisible(false);
             jButton10.setVisible(false);
+        }
+        if (System.getProperty("version", "ordering").equals("ordering")) {
+            jButton6.setText("Customers");
+            jButton6.setVisible(false);
         }
     }
     String b_name = "";
@@ -521,39 +526,36 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
         Date date_from = dp_date.getDate();
         Date date_to = dp_dateto.getDate();
-
         rpt_report.do_admin_report_all(date_from, date_to);
         callback.ok(new CloseDialog(this), new OutputData());
     }
+    String mydb = System.getProperty("mydb", "db_pos_casablanca");
 
     private void do_sales() {
-
 //        String name = System.getProperty("entityName", "Intelink-One");
         if (rb_daily.isSelected()) {
-            final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name);
+            final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name, mydb);
             Executor.doExecute(this, new Executor.Task() {
 
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_liquid");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_casablanca");
                     }
-
                 }
             });
         } else {
-
-            final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name);
+            final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name, mydb);
             Executor.doExecute(this, new Executor.Task() {
 
                 @Override
                 public void work_on() {
                     if (System.getProperty("version", "resto").equals("resto")) {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_liquid");
                     } else {
-                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_resto_2");
+                        rpt_report.pdf_viewer_receipts2(to, "rpt_receipts_w_category_casablanca");
                     }
                 }
             });
@@ -566,28 +568,17 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void do_inventory() {
 
-
-
-//        if (rb_daily.isSelected()) {
-//
-//            final to_date_from to = new to_date_from(dp_date.getDate(), b_name);
-//            Executor.doExecute(this, new Executor.Task() {
-//
-//                @Override
-//                public void work_on() {
-//                    rpt_report.pdf_viewer_receipts(to, "rpt_inventory2_daily");
-//                }
-//            });
-//
-//
-//        } else {
-
-        final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name);
+        final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name, mydb);
         Executor.doExecute(this, new Executor.Task() {
 
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_daily_2_1_1");
+                if (System.getProperty("version", "resto").equals("ordering")) {
+                    rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_liquid");
+                } else {
+                    rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_casablanca");
+                }
+
             }
         });
 
@@ -604,7 +595,12 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_1_1_1");
+                if (System.getProperty("version", "resto").equals("resto")) {
+                    rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_liquid_1");
+                } else {
+                    rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left_casablanca_1");
+                }
+
             }
         });
 
@@ -614,19 +610,18 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     private void do_cash() {
-
+        
         final to_date_from to = new to_date_from(dp_date.getDate(), b_name);
         Executor.doExecute(this, new Executor.Task() {
-
             @Override
             public void work_on() {
-                rpt_report.pdf_viewer_receipts(to, "rpt_cash_in_out_1");
+                if (System.getProperty("version", "resto").equals("ordering")) {
+                    rpt_report.pdf_viewer_receipts(to, "rpt_cash_in_out_liquid_1");
+                } else {
+                    rpt_report.pdf_viewer_receipts(to, "rpt_cash_in_out_casablanca_1");
+                }
             }
         });
-
-
-
-
     }
 
     private void do_pending() {

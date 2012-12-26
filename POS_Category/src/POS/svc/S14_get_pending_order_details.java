@@ -42,7 +42,7 @@ public class S14_get_pending_order_details {
                 double price = rs.getDouble("price");
                 double qty = rs.getDouble("qty");
                 String desc = rs.getString("description");
-                to_order to = new to_order(desc, price, qty, "", product_name, 0, "-1", "-1","cat");
+                to_order to = new to_order(desc, price, qty, "", product_name, 0, "-1", "-1","cat",0);
                 retval.add(to);
             }
 

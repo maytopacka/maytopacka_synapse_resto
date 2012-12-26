@@ -62,7 +62,7 @@ public class S15_save_new_pen_orders {
                     String code = rs.getString("product_name");
                     double price = rs.getDouble("price");
                     String name = S3_get_qty_price.get_name(code);
-                    to_order to = new to_order(name, price, qty, "pcs", code, qty, "-1", "-1","cat");
+                    to_order to = new to_order(name, price, qty, "pcs", code, qty, "-1", "-1","cat",0);
                     datas.add(to);
                 }
 

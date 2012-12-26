@@ -10,6 +10,8 @@ package POS.to2;
  */
 public class to_credit {
 
+        
+
     public  String credit_card_no;
     public  String card_holder;
     public  String author_code;

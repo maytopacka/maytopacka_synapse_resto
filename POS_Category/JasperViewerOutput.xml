@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperPrint xmlns="http://jasperreports.sourceforge.net/jasperreports/print" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/print http://jasperreports.sourceforge.net/xsd/jasperprint.xsd" name="report name" pageWidth="595" pageHeight="842" topMargin="20" leftMargin="20" bottomMargin="20" rightMargin="20" locale="en_US" timezone="Asia/Shanghai">
 	<property name="net.sf.jasperreports.export.xml.start.page.index" value="0"/>
-	<property name="net.sf.jasperreports.export.xml.end.page.index" value="-1"/>
-	<property name="net.sf.jasperreports.export.xml.page.count" value="0"/>
-	<origin group="category" band="groupHeader"/>
-	<origin group="category" band="groupFooter"/>
+	<property name="net.sf.jasperreports.export.xml.end.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.page.count" value="1"/>
 	<origin band="background"/>
 	<origin band="title"/>
 	<origin band="pageHeader"/>
@@ -13,4 +11,150 @@
 	<origin band="columnFooter"/>
 	<origin band="pageFooter"/>
 	<origin band="summary"/>
+	<page>
+		<text textHeight="12.578125" valueClass="java.util.Date" pattern="MMMMM dd, yyyy">
+			<reportElement x="271" y="72" width="89" height="20" origin="1" srcId="1"/>
+			<textContent><![CDATA[December 26, 2012]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="0.0">
+			<reportElement x="110" y="20" width="400" height="32" origin="1" srcId="2"/>
+			<font size="20" isBold="true"/>
+			<textContent><![CDATA[]]></textContent>
+		</text>
+		<text textHeight="15.09375">
+			<reportElement x="246" y="52" width="100" height="20" origin="1" srcId="3"/>
+			<font size="12" isBold="true"/>
+			<textContent><![CDATA[CASH IN & OUT]]></textContent>
+		</text>
+		<text textHeight="12.578125">
+			<reportElement x="236" y="72" width="35" height="20" origin="1" srcId="4"/>
+			<textContent><![CDATA[DATE:]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="21" y="142" width="195" height="20" origin="3" srcId="5"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[USER]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="215" y="142" width="89" height="20" origin="3" srcId="6"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[DATE ADDED]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="304" y="142" width="80" height="20" origin="3" srcId="7"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[CASH IN]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="384" y="142" width="100" height="20" origin="3" srcId="8"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[CASH OUT]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="484" y="142" width="91" height="20" origin="3" srcId="9"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[ACTUAL SALES]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="21" y="165" width="195" height="20" origin="4" srcId="10"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[cashier]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" valueClass="java.sql.Timestamp" pattern="M/d/yy h:mm a">
+			<reportElement x="215" y="165" width="89" height="20" origin="4" srcId="11"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[12/26/12 12:00 AM]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" rotation="None" markup="none" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement mode="Transparent" x="304" y="165" width="80" height="20" forecolor="#000000" backcolor="#FFFFFF" origin="4" srcId="12"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<paragraph lineSpacing="Single"/>
+			<textContent><![CDATA[200.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" rotation="None" markup="none" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement mode="Transparent" x="384" y="165" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" origin="4" srcId="13"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<paragraph lineSpacing="Single"/>
+			<textContent><![CDATA[0.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" rotation="None" markup="none" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement mode="Transparent" x="484" y="165" width="91" height="20" forecolor="#000000" backcolor="#FFFFFF" origin="4" srcId="14"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+				<leftPen lineWidth="1.0"/>
+				<bottomPen lineWidth="1.0"/>
+				<rightPen lineWidth="1.0"/>
+			</box>
+			<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<paragraph lineSpacing="Single"/>
+			<textContent><![CDATA[10,230.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement x="497" y="205" width="78" height="20" origin="7" srcId="15"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+			</box>
+			<textContent><![CDATA[10,430.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" rotation="None" markup="none" valueClass="java.lang.Double" pattern="#,##0.00">
+			<reportElement mode="Transparent" x="384" y="205" width="90" height="20" forecolor="#000000" backcolor="#FFFFFF" origin="7" srcId="16"/>
+			<box>
+				<topPen lineWidth="1.0"/>
+			</box>
+			<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+			<paragraph lineSpacing="Single"/>
+			<textContent><![CDATA[0.00]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125">
+			<reportElement x="474" y="205" width="24" height="20" origin="7" srcId="17"/>
+			<textContent><![CDATA[=]]></textContent>
+		</text>
+	</page>
 </jasperPrint>

@@ -33,7 +33,8 @@ public class S9_add_product {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount,cat_id,cost  from "+MyDB.getNames()+".inventory2_stocks_left"
+            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount"
+                        + ",cat_id,cost,printing_assembly  from " + MyDB.getNames() + ".inventory2_stocks_left"
                         + " where types='" + type + "' and  product_name like '" + names + "%' or types='" + type + "' and  description like '" + names + "%' order by description asc";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -50,7 +51,8 @@ public class S9_add_product {
                 double comm_amount = rs.getDouble(10);
                 String cat_id = rs.getString(11);
                 double cost = rs.getDouble(12);
-                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_id, cost);
+                int printing_assembly = rs.getInt(13);
+                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_id, cost, printing_assembly);
                 datas.add(to);
             }
 
@@ -70,7 +72,7 @@ public class S9_add_product {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount,cat_id,cost  from "+MyDB.getNames()+".inventory2_stocks_left"
+            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount,cat_id,cost,printing_assembly  from " + MyDB.getNames() + ".inventory2_stocks_left"
                         + " where cat_id='" + cat_id + "' and  product_name like '" + names + "%' or cat_id='" + type + "' and  description like '" + names + "%' order by description asc";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -87,7 +89,8 @@ public class S9_add_product {
                 double comm_amount = rs.getDouble(10);
                 String cat_ids = rs.getString(11);
                 double cost = rs.getDouble(12);
-                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_ids, cost);
+                int printing_assembly = rs.getInt(13);
+                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_ids, cost, printing_assembly);
                 datas.add(to);
             }
 
@@ -100,15 +103,12 @@ public class S9_add_product {
     }
 
     public static List<to_add_product> ret_products_search(String type, String names) {
-
         List<to_add_product> datas = new ArrayList();
-
-
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount,cat_id,cost  from "+MyDB.getNames()+".inventory2_stocks_left"
-                        + " where   product_name like '%" + names + "%' or  description like '%" + names + "%' order by description asc";
+            String s0 = "select product_name,description,price,product_qty,prod_num,is_vat,types_num,is_linient,w_commission,comm_amount,cat_id,cost,printing_assembly  from " + MyDB.getNames() + ".inventory2_stocks_left"
+                        + " where description like '%" + names + "%' and cat_id like '%" + type + "%' order by description asc";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -126,7 +126,8 @@ public class S9_add_product {
                 double comm_amount = rs.getDouble(10);
                 String cat_id = rs.getString(11);
                 double cost = rs.getDouble(12);
-                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_id, cost);
+                int printing_assembly = rs.getInt(13);
+                to_add_product to = new to_add_product(name, desc, price, qty, num, vat, types_num, is_linient, w_commission, comm_amount, cat_id, cost, printing_assembly);
                 datas.add(to);
             }
 
@@ -153,7 +154,7 @@ public class S9_add_product {
         }
         try {
             Connection conn = PoolConnection.connect();
-            String s0 = "insert into "+MyDB.getNames()+".inventory2(prod_num,product_name,description,price,product_qty,remarks,types,types_num,supplier_id,created,modified)values(?,?,?,?,?,?,?,?,?,?,?)";
+            String s0 = "insert into " + MyDB.getNames() + ".inventory2(prod_num,product_name,description,price,product_qty,remarks,types,types_num,supplier_id,created,modified)values(?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(s0);
             stmt.setString(1, name);
             stmt.setString(2, name);
@@ -169,7 +170,7 @@ public class S9_add_product {
 //            stmt.execute();
 
 
-            String s1 = "insert into "+MyDB.getNames()+".inventory2_stocks_left(prod_num,product_name,description,price,product_qty,types,types_num,is_vat,prod_assembly,is_linient,w_commission,comm_amount,cat_id,cost,img_path)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String s1 = "insert into " + MyDB.getNames() + ".inventory2_stocks_left(prod_num,product_name,description,price,product_qty,types,types_num,is_vat,prod_assembly,is_linient,w_commission,comm_amount,cat_id,cost,img_path)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt2 = conn.prepareStatement(s1);
             stmt2.setInt(1, num);
             stmt2.setString(2, name);
@@ -192,7 +193,7 @@ public class S9_add_product {
             if (tt.isEmpty()) {
             } else {
                 for (S7_uom.to_product_uom t : tt) {
-                    String s2 = "insert into "+MyDB.getNames()+".product_uom(uom,uom_amount,prod_num)values(?,?,?)";
+                    String s2 = "insert into " + MyDB.getNames() + ".product_uom(uom,uom_amount,prod_num)values(?,?,?)";
                     PreparedStatement stmt3 = conn.prepareStatement(s2);
                     stmt3.setString(1, t.uom);
                     stmt3.setDouble(2, t.uom_amount);
@@ -218,7 +219,7 @@ public class S9_add_product {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select max(ifnull(prod_num,0)) from "+MyDB.getNames()+".inventory2_stocks_left";
+            String s0 = "select max(ifnull(prod_num,0)) from " + MyDB.getNames() + ".inventory2_stocks_left";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -238,7 +239,7 @@ public class S9_add_product {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select product_qty from "+MyDB.getNames()+".inventory2_stocks_left where product_name='" + name + "'";
+            String s0 = "select product_qty from " + MyDB.getNames() + ".inventory2_stocks_left where product_name='" + name + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -257,7 +258,7 @@ public class S9_add_product {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select prod_num from "+MyDB.getNames()+".inventory2_stocks_left where product_name='" + name + "'";
+            String s0 = "select prod_num from " + MyDB.getNames() + ".inventory2_stocks_left where product_name='" + name + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {

@@ -209,7 +209,7 @@ public class S1_check_in {
                     if (qty == 0) {
 
                         String s0 = "insert into " + MyDB.getNames() + ".customer_tables_details(table_no_id,qty,product_name,description,price,img_path,status"
-                                    + ",guest_id,guest_name,cat_id,date_added)values(?,?,?,?,?,?,?,?,?,?,?)";
+                                    + ",guest_id,guest_name,cat_id,date_added,printing_assembly)values(?,?,?,?,?,?,?,?,?,?,?,?)";
                         PreparedStatement stmt = conn.prepareStatement(s0);
                         stmt.setString(1, room_id);
                         stmt.setDouble(2, t.qty);
@@ -222,6 +222,7 @@ public class S1_check_in {
                         stmt.setString(9, guest.name);
                         stmt.setString(10, t.cat_id);
                         stmt.setString(11, now);
+                        stmt.setInt(12, t.printing_assembly);
                         stmt.execute();
                         my_amount += t.qty * t.price;
                         Lg.s(S1_check_in.class, "Successfully Added");

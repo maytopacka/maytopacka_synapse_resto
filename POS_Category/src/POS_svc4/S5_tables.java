@@ -48,8 +48,9 @@ public class S5_tables {
         public final List<Dlg_check.to_guests> to_guest;
         public final String rate_type;
         public final double percentage;
+        public final String state;
 
-        public to_tables2(String name, String no, String status, double amount, double rate, String guest_id, String guest_name, String date_added, List<to_guests> to_guest, String rate_type, double percentage) {
+        public to_tables2(String name, String no, String status, double amount, double rate, String guest_id, String guest_name, String date_added, List<to_guests> to_guest, String rate_type, double percentage, String state) {
             this.name = name;
             this.no = no;
             this.status = status;
@@ -61,6 +62,7 @@ public class S5_tables {
             this.to_guest = to_guest;
             this.rate_type = rate_type;
             this.percentage = percentage;
+            this.state = state;
         }
     }
 
@@ -68,8 +70,8 @@ public class S5_tables {
         List<to_tables2> datas = new ArrayList();
         try {
             Connection conn = PoolConnection.connect();
-
-            String s0 = "select table_name,id,rate,rate_type,percentage from " + MyDB.getNames() + ".tables";
+//            System.out.println(MyDB.getNames());
+            String s0 = "select table_name,id,rate,rate_type,percentage from " + MyDB.getNames() + ".tables where status='" + "0" + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -128,7 +130,8 @@ public class S5_tables {
                     rate = rate - deduct;
                 }
 
-                to_tables2 to = new to_tables2(name, id, status, amount, rate, guest_id, guest_name, date_added, guest, rate_type, percentage);
+
+                to_tables2 to = new to_tables2(name, id, status, amount, rate, guest_id, guest_name, date_added, guest, rate_type, percentage, "");
                 datas.add(to);
             }
             return datas;
@@ -146,7 +149,7 @@ public class S5_tables {
         try {
             Connection conn = PoolConnection.connect();
 
-            String s0 = "select table_name,id,rate,rate_type,percentage from " + MyDB.getNames() + ".tables";
+            String s0 = "select table_name,id,rate,rate_type,percentage,status from " + MyDB.getNames() + ".tables";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -159,9 +162,15 @@ public class S5_tables {
                 String date_added = DateType.datetime.format(new Date());
                 String rate_type = rs.getString(4);
                 double percentage = rs.getDouble(5);
+                String status = rs.getString(6);
+                if (status.equals("0")) {
+                    status = "ACTIVE";
+                } else {
+                    status = "INACTIVE";
+                }
 //             
 
-                to_tables2 to = new to_tables2(name, id, "0", rate, rate, guest_id, guest_name, date_added, new ArrayList(), rate_type, percentage);
+                to_tables2 to = new to_tables2(name, id, "0", rate, rate, guest_id, guest_name, date_added, new ArrayList(), rate_type, percentage, status);
                 datas.add(to);
             }
             return datas;
@@ -215,6 +224,26 @@ public class S5_tables {
         } finally {
             PoolConnection.close();
         }
+    }
+
+    public static void update_table_status(String table_id, String status) {
+        try {
+            Connection conn = PoolConnection.connect();
+            String s0 = "update " + MyDB.getNames() + ".tables set "
+                        + "status='" + status + "'"
+                        + " where id='" + table_id + "'";
+
+            PreparedStatement stmt = conn.prepareStatement(s0);
+            stmt.execute();
+
+//            Prompt.call("Successfully Updated");
+//             JOptionPane.showMessageDialog(null, "Successfully Updated");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            PoolConnection.close();
+        }
+//            Prompt.call("Successfully Updated");
     }
 
     public static void delete(String no) {

@@ -889,6 +889,7 @@ public class Dlg_add_product2 extends javax.swing.JDialog {
         load_date_e();
         jLabel5.setVisible(false);
         cb_assembly.setVisible(false);
+        jLabel8.setVisible(false);
 
     }
 
@@ -940,8 +941,8 @@ public class Dlg_add_product2 extends javax.swing.JDialog {
 //                jLabel5.setVisible(true);
 //                cb_assembly.setVisible(true);
 
-                jLabel8.setVisible(true);
-                tf_cost.setVisible(true);
+//                jLabel8.setVisible(true);
+//                tf_cost.setVisible(true);
 
             }
 

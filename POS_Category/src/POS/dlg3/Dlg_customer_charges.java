@@ -925,18 +925,14 @@ public class Dlg_customer_charges extends javax.swing.JDialog {
                 ok2(name, add, contact, credit_amount, data.to, data.pay_mode, num);
                 disposed();
             }
-
             @Override
             public void credit(CloseDialog closeDialog, Dlg_credit_card.OutputData data) {
                 ok2(name, add, contact, credit_amount, data.to, data.pay_mode, num);
-
 //                disposed();
             }
-
             @Override
             public void prepaid(CloseDialog closeDialog, Dlg_credit_card.OutputData data) {
                 ok2(name, add, contact, credit_amount, data.to, data.pay_mode, num);
-
 //                disposed();
             }
         });

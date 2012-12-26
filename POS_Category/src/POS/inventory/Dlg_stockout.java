@@ -557,7 +557,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
-        Main.MyDB.setNames("db_pos_restaurant");
+//        Main.MyDB.setNames("db_pos_restaurant");
         init_key();
         init_ref_no();
         tf_search.grabFocus();
@@ -767,7 +767,7 @@ public class Dlg_stockout extends javax.swing.JDialog {
             public void ok(CloseDialog closeDialog, Dlg_number2.OutputData data) {
                 closeDialog.ok();
                 List<to_add_product> acc = new ArrayList();
-                to_add_product to = new to_add_product(name, desc, price, "" + data.qty, num, vat, category_id, is_linient, w_commission, comm_amount, cat_id, cost);
+                to_add_product to = new to_add_product(name, desc, price, "" + data.qty, num, vat, category_id, is_linient, w_commission, comm_amount, cat_id, cost, 0);
                 acc.add(to);
                 loadData_out(acc);
             }

@@ -796,6 +796,8 @@ public class Dlg_Menu_update_product extends javax.swing.JDialog {
         String cashiering_for = System.getProperty("cashiering_for", "retail_store");
 //        JOptionPane.showMessageDialog(null, cashiering_for);
 
+        lb_comm_amount.setVisible(false);
+        jLabel8.setVisible(false);
         if (cashiering_for.equals("endorsements") || cashiering_for.equals("retail_store")) {
             cb_type.setVisible(false);
             jLabel4.setVisible(false);
@@ -864,13 +866,13 @@ public class Dlg_Menu_update_product extends javax.swing.JDialog {
             if (cashiering_for.equals("endorsements") || cashiering_for.equals("retail_store")) {
                 lb_com.setVisible(true);
                 jButton11.setVisible(true);
-                jLabel8.setVisible(true);
+//                jLabel8.setVisible(true);
                 tf_selling_price.setVisible(true);
                 jLabel13.setVisible(true);
             } else {
                 lb_com.setVisible(false);
                 jButton11.setVisible(false);
-                jLabel8.setVisible(true);
+//                jLabel8.setVisible(true);
                 tf_selling_price.setVisible(true);
                 jLabel13.setVisible(false);
             }

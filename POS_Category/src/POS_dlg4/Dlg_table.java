@@ -18,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import overallPOS.modules.share.utils.*;
@@ -190,9 +191,8 @@ public class Dlg_table extends javax.swing.JDialog {
     private void initComponents() {
 
         pm_po = new javax.swing.JPopupMenu();
-        edit = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        delete = new javax.swing.JMenuItem();
+        jcb_enable = new javax.swing.JCheckBoxMenuItem();
+        jcb_disable = new javax.swing.JCheckBoxMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -203,22 +203,21 @@ public class Dlg_table extends javax.swing.JDialog {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        edit.setText("EDIT");
-        edit.addActionListener(new java.awt.event.ActionListener() {
+        jcb_enable.setText("ACTIVE");
+        jcb_enable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editActionPerformed(evt);
+                jcb_enableActionPerformed(evt);
             }
         });
-        pm_po.add(edit);
-        pm_po.add(jSeparator1);
+        pm_po.add(jcb_enable);
 
-        delete.setText("DELETE");
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        jcb_disable.setText("INACTIVE");
+        jcb_disable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                jcb_disableActionPerformed(evt);
             }
         });
-        pm_po.add(delete);
+        pm_po.add(jcb_disable);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -341,11 +340,6 @@ public class Dlg_table extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        // TODO add your handling code here:
-        do_edit_table();
-    }//GEN-LAST:event_editActionPerformed
-
     private void tbl_tablesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablesMousePressed
         // TODO add your handling code here:
         pm_tbl_users(evt);
@@ -360,11 +354,6 @@ public class Dlg_table extends javax.swing.JDialog {
         // TODO add your handling code here:
         do_add_table();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        // TODO add your handling code here:
-        do_delete_table();
-    }//GEN-LAST:event_deleteActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         disposed();
@@ -381,12 +370,18 @@ public class Dlg_table extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         types();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jcb_enableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_enableActionPerformed
+        update_table_status_enable();
+    }//GEN-LAST:event_jcb_enableActionPerformed
+
+    private void jcb_disableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_disableActionPerformed
+        update_table_status_disable();
+    }//GEN-LAST:event_jcb_disableActionPerformed
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem delete;
-    private javax.swing.JMenuItem edit;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -394,14 +389,15 @@ public class Dlg_table extends javax.swing.JDialog {
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JCheckBoxMenuItem jcb_disable;
+    private javax.swing.JCheckBoxMenuItem jcb_enable;
     private javax.swing.JLabel lbl_name;
     private javax.swing.JPopupMenu pm_po;
     private javax.swing.JTable tbl_tables;
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
-//        Main.MyDB.setNames("db_pos_restaurant");
+//        Main.MyDB.setNames("db_pos_casablanca");
         if (System.getProperty("version", "resto").equals("resto")) {
             lbl_name.setText("ROOM MANAGEMENT");
         }
@@ -412,8 +408,29 @@ public class Dlg_table extends javax.swing.JDialog {
     }
 
     private void pm_tbl_users(MouseEvent evt) {
+        int row = tbl_tables.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        final String no = tbl_tables.getModel().
+                getValueAt(row, 1).
+                toString();
+        final String status = tbl_tables.getModel().
+                getValueAt(row, 5).
+                toString();
+//        JOptionPane.showMessageDialog(null, status);
+        if (status.equals("ACTIVE")) {
+            jcb_enable.setSelected(true);
+            jcb_disable.setSelected(false);
+        } else {
+            jcb_disable.setSelected(true);
+            jcb_enable.setSelected(false);
+        }
         if (evt.isPopupTrigger()) {
+
             pm_po.show(evt.getComponent(), evt.getX(), evt.getY());
+
         }
     }
 
@@ -459,7 +476,7 @@ public class Dlg_table extends javax.swing.JDialog {
         tbl_tables.setRowHeight(25);
 
 //        tbl_tables.setAutoResizeMode(0);
-        int[] tbl_widths_accounts = {200, 0, 100, 100, 100};
+        int[] tbl_widths_accounts = {200, 0, 100, 100, 100, 100};
 
         for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
             if (i == 0) {
@@ -470,14 +487,11 @@ public class Dlg_table extends javax.swing.JDialog {
 //          TableWidthUtilities.
 //          TableWidthUtilities.
         }
-
         tbl_tables.getTableHeader().
                 setFont(new java.awt.Font("Arial", Font.BOLD, 12));
         tbl_tables.setRowHeight(30);
         tbl_tables.setFont(new java.awt.Font("Arial", Font.BOLD, 12));
         TableUtility.align_row_to_Center(tbl_tables, 0);
-
-
 
     }
 
@@ -489,7 +503,7 @@ public class Dlg_table extends javax.swing.JDialog {
     public static class TblInvoicesModel extends AbstractTableAdapter {
 
         public static String[] COLUMNS = {
-            "ROOMS", "No", "RATE", "Rate Type", "Percentage"
+            "ROOMS", "No", "RATE", "Rate Type", "Percentage", "STATUS"
         };
 
         public TblInvoicesModel(ListModel listmodel) {
@@ -525,8 +539,10 @@ public class Dlg_table extends javax.swing.JDialog {
                 return FitIn.fmt_wc_0(tt.rate);
             case 3:
                 return tt.rate_type;
-            default:
+            case 4:
                 return tt.percentage;
+            default:
+                return tt.state;
             }
         }
     }
@@ -604,6 +620,33 @@ public class Dlg_table extends javax.swing.JDialog {
         S5_tables.edit(name, no, rate, type, percent);
     }
 
+    private void update_table_status_enable() {
+        int row = tbl_tables.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        final String no = tbl_tables.getModel().
+                getValueAt(row, 1).
+                toString();
+
+        S5_tables.update_table_status(no, "0");
+        data_employee();
+    }
+
+    private void update_table_status_disable() {
+        int row = tbl_tables.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        final String no = tbl_tables.getModel().
+                getValueAt(row, 1).
+                toString();
+
+        S5_tables.update_table_status(no, "1");
+        data_employee();
+    }
+
     private void do_delete_table() {
 
         int row = tbl_tables.getSelectedRow();
@@ -644,7 +687,7 @@ public class Dlg_table extends javax.swing.JDialog {
     }
 
     private void types() {
-        
+
         Window p = (Window) this;
         Dlg_table_types nd = Dlg_table_types.create(p, true);
         nd.setTitle("");

@@ -388,7 +388,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -398,9 +398,8 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        do_sales_ball_field() ;
+        do_sales_ball_field();
     }//GEN-LAST:event_jButton8ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser dp_date;
@@ -430,20 +429,22 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         do_set_date();
         hide_period();
     }
-    String b_name="";
-    public void do_pass(String name){
-        b_name=name;
+    String b_name = "";
+
+    public void do_pass(String name) {
+        b_name = name;
     }
 
-    private void do_act(){
+    private void do_act() {
         dp_date.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent pce) {
-               dp_dateto.setDate(dp_date.getDate());
+                dp_dateto.setDate(dp_date.getDate());
             }
         });
     }
+
     private void do_set_date() {
 //        Date date = S5_ret_system_date.do_ret_system_date();
         dp_date.setDate(new Date());
@@ -550,15 +551,15 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //
 //        } else {
 
-            final  to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name);
-            Executor.doExecute(this, new Executor.Task() {
+        final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name,"");
+        Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_receipts2(to, "rpt_sales_2_1");
-                }
-            });
-           
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_receipts2(to, "rpt_sales_2_1");
+            }
+        });
+
 //            rpt_report.do_admin_report_all(dp_date.getDate(), dp_dateto.getDate());
 
 //        }
@@ -569,7 +570,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //        }
 
     }
-    
+
     private void do_sales_canteen() {
 
         String name = System.getProperty("entityName", "Intelink-One");
@@ -587,15 +588,15 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //
 //        } else {
 
-            final  to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name);
-            Executor.doExecute(this, new Executor.Task() {
+        final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name,"");
+        Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_receipts2(to, "rpt_sales_canteen");
-                }
-            });
-           
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_receipts2(to, "rpt_sales_canteen");
+            }
+        });
+
 //            rpt_report.do_admin_report_all(dp_date.getDate(), dp_dateto.getDate());
 
 //        }
@@ -606,6 +607,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //        }
 
     }
+
     private void do_sales_ball_field() {
 
         String name = System.getProperty("entityName", "Intelink-One");
@@ -623,15 +625,15 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 //
 //        } else {
 
-            final  to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name);
-            Executor.doExecute(this, new Executor.Task() {
+        final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), name,"");
+        Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_receipts2(to, "rpt_sales_ballfield");
-                }
-            });
-           
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_receipts2(to, "rpt_sales_ballfield");
+            }
+        });
+
 //            rpt_report.do_admin_report_all(dp_date.getDate(), dp_dateto.getDate());
 
 //        }
@@ -645,11 +647,11 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     private void do_inventory() {
 
-        
-        
-          if (rb_daily.isSelected()) {
 
-          final  to_date_from to = new to_date_from(dp_date.getDate(), b_name);
+
+        if (rb_daily.isSelected()) {
+
+            final to_date_from to = new to_date_from(dp_date.getDate(), b_name);
             Executor.doExecute(this, new Executor.Task() {
 
                 @Override
@@ -657,11 +659,11 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     rpt_report.pdf_viewer_receipts(to, "rpt_inventory2_daily");
                 }
             });
-           
+
 
         } else {
 
-            final  to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name);
+            final to_date_to to = new to_date_to(dp_date.getDate(), dp_dateto.getDate(), b_name,"");
             Executor.doExecute(this, new Executor.Task() {
 
                 @Override
@@ -669,84 +671,87 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     rpt_report.pdf_viewer_receipts2(to, "rpt_inventory2_daily_2");
                 }
             });
-           
+
 //            rpt_report.do_admin_report_all(dp_date.getDate(), dp_dateto.getDate());
 
         }
 
     }
+
     private void do_inventory_stocks_left() {
 
-        
-        
-          
 
-          final  to_date_from to = new to_date_from(dp_date.getDate(), b_name);
-            Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left");
-                }
-            });
-           
 
-       
+
+        final to_date_from to = new to_date_from(dp_date.getDate(), b_name);
+        Executor.doExecute(this, new Executor.Task() {
+
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_receipts(to, "rpt_stocks_left");
+            }
+        });
+
+
+
 
     }
 
     private void do_pending() {
-        
+
 //        rpt_report.do_pending();
 
-         final  to_date_from to = new to_date_from(new Date(), b_name);
-            Executor.doExecute(this, new Executor.Task() {
+        final to_date_from to = new to_date_from(new Date(), b_name);
+        Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_pendings(to, "rpt_pendings");
-                }
-            });
-           
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_pendings(to, "rpt_pendings");
+            }
+        });
+
     }
-    
-    private void do_charges(){
-         final  to_date_from to = new to_date_from(new Date(), b_name);
-            Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_pendings(to, "rpt_receivables");
-                }
-            });
+    private void do_charges() {
+        final to_date_from to = new to_date_from(new Date(), b_name);
+        Executor.doExecute(this, new Executor.Task() {
+
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_pendings(to, "rpt_receivables");
+            }
+        });
     }
-     private void do_custmers(){
-         final  to_date_from to = new to_date_from(new Date(), b_name);
-            Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_pendings(to, "rpt_customers");
-                }
-            });
+    private void do_custmers() {
+        final to_date_from to = new to_date_from(new Date(), b_name);
+        Executor.doExecute(this, new Executor.Task() {
+
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_pendings(to, "rpt_customers");
+            }
+        });
     }
-     private void do_inventory_endorsements() {
 
-        
-        
-          
+    private void do_inventory_endorsements() {
 
-          final  to_date_from to = new to_date_from(dp_date.getDate(), b_name);
-            Executor.doExecute(this, new Executor.Task() {
 
-                @Override
-                public void work_on() {
-                    rpt_report.pdf_viewer_receipts(to, "rpt_commission_1");
-                }
-            });
-           
 
-       
+
+
+        final to_date_from to = new to_date_from(dp_date.getDate(), b_name);
+        Executor.doExecute(this, new Executor.Task() {
+
+            @Override
+            public void work_on() {
+                rpt_report.pdf_viewer_receipts(to, "rpt_commission_1");
+            }
+        });
+
+
+
 
     }
 }

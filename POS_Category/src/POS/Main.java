@@ -128,6 +128,7 @@ public class Main {
             System.setProperty("receipt_footer", prop.getProperty("receipt_footer", "THIS IS NOT AN OFFICIAL RECEIPT\nThank you come again!!!"));
 
             System.setProperty("stock_lenient", prop.getProperty("stock_lenient", "false"));
+            System.setProperty("touch", prop.getProperty("touch", "false"));
             System.setProperty("do_print", prop.getProperty("do_print", "false"));
             System.setProperty("open_drawer", prop.getProperty("open_drawer", "false"));
             System.setProperty("mydb", prop.getProperty("mydb", "db_pos_restaurant"));
@@ -135,6 +136,17 @@ public class Main {
             String mydb = System.getProperty("mydb", "db_pos_restaurant");
             MyDB.setNames(mydb);
 
+            //RECEIPT CONFIGS
+            
+            System.setProperty("business_name", prop.getProperty("business_name", "Synapse Software Tech"));
+            System.setProperty("operated_by", prop.getProperty("operated_by", "Operated by: Ronald Pascua"));
+            System.setProperty("address", prop.getProperty("address", "Address: Dumaguete City"));
+            System.setProperty("telephone_number", prop.getProperty("telephone_number", "Tel No: 09261625529"));
+            System.setProperty("tin_no", prop.getProperty("tin_no", "TIN #: 0343434"));
+            System.setProperty("min_no", prop.getProperty("min_no", "MIN NO: 345345"));
+            System.setProperty("serial_no", prop.getProperty("serial_no", "Serial No. 32234"));
+            System.setProperty("permit_no", prop.getProperty("permit_no", "Permit No:435345"));
+            System.setProperty("pos_no", prop.getProperty("pos_no", "POS No:000001 "));
 
             System.out.println(MyDB.getNames() + " ------");
             Lg.$.severe(System.getProperty("receipt_printer"));

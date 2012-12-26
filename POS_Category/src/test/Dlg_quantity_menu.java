@@ -608,8 +608,12 @@ public class Dlg_quantity_menu extends javax.swing.JDialog {
     String guest_id = "-1";
     String cat_id = "-1";
     String category_name = "";
+    int print_assme = 0;
+    int status = 0;
 
     public void do_pass(S2_search.to_items to_items, List<S2_search.to_items_status> to_sub, int state, String guest, String cat) {
+        status = to_items.status;
+        print_assme = to_items.printing_assembly;
         my_price = to_items.price;
         my_qty = to_items.qty;
         stat = state;
@@ -967,7 +971,7 @@ public class Dlg_quantity_menu extends javax.swing.JDialog {
     }
 
     private void ok1() {
-        S2_search.to_items to_items = new S2_search.to_items(my_id, my_uom, lbl_name.getText(), FitIn.toDouble(lbl_price.getText()), FitIn.toDouble(tf_qty.getText()), my_img_path, FitIn.toDouble(tf_qty.getText()), guest_id, cat_id, category_name);
+        S2_search.to_items to_items = new S2_search.to_items(my_id, my_uom, lbl_name.getText(), FitIn.toDouble(lbl_price.getText()), FitIn.toDouble(tf_qty.getText()), my_img_path, FitIn.toDouble(tf_qty.getText()), guest_id, cat_id, category_name, print_assme, status);
         List<S2_search.to_items_status> to_sub = tbl_employee_payroll_ALM;
         double to_pay = FitIn.toDouble(lbl_price.getText());
         double qty = FitIn.toDouble(tf_qty.getText());

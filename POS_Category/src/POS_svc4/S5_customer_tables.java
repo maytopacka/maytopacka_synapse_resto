@@ -111,7 +111,7 @@ public class S5_customer_tables {
         try {
             Connection conn = PoolConnection.connect();
             String s0 = "select qty,product_name"
-                        + ",price,guest_id,cat_id from " + MyDB.getNames() + ".customer_tables_details where table_no_id='" + table_no + "'";
+                        + ",price,guest_id,cat_id,printing_assembly from " + MyDB.getNames() + ".customer_tables_details where table_no_id='" + table_no + "'";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
             while (rs.next()) {
@@ -123,6 +123,7 @@ public class S5_customer_tables {
                 String name = S3_get_qty_price.get_name(code);
                 String guest_id = rs.getString(4);
                 String cat_id = rs.getString(5);
+                int printing_assembly = rs.getInt(6);
                 String s2 = "select "
                             + "cat_name"
                             + " from " + MyDB.getNames() + ".category where "
@@ -134,7 +135,7 @@ public class S5_customer_tables {
                 if (rs2.next()) {
                     cat_name = rs2.getString(1);
                 }
-                to_order to = new to_order(name, price, qty, "pcs", code, 0, guest_id, cat_id, cat_name);
+                to_order to = new to_order(name, price, qty, "pcs", code, 0, guest_id, cat_id, cat_name, printing_assembly);
 //                System.out.println(to);
                 datas.add(to);
             }

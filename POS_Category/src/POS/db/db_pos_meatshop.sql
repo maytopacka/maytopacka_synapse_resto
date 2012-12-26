@@ -36,6 +36,12 @@ create table "+MyDB.getNames()+".cashier_sessions (
  ,user_level int
 );
 
+drop table if exists db_pos_restaurant.printing_assembly; 
+create table db_pos_restaurant.printing_assembly( 
+id int auto_increment primary key
+,place varchar(100) 
+);
+
 drop table if exists "+MyDB.getNames()+".cash_in;
 create table "+MyDB.getNames()+".cash_in(
   id int auto_increment primary key
@@ -375,6 +381,7 @@ create table "+MyDB.getNames()+".inventory2_stocks_left(
  ,comm_amount double
  ,cat_id int
  ,cost double
+ ,printing_assembly int
 );
 
 drop table if exists "+MyDB.getNames()+".assembly;

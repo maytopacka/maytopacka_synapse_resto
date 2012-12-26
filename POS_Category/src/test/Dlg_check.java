@@ -129,16 +129,15 @@ public class Dlg_check extends javax.swing.JDialog {
                 dialog = new Dlg_check((java.awt.Frame) parent, false);
                 dialog.setModalityType(modalType);
                 dialogContainer.put(parent, dialog);
-                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
                 dialog.setThisRef(dialog);
                 return dialog;
             } else {
                 dialog.setModalityType(modalType);
                 return dialog;
             }
-
         }
-
         if (parent instanceof java.awt.Dialog) {
             Dlg_check dialog = dialogContainer.get(parent);
 
@@ -146,7 +145,8 @@ public class Dlg_check extends javax.swing.JDialog {
                 dialog = new Dlg_check((java.awt.Dialog) parent, false);
                 dialog.setModalityType(modalType);
                 dialogContainer.put(parent, dialog);
-                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
                 dialog.setThisRef(dialog);
                 return dialog;
             } else {
@@ -182,7 +182,8 @@ public class Dlg_check extends javax.swing.JDialog {
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible == true) {
-            getContentPane().removeAll();
+            getContentPane().
+                    removeAll();
             initComponents();
             myInit();
             repaint();
@@ -919,7 +920,7 @@ public class Dlg_check extends javax.swing.JDialog {
     String type = "";
     double percentage = 0;
 
-    public void do_pass2(JGrid jg_orders, DefaultListModel orders_model, int selected, String room, String types, double percent, String user_id) {
+    public void do_pass2(JGrid jg_orders, DefaultListModel orders_model, int selected, String room, String types, double percent, String user_id, String status) {
         jg_orders1 = jg_orders;
         orders_model1 = orders_model;
         row_selected = selected;
@@ -929,7 +930,8 @@ public class Dlg_check extends javax.swing.JDialog {
         final String version = System.getProperty("version", "ordering");
 //        JOptionPane.showMessageDialog(null, user_id);
         if (version.equals("ordering") && user_id.equals("7")) {
-            if (btn_p_check.getText().equals("TAKE-OUT")) {
+            if (btn_p_check.getText().
+                    equals("TAKE-OUT")) {
                 btn_p_check.setEnabled(true);
             } else {
                 btn_p_check.setEnabled(false);
@@ -939,7 +941,8 @@ public class Dlg_check extends javax.swing.JDialog {
 //            btn_p_order.setEnabled(false);
         }
         if (version.equals("ordering") && user_id.equals("0")) {
-            if (btn_p_check.getText().equals("TAKE-OUT")) {
+            if (btn_p_check.getText().
+                    equals("TAKE-OUT")) {
                 btn_p_check.setEnabled(true);
             } else {
                 btn_p_check.setEnabled(false);
@@ -948,19 +951,30 @@ public class Dlg_check extends javax.swing.JDialog {
 //            JOptionPane.showMessageDialog(null, user_id);
         }
 
+        if (status.equals("BUSY")) {
+            btn_p_check.setEnabled(true);
+        }
     }
 
     private void refresh_guest() {
+        final String version = System.getProperty("version", "ordering");
+        String name = "";
+        if (version.equals("ordering")) {
+            name = "TABLE";
+        } else {
+            name = "ROOM";
+        }
         orders_model1.clear();
         List<S5_tables.to_tables2> room = S5_tables.get_tables();
         for (S5_tables.to_tables2 t : room) {
-            S2_search.to_rooms to = new S2_search.to_rooms(t.no, "Room", "" + t.name, t.status, t.amount, t.guest_id, t.guest_name, t.date_added, t.name, t.rate, t.to_guest, t.rate_type, t.percentage);
+            S2_search.to_rooms to = new S2_search.to_rooms(t.no, name, "" + t.name, t.status, t.amount, t.guest_id, t.guest_name, t.date_added, t.name, t.rate, t.to_guest, t.rate_type, t.percentage);
 //                System.out.println(Arrays.asList(t.to_guest));
             orders_model1.addElement(to);
         }
         Object value = orders_model1.getElementAt(row_selected);
         final S2_search.to_rooms t = (S2_search.to_rooms) value;
 
+//        JOptionPane.showMessageDialog(null, row_selected);
         List<Dlg_check.to_guests> datas = t.to_guest;
         for (Dlg_check.to_guests g : datas) {
 //            System.out.println(g.name + " -  asdasd");
@@ -1019,8 +1033,6 @@ public class Dlg_check extends javax.swing.JDialog {
     String user = "0";
 
     public void do_pass(List<to_guests> tt, S2_search.to_rooms t, String user_lvl) {
-
-//        JOptionPane.showMessageDialog(null, user_lvl);
         if (user_lvl.equals("7")) {
             user = "7";
             btn_p_check.setEnabled(false);
@@ -1028,17 +1040,22 @@ public class Dlg_check extends javax.swing.JDialog {
             user = "0";
             btn_p_check.setEnabled(true);
         }
+//        JOptionPane.showMessageDialog(null, t.status);
         if (t.status.equalsIgnoreCase("available")) {
             btn_p_order.setEnabled(false);
             btn_p_cancel.setEnabled(false);
-            if (System.getProperty("version", "ordering").equals("ordering")) {
+            if (System.getProperty("version", "ordering").
+                    equals("ordering")) {
                 btn_p_check.setEnabled(false);
                 btn_p_order.setEnabled(true);
+                btn_p_check.setText("PAY");
             }
         } else {
+            btn_p_check.setEnabled(true);
             final String version = System.getProperty("version", "ordering");
             if (version.equals("ordering")) {
-                btn_p_check.setText("TAKE-OUT");
+                btn_p_check.setText("PAY");
+
             } else {
                 btn_p_check.setText("CHECK-OUT");
             }
@@ -1286,7 +1303,8 @@ public class Dlg_check extends javax.swing.JDialog {
         }
 
         if (callback != null) {
-            if (btn_p_check.getText().equals("CHECK IN")) {
+            if (btn_p_check.getText().
+                    equals("CHECK IN")) {
                 this.dispose();
                 callback.check_in(new CloseDialog(this), new OutputData(ok, percentag));
             } else {
@@ -1297,7 +1315,8 @@ public class Dlg_check extends javax.swing.JDialog {
                         ok.add(to);
                     }
                 }
-                if (System.getProperty("version", "resto").equals("resto")) {
+                if (System.getProperty("version", "resto").
+                        equals("resto")) {
                     if (my_guests.isEmpty()) {
 //                        JOptionPane.showMessageDialog(null, "Enter Guest");
 //                        return;
@@ -1305,7 +1324,8 @@ public class Dlg_check extends javax.swing.JDialog {
                 } else {
                 }
 
-                if (System.getProperty("version", "resto").equals("ordering")) {
+                if (System.getProperty("version", "resto").
+                        equals("ordering")) {
 //                JOptionPane.showMessageDialog(null, my_guests.size());
                     if (my_guests.size() == 1) {
                         to_guests to = (to_guests) my_guests.get((0));
@@ -1336,7 +1356,7 @@ public class Dlg_check extends javax.swing.JDialog {
         String version = System.getProperty("version", "ordering");
         if (ok.isEmpty()) {
             if (version.equals("ordering")) {
-                to_guests to = new to_guests("" + -1, "Walk-in" + -1, true);
+                to_guests to = new to_guests("" + -1, "Walk-in", true);
                 ok.add(to);
 //                 JOptionPane.showMessageDialog(null, ok.size());
             } else {

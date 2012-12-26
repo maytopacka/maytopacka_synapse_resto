@@ -14,78 +14,27 @@
 	<queryString>
 		<![CDATA[select
   id 
- ,table_no_id
- ,or_no 
- ,qty
- ,product_name
- ,description
- ,price
- ,img_path
- ,status
- ,guest_id 
  ,(select GROUP_CONCAT(DISTINCT guest_name SEPARATOR ",")
 	from db_pos_restaurant.room_guests rg where rg.rooom_id=$P{table_no}
 	and status ='0') as guest_name
- ,case cat_id
-	when '1' then 'DIVING'
- 	when '2' then 'DIVING'
- 	when '3' then 'DIVING'
- 	when '4' then 'DIVING'
-	when '6' then 'DIVING'
-	when '5' then 'EXTRAS'
- 	when '7' then 'EXTRAS'
- 	when '8' then 'EXTRAS'
-	when '8' then 'EXTRAS'
-	when '6' then 'EXTRAS'
-	when '11' then 'EXTRAS'
-        	when '10' then 'BAR AND RESTAURANT'
-    end as cat_id
- ,date_added
-
 from db_pos_restaurant.customer_tables_details
 where table_no_id=$P{table_no} and status ='0' order by cat_id asc;]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
-	<field name="table_no_id" class="java.lang.String"/>
-	<field name="or_no" class="java.lang.String"/>
-	<field name="qty" class="java.lang.Double"/>
-	<field name="product_name" class="java.lang.String"/>
-	<field name="description" class="java.lang.String"/>
-	<field name="price" class="java.lang.Double"/>
-	<field name="img_path" class="java.lang.String"/>
-	<field name="status" class="java.lang.Integer"/>
-	<field name="guest_id" class="java.lang.String"/>
 	<field name="guest_name" class="java.lang.String"/>
-	<field name="cat_id" class="java.lang.String"/>
-	<field name="date_added" class="java.sql.Timestamp"/>
-	<variable name="tor" class="java.lang.Double" resetType="None">
-		<variableExpression><![CDATA[$F{qty} *$F{price}]]></variableExpression>
-	</variable>
 	<variable name="dollar" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{qty} *$F{price}]]></variableExpression>
+		<variableExpression><![CDATA[$P{accom_total}]]></variableExpression>
 	</variable>
 	<variable name="peso" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{qty} *$F{price}]]></variableExpression>
+		<variableExpression><![CDATA[$P{accom_total}]]></variableExpression>
 	</variable>
 	<variable name="aw" class="java.lang.Double">
-		<variableExpression><![CDATA[$V{dollar} / 40.87]]></variableExpression>
+		<variableExpression><![CDATA[$P{accom_total} / 40.87]]></variableExpression>
 	</variable>
 	<group name="category">
-		<groupExpression><![CDATA[$F{cat_id}]]></groupExpression>
+		<groupExpression><![CDATA[]]></groupExpression>
 		<groupHeader>
-			<band height="20">
-				<textField>
-					<reportElement x="36" y="0" width="468" height="20"/>
-					<box>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{cat_id}]]></textFieldExpression>
-				</textField>
-			</band>
+			<band height="20"/>
 		</groupHeader>
 		<groupFooter>
 			<band height="15"/>
@@ -180,52 +129,7 @@ where table_no_id=$P{table_no} and status ='0' order by cat_id asc;]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
-				<reportElement x="72" y="0" width="233" height="20"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00">
-				<reportElement x="401" y="0" width="103" height="20"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{tor}]]></textFieldExpression>
-			</textField>
-			<textField pattern="###0">
-				<reportElement x="36" y="0" width="36" height="20"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0.00">
-				<reportElement x="305" y="0" width="96" height="20"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="20" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>

@@ -9,35 +9,35 @@ package POS.to2;
  * @author Dummy
  */
 public class to_add_product {
-    
-    public  String name;
-    public  String desc;
-    public  String price;
-    public  String qty;
-    public  String num;
-    public  String vat;
-    public  String category_id;
-    public  String is_linient;
-    public  String w_commission;
-    public  double comm_amount;
-    public  String cat_id;
-    public  double cost;
-    
-    
 
-    public to_add_product(String name, String desc, String price, String qty, String num,String vat,String category_id,String is_linient,String w_commission,double comm_amount,String cat_id,double cost) {
+    public String name;
+    public String desc;
+    public String price;
+    public String qty;
+    public String num;
+    public String vat;
+    public String category_id;
+    public String is_linient;
+    public String w_commission;
+    public double comm_amount;
+    public String cat_id;
+    public double cost;
+    public int printing_assembly;
+
+    public to_add_product(String name, String desc, String price, String qty, String num, String vat, String category_id, String is_linient, String w_commission, double comm_amount, String cat_id, double cost, int printing_assembly) {
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.qty = qty;
         this.num = num;
-        this.vat=vat;
-        this.category_id=category_id;
-        this.is_linient=is_linient;
-        this.w_commission=w_commission;
-        this.comm_amount=comm_amount;
-        this.cat_id=cat_id;
-        this.cost=cost;
+        this.vat = vat;
+        this.category_id = category_id;
+        this.is_linient = is_linient;
+        this.w_commission = w_commission;
+        this.comm_amount = comm_amount;
+        this.cat_id = cat_id;
+        this.cost = cost;
+        this.printing_assembly = printing_assembly;
     }
 
     public String getCat_id() {
@@ -135,7 +135,4 @@ public class to_add_product {
     public void setW_commission(String w_commission) {
         this.w_commission = w_commission;
     }
-    
-    
-    
 }

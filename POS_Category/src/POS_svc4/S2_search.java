@@ -58,8 +58,10 @@ public class S2_search {
         public final String guest_id;
         public final String cat_id;
         public final String category_name;
+        public final int printing_assembly;
+        public final int status;
 
-        public to_items(String name, String uom, String desc, double price, double qty, String img_path, double qty2, String guest_id, String cat_id, String category_name) {
+        public to_items(String name, String uom, String desc, double price, double qty, String img_path, double qty2, String guest_id, String cat_id, String category_name, int printing_assembly, int status) {
             this.name = name;
             this.uom = uom;
             this.desc = desc;
@@ -70,6 +72,8 @@ public class S2_search {
             this.guest_id = guest_id;
             this.cat_id = cat_id;
             this.category_name = category_name;
+            this.printing_assembly = printing_assembly;
+            this.status = status;
         }
 
         public String getDesc() {
@@ -221,8 +225,9 @@ public class S2_search {
         public double amount_to_pay;
         public String cat_id;
         public final String category_name;
+        public final int printing_assembly;
 
-        public to_orders(String name, String uom, String desc, double price, double qty, String img_path, double qty2, List<to_items_status> to_sub, double amount_to_pay, String cat_id, String category_name) {
+        public to_orders(String name, String uom, String desc, double price, double qty, String img_path, double qty2, List<to_items_status> to_sub, double amount_to_pay, String cat_id, String category_name, int printing_assembly) {
             this.name = name;
             this.uom = uom;
             this.desc = desc;
@@ -234,6 +239,7 @@ public class S2_search {
             this.amount_to_pay = amount_to_pay;
             this.cat_id = cat_id;
             this.category_name = category_name;
+            this.printing_assembly = printing_assembly;
         }
 
         public double getAmount_to_pay() {
@@ -362,11 +368,12 @@ public class S2_search {
                         + ",product_qty"
                         + ",img_path "
                         + ",cat_id "
+                        + ",printing_assembly "
                         + "from " + MyDB.getNames() + ".inventory2_stocks_left "
                         + "where "
                         + "description like '%" + name + "%' and cat_id like '%" + cat_id + "%' or "
                         + "lookup_code like '%" + name + "%' and cat_id like '%" + cat_id + "%' or "
-                        + "product_name like '" + name + "%' and cat_id like '%" + cat_id + "%'";
+                        + "product_name like '" + name + "%' and cat_id like '%" + cat_id + "%' order by description asc";
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -377,6 +384,8 @@ public class S2_search {
                 double qty = rs.getDouble(4);
                 String img_path = rs.getString(5);
                 String cat_ids = rs.getString(6);
+                int printing_assembly = rs.getInt(7);
+                int status = 0;
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
@@ -391,7 +400,7 @@ public class S2_search {
                 if (rs2.next()) {
                     cat_name = rs2.getString(1);
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, "-1", cat_ids, cat_name);
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, "-1", cat_ids, cat_name, printing_assembly, status);
                 datas.add(to);
             }
             return datas;
@@ -415,9 +424,11 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
+                        + ",printing_assembly "
+                        + ",status "
                         + "from " + MyDB.getNames() + ".customer_tables_details "
                         + "where "
-                        + "table_no_id = '" + room_no + "' and status ='" + "0" + "'";
+                        + "table_no_id = '" + room_no + "' and status <>'" + "1" + "'";
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(s0);
@@ -429,6 +440,8 @@ public class S2_search {
                 String img_path = rs.getString(5);
                 String guest_id = rs.getString(6);
                 String cat_id = rs.getString(7);
+                int printing_assembly = rs.getInt(8);
+                int status = rs.getInt(9);
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
                 }
@@ -443,7 +456,7 @@ public class S2_search {
                 if (rs2.next()) {
                     cat_name = rs2.getString(1);
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name, printing_assembly, status);
                 datas.add(to);
             }
             return datas;
@@ -467,6 +480,8 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
+                        + ",printing_assembly "
+                        + ",status "
                         + "from " + MyDB.getNames() + ".customer_tables_details "
                         + "where "
                         + "table_no_id = '" + room_no + "' and status<>'" + "1" + "' and guest_name like '%" + guest_name + "%'";
@@ -480,6 +495,8 @@ public class S2_search {
                 String img_path = rs.getString(5);
                 String guest_id = rs.getString(6);
                 String cat_id = rs.getString(7);
+                int printing_assembly = rs.getInt(8);
+                int status = rs.getInt(9);
 //                System.out.println(desc + " 0asdasd");
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
@@ -495,7 +512,7 @@ public class S2_search {
                 if (rs2.next()) {
                     cat_name = rs2.getString(1);
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name, printing_assembly, status);
                 datas.add(to);
             }
             return datas;
@@ -519,6 +536,8 @@ public class S2_search {
                         + ",img_path "
                         + ",guest_id "
                         + ",cat_id "
+                        + ",printing_assembly "
+                        + ",status "
                         + "from " + MyDB.getNames() + ".customer_tables_details "
                         + " " + where;
             Statement stmt = conn.createStatement();
@@ -531,6 +550,8 @@ public class S2_search {
                 String img_path = rs.getString(5);
                 String guest_id = rs.getString(6);
                 String cat_id = rs.getString(7);
+                int printing_assembly = rs.getInt(8);
+                int status = rs.getInt(9);
                 System.out.println(guest_id + " - sss");
                 if (img_path.equals("empty")) {
                     img_path = "siopao.jpeg";
@@ -549,7 +570,7 @@ public class S2_search {
                 if (rs2.next()) {
                     cat_name = rs2.getString(1);
                 }
-                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name);
+                to_items to = new to_items(names, "pcs", desc, price, qty, img_path, qty, guest_id, cat_id, cat_name, printing_assembly, status);
                 datas.add(to);
             }
             return datas;

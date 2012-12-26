@@ -21,8 +21,9 @@ public class to_order implements Serializable {
     public final String guest_id;
     public final String cat_id;
     public final String category_name;
+    public final int printing_assemblyl;
 
-    public to_order(String product_name, double unit_price, double quantity, String uom, String code, double hd_uom, String guest_id, String cat_id, String category_name) {
+    public to_order(String product_name, double unit_price, double quantity, String uom, String code, double hd_uom, String guest_id, String cat_id, String category_name, int printing_assemblyl) {
         this.product_name = product_name;
         this.unit_price = unit_price;
         this.quantity = quantity;
@@ -32,6 +33,7 @@ public class to_order implements Serializable {
         this.guest_id = guest_id;
         this.cat_id = cat_id;
         this.category_name = category_name;
+        this.printing_assemblyl = printing_assemblyl;
     }
 
     public void setHd_uom(double hd_uom) {

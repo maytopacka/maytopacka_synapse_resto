@@ -13,6 +13,7 @@ package POS.dlg;
 import POS.Main.MyDB;
 import POS.dlg3.Dlg_customer_charges;
 import POS.dlg3.Dlg_discount;
+import POS.remitances.Dlg_credit_card_2;
 import POS.to.to_order;
 import POS.to2.to_credit;
 import POS.to2.to_disc;
@@ -177,7 +178,8 @@ public class Dlg_pay extends javax.swing.JDialog {
     public static void main(String args[]) {
 
         try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.
+                    getSystemLookAndFeelClassName());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -875,7 +877,7 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     //<editor-fold defaultstate="collapsed" desc=" myInit ">
 
     private void myInit() {
-        MyDB.setNames("db_pos_restaurant");
+//        MyDB.setNames("db_pos_restaurant");
 //        if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
 //           
 //            this.setUndecorated(true);
@@ -1036,7 +1038,8 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
             String str_tendered = lbl_tendered.getText();
             if (str_tendered.isEmpty()) {
-                if (System.getProperty("version", "resto").equals("resto")) {
+                if (System.getProperty("version", "resto").
+                        equals("resto")) {
                 } else {
                     JOptionPane.showMessageDialog(this, "Asang Bayad?");
                     return false;
@@ -1346,9 +1349,13 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private List<to_order> orders;
 
     public void load(InputData data, String amount) {
-
+        bb = 0;
         this.orders = data.orders;
 
+        if (System.getProperty("version", "ordering").
+                equals("ordering")) {
+            jLabel21.setText("CREDIT");
+        }
 
         double total = 0;
 
@@ -1503,9 +1510,11 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 discount = Double.parseDouble(data.disc_percent);
 //                lb_discount.setText(data.disc_percent+ " %");
                 lb_discount.setText("" + data.disc_percent + "%");
-                double d = (discount / 100) * Double.parseDouble(NumType.no_comma(ds_amountdue.getText()));
+                double d = (discount / 100) * Double.parseDouble(NumType.
+                        no_comma(ds_amountdue.getText()));
                 lb_desc.setText("" + NumType.with_decimal(d));
-                lbl_net.setText("" + FitIn.fmt_wc(FitIn.toDouble(ds_amountdue.getText()) - d));
+                lbl_net.setText("" + FitIn.fmt_wc(FitIn.toDouble(ds_amountdue.
+                        getText()) - d));
                 set_discount();
 //                ds_amountdue
                 to_disc to = new to_disc(data.disc_name, data.disc_percent, data.cust_name, data.cust_num, data.cust_address, counted_disc);
@@ -1557,51 +1566,83 @@ private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     private void set_ord_num() {
-        cb_nums.setModel(new ListComboBoxModel(S5_customer_tables.get_customer_tables_2()));
+        cb_nums.setModel(new ListComboBoxModel(S5_customer_tables.
+                get_customer_tables_2()));
     }
     String pay_mode = "cash";
     String mem_id = "0";
 
     private void credit() {
 
-        Window p = (Window) this;
-        Dlg_customer_charges nd = Dlg_customer_charges.create(p, true);
-        nd.setTitle("");
-        nd.do_pass(FitIn.toDouble(lbl_net.getText()));
-        lbl_credit.setText(lbl_net.getText());
-        nd.setCallback(new Dlg_customer_charges.Callback() {
+        if (System.getProperty("version", "ordering").
+                equals("ordering")) {
 
-            @Override
-            public void ok(CloseDialog closeDialog, Dlg_customer_charges.OutputData data) {
+
+
+            Window p = (Window) this;
+            Dlg_credit_card_2 nd = Dlg_credit_card_2.create(p, true);
+            nd.setTitle("");
+            nd.do_pass(FitIn.toDouble(lbl_net.getText()));
+            nd.setCallback(new Dlg_credit_card_2.Callback() {
+
+                @Override
+                public void ok(CloseDialog closeDialog, Dlg_credit_card_2.OutputData data) {
+                    closeDialog.ok();
+                    lbl_credit.setText("" + data.credit_amount);
+                    to_credit to = new to_credit(data.card_no, "", data.app_code, data.bank, data.type, data.credit_amount);
+//                    do_credt(data.app_code, data.bank, data.card_no, data.credit_amount, data.type);
+                    lbl_tendered.setText(FitIn.fmt_woc_0(FitIn.toDouble(lbl_net.
+                            getText()) - data.credit_amount));
+                    ds_change.setText("0.00");
+                    bb = 2;
+                    to_c = to;
+                }
+            });
+            nd.setLocationRelativeTo(this);
+
+            nd.setVisible(true);
+
+        } else {
+
+
+            Window p = (Window) this;
+            Dlg_customer_charges nd = Dlg_customer_charges.create(p, true);
+            nd.setTitle("");
+            nd.do_pass(FitIn.toDouble(lbl_net.getText()));
+            lbl_credit.setText(lbl_net.getText());
+            nd.setCallback(new Dlg_customer_charges.Callback() {
+
+                @Override
+                public void ok(CloseDialog closeDialog, Dlg_customer_charges.OutputData data) {
 //                closeDialog.ok();
 //                tf_owner.setText(data.name);
 //                tf_card_number.setText(data.address);
 //                tf_code.setText(data.con);
-                to_c = data.to;
-                bb = 2;
-                lbl_credit.setText(NumType.with_comma(data.to.amount));
-                pay_mode = data.payment_mode;
-                mem_id = data.member_id;
-
-                if (data.payment_mode.equals("credit")) {
-                    lb_credit.setText("CREDIT");
-                    lbl_tendered.setText(FitIn.fmt_woc_0(data.to.amount));
-                    ds_change.setText("0.00");
+                    to_c = data.to;
                     bb = 2;
-                } else {
-                    lb_credit.setText("PREPAID");
-                    lbl_tendered.setText(FitIn.fmt_woc_0(data.to.amount));
-                    ds_change.setText("0.00");
-                    bb = 3;
-                }
+                    lbl_credit.setText(NumType.with_comma(data.to.amount));
+                    pay_mode = data.payment_mode;
+                    mem_id = data.member_id;
+                    if (data.payment_mode.equals("credit")) {
+                        lb_credit.setText("CREDIT");
+                        lbl_tendered.setText(FitIn.fmt_woc_0(FitIn.toDouble(lbl_net.
+                                getText()) - data.to.amount));
+                        ds_change.setText("0.00");
+                        bb = 2;
+                    } else {
+                        lb_credit.setText("PREPAID");
+                        lbl_tendered.setText(FitIn.fmt_woc_0(data.to.amount));
+                        ds_change.setText("0.00");
+                        bb = 3;
+                    }
 //                ok1(Double.parseDouble(FitIn.fmt_woc(lbl_net.getText())), too, data.payment_mode, data.member_id);
 //                JOptionPane.showMessageDialog(null, data.payment_mode);
-            }
-        });
-        Center.setCenter(nd);
+                }
+            });
+            Center.setCenter(nd);
 
-        nd.setVisible(true);
-
+            nd.setVisible(true);
+        }
     }
 //    private void credit2() {
 //        Window p = (Window) this;

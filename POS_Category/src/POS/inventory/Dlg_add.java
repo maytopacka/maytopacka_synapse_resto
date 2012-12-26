@@ -28,6 +28,11 @@ import javax.swing.ListSelectionModel;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import POS.utl.Center;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.*;
 import overallPOS.modules.share.utils.CloseDialog;
 import overallPOS.modules.share.utils.Executor;
 import overallPOS.modules.share.utils.FitIn;
@@ -198,6 +203,8 @@ public class Dlg_add extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        pop_p_assembly = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         cb_category = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -218,6 +225,15 @@ public class Dlg_add extends javax.swing.JDialog {
         ds_title = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+
+        pop_p_assembly.setText("PRINTING ASSEMBLY");
+        pop_p_assembly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pop_p_assemblyActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(pop_p_assembly);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -270,6 +286,12 @@ public class Dlg_add extends javax.swing.JDialog {
         tbl_prod.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_prodMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbl_prodMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbl_prodMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tbl_prod);
@@ -408,6 +430,9 @@ public class Dlg_add extends javax.swing.JDialog {
             }
         });
 
+        jButton10.setText("PRINTING ASSEMBLY");
+        jButton10.setFocusable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -428,17 +453,19 @@ public class Dlg_add extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel2)
                         .addGap(15, 15, 15)
-                        .addComponent(cb_type, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                        .addComponent(cb_type, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton10)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel3)
                         .addGap(8, 8, 8)
                         .addComponent(tf_search, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(jButton9)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,18 +488,19 @@ public class Dlg_add extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cb_category, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_type, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_type, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -568,6 +596,7 @@ public class Dlg_add extends javax.swing.JDialog {
 
     private void tf_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_searchKeyReleased
         // TODO add your handling code here:
+        category_id = "";
         data_employee_search();
     }//GEN-LAST:event_tf_searchKeyReleased
 
@@ -593,6 +622,18 @@ public class Dlg_add extends javax.swing.JDialog {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         stock_in_out();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void tbl_prodMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_prodMousePressed
+        pm_tbl_users(evt);
+    }//GEN-LAST:event_tbl_prodMousePressed
+
+    private void tbl_prodMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_prodMouseReleased
+        pm_tbl_users(evt);
+    }//GEN-LAST:event_tbl_prodMouseReleased
+
+    private void pop_p_assemblyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pop_p_assemblyActionPerformed
+        printing_assembly();
+    }//GEN-LAST:event_pop_p_assemblyActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -601,6 +642,7 @@ public class Dlg_add extends javax.swing.JDialog {
     private javax.swing.JComboBox cb_type;
     private javax.swing.JLabel ds_title;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -614,20 +656,24 @@ public class Dlg_add extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem pop_p_assembly;
     private javax.swing.JTable tbl_prod;
     private javax.swing.JTextField tf_search;
     // End of variables declaration//GEN-END:variables
 
     private void myInit() {
 //      
+//        Main.MyDB.setNames("db_pos_restaurant");
+        add_assembly();
         if (System.getProperty("version", "resto").equals("resto")) {
             ds_title.setText("PRICING MANAGER");
         }
         cb_model();
         cb_type();
         init_tbl_baptism();
-        data_employee_category();
+        data_employee_search();
 
         String cashiering_for = System.getProperty("cashiering_for", "retail_store");
 //        JOptionPane.showMessageDialog(null, cashiering_for);
@@ -644,6 +690,9 @@ public class Dlg_add extends javax.swing.JDialog {
 
     private void disposed() {
         this.dispose();
+    }
+
+    private void add_assembly() {
     }
 
     public void do_pass() {
@@ -736,7 +785,7 @@ public class Dlg_add extends javax.swing.JDialog {
 
         tbl_prod.getTableHeader().setPreferredSize(new Dimension(100, 30));
 //        tbl_prod.setAutoResizeMode(0);
-        int[] tbl_widths_accounts = {0, 300, 100, 100, 0, 0, 0, 100, 0, 0, 0, 0};
+        int[] tbl_widths_accounts = {0, 300, 100, 100, 0, 0, 0, 100, 0, 0, 0, 0, 100};
 
         for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
             if (i == 1) {
@@ -767,7 +816,7 @@ public class Dlg_add extends javax.swing.JDialog {
     public static class TblInvoicesModel extends AbstractTableAdapter {
 
         public static String[] COLUMNS = {
-            "PRODUCT CODE", "DESCRIPTION", "PRICE", "QUANTITY", "num", "VAT", "category_id", "is_linient", "w_comm", "amount", "cat_id", "cost"
+            "PRODUCT CODE", "DESCRIPTION", "PRICE", "QUANTITY", "num", "VAT", "category_id", "is_linient", "w_comm", "amount", "cat_id", "cost", "printing Assembly"
         };
 
         public TblInvoicesModel(ListModel listmodel) {
@@ -819,9 +868,10 @@ public class Dlg_add extends javax.swing.JDialog {
                 return tt.comm_amount;
             case 10:
                 return tt.cat_id;
-
-            default:
+            case 11:
                 return tt.cost;
+            default:
+                return tt.printing_assembly;
             }
         }
     }
@@ -841,8 +891,22 @@ public class Dlg_add extends javax.swing.JDialog {
 
         loadData_baptism(S9_add_product.ret_products(cb_type.getSelectedItem().toString(), name));
     }
+    String category_id = "";
 
     private void data_employee_category() {
+        if (cb_category.getItemCount() == 0) {
+            return;
+        }
+        String category_name = cb_category.getSelectedItem().toString();
+        final String cat_id = S10_update_product.get_classid(category_name);
+        category_id = cat_id;
+        String name = tf_search.getText();
+        loadData_baptism(S9_add_product.ret_products_search(category_id, name));
+//        loadData_baptism(S9_add_product.ret_products_category(cb_category.getSelectedItem().toString(), name, cat_id));
+
+    }
+
+    private void data_employee_search() {
 //        String date = lb_date_baptism.getText();
 //        String name = tf_searc.getText();
 //        int row = cb_type.getItemCount();
@@ -853,38 +917,8 @@ public class Dlg_add extends javax.swing.JDialog {
 //            return;
 //        }
 
-
-        if (cb_category.getItemCount() == 0) {
-            return;
-        }
-
-        String category_name = cb_category.getSelectedItem().toString();
-        final String cat_id = S10_update_product.get_classid(category_name);
-
         String name = tf_search.getText();
-
-
-
-        loadData_baptism(S9_add_product.ret_products_category(cb_category.getSelectedItem().toString(), name, cat_id));
-
-
-
-    }
-
-    private void data_employee_search() {
-//        String date = lb_date_baptism.getText();
-//        String name = tf_searc.getText();
-        int row = cb_type.getItemCount();
-        System.out.println(row);
-        if (row == 0) {
-            tbl_employee_payroll_ALM.clear();
-            tbl_employee_payroll_M.fireTableDataChanged();
-            return;
-        }
-
-        String name = tf_search.getText();
-
-        loadData_baptism(S9_add_product.ret_products_search(cb_type.getSelectedItem().toString(), name));
+        loadData_baptism(S9_add_product.ret_products_search(category_id, name));
     }
 
     private void set_category() {
@@ -1038,7 +1072,7 @@ public class Dlg_add extends javax.swing.JDialog {
             public void ok(CloseDialog closeDialog, Dlg_category.OutputData data) {
 //                closeDialog.ok();
                 cb_model();
-                data_employee();
+//                data_employee();
                 ok1();
             }
         });
@@ -1127,6 +1161,70 @@ public class Dlg_add extends javax.swing.JDialog {
                 getHeight());
 
         nd.setSize(xSize, ySize);
+        nd.setVisible(true);
+    }
+
+    private void pm_tbl_users(MouseEvent evt) {
+        if (evt.isPopupTrigger()) {
+//            JOptionPane.showMessageDialog(null, jPopupMenu1.getSubElements().length);
+            if (jPopupMenu1.getSubElements().length == 1) {
+            } else {
+                jPopupMenu1.remove(1);
+            }
+
+            int row = tbl_prod.getSelectedRow();
+            if (row < 0) {
+                return;
+            }
+            final String num = tbl_prod.getModel().getValueAt(row, 4).toString();
+            int print_assembly = FitIn.toInt(tbl_prod.getModel().getValueAt(row, 13).toString());
+            JMenu jm = new javax.swing.JMenu();
+            jm.setText("ASSEMBLY");
+
+            List<S5_printing_assemlby.to_printing_assembly> datas = new ArrayList();
+
+            datas = S5_printing_assemlby.ret_data("");
+
+            for (final S5_printing_assemlby.to_printing_assembly to : datas) {
+                final JCheckBoxMenuItem p = new javax.swing.JCheckBoxMenuItem();
+                p.setText(to.place);
+                if (to.id == print_assembly) {
+                    p.setSelected(true);
+                } else {
+                    p.setSelected(false);
+                }
+                p.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        S5_printing_assemlby.update_printing_assembly_item(num, to.id);
+//                        Prompt.call("Updated Successfully");
+                        data_employee_search();
+                    }
+                });
+                jm.add(p);
+            }
+
+
+            jPopupMenu1.add(jm);
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+
+    private void printing_assembly() {
+        Window p = (Window) this;
+        Dlg_printing_assembly nd = Dlg_printing_assembly.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_printing_assembly.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_printing_assembly.OutputData data) {
+                closeDialog.ok();
+            }
+        });
+        nd.setLocationRelativeTo(this);
+
         nd.setVisible(true);
     }
 }
